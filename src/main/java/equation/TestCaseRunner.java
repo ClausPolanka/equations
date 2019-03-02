@@ -1,6 +1,7 @@
 package equation;
 
 import java.util.Set;
+import java.util.stream.IntStream;
 
 public class TestCaseRunner {
 
@@ -11,10 +12,10 @@ public class TestCaseRunner {
     }
 
     public void run(int firstTestCase, int lastTestCase) {
-        for (int testCase = firstTestCase; testCase <= lastTestCase; testCase++) {
+        IntStream.range(firstTestCase, lastTestCase + 1).forEach(testCase -> {
             Equation equation = repo.getEquationFor(testCase);
             Set<Equation> correctedEquations = EquationSolver.solve(equation);
             repo.submitCorrectedEquationsFor(testCase, correctedEquations);
-        }
+        });
     }
 }
