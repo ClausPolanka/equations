@@ -10,7 +10,7 @@ import static org.mockito.Mockito.*;
 public class TestCaseRunnerTest {
 
     @Test
-    public void runRunsTestCasesForStageOne() {
+    public void runRunsSubmitsCorrectEquationForGivenTestCase() {
         TestCaseRepository repo = mock(TestCaseRepository.class);
         TestCaseRunner runner = new TestCaseRunner(repo);
         int testCase = 1;
