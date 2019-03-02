@@ -32,7 +32,7 @@ public class EquationSolver {
         Set<Equation> correctedEquations = new HashSet<>();
 
         if (solutionSpace.get(e.leftSide()).contains(e.rightSide()))
-            correctedEquations.add(format("\"%s=%s\"", e.rightSide(), e.rightSide()));
+            correctedEquations.add(toCorrectedEquation(e.rightSide()));
 
         if (solutionSpace.get(e.rightSide()).contains(e.leftSide()))
             correctedEquations.add(toCorrectedEquation(e.leftSide()));
