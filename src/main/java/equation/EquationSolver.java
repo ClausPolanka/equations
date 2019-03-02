@@ -27,43 +27,6 @@ public class EquationSolver {
         }
     }
 
-    public static String getEquationFor(int testCase) throws IOException {
-        URL url = new URL("http", "localhost", 8080, "/assignment/stage/1/testcase/" + testCase);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
-        con.disconnect();
-        Pattern p = Pattern.compile(".*(\\d)=(\\d).*");
-        Matcher m = p.matcher(content);
-        m.matches();
-        return m.group(1) + "=" + m.group(2);
-    }
-
-    public static void sendCorrectedEquationsFor(int testCase, Set<String> correctedEquations) throws IOException {
-        URL url = new URL("http", "localhost", 8080, "/assignment/stage/1/testcase/" + testCase);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("POST");
-        con.setDoOutput(true);
-        StringBuilder requestBody = new StringBuilder();
-        requestBody.append("{");
-        requestBody.append("\"correctedEquations\":").append(correctedEquations);
-        requestBody.append("}");
-        int length = requestBody.length();
-
-        con.setFixedLengthStreamingMode(length);
-        con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-        con.connect();
-        try (OutputStream os = con.getOutputStream()) {
-            os.write(requestBody.toString().getBytes(StandardCharsets.UTF_8));
-        }
-    }
-
     public static Set<String> solveEquation(String equation) {
         String left = equation.split("=")[0];
         String right = equation.split("=")[1];
@@ -85,5 +48,42 @@ public class EquationSolver {
         if (solutionSpace.get(right).contains(left))
             correctedEquations.add("\"" + left + "=" + left + "\"");
         return correctedEquations;
+    }
+
+    public static void sendCorrectedEquationsFor(int testCase, Set<String> correctedEquations) throws IOException {
+        URL url = new URL("http", "localhost", 8080, "/assignment/stage/1/testcase/" + testCase);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setDoOutput(true);
+        StringBuilder requestBody = new StringBuilder();
+        requestBody.append("{");
+        requestBody.append("\"correctedEquations\":").append(correctedEquations);
+        requestBody.append("}");
+        int length = requestBody.length();
+
+        con.setFixedLengthStreamingMode(length);
+        con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+        con.connect();
+        try (OutputStream os = con.getOutputStream()) {
+            os.write(requestBody.toString().getBytes(StandardCharsets.UTF_8));
+        }
+    }
+
+    public static String getEquationFor(int testCase) throws IOException {
+        URL url = new URL("http", "localhost", 8080, "/assignment/stage/1/testcase/" + testCase);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        con.disconnect();
+        Pattern p = Pattern.compile(".*(\\d)=(\\d).*");
+        Matcher m = p.matcher(content);
+        m.matches();
+        return m.group(1) + "=" + m.group(2);
     }
 }
