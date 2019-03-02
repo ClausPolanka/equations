@@ -34,8 +34,8 @@ public class EquationTest {
     }
 
     @Test
-    public void toStringReturnsStringRepresentationOfEquation() {
+    public void toStringReturnsStringRepresentationOfEquationSurroundedWithQuotes() {
         Equation e = new Equation("1=2");
-        assertEquals("equation", "1=2", e.toString());
+        assertEquals("equation", "\"1=2\"", e.toString());
     }
 }
