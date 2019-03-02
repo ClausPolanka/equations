@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 public class Equation {
 
     private String equation;
+    private Pattern pattern = Pattern.compile("(\\d)=(\\d)");
 
     public Equation(String equation) {
         validateFormatOf(equation);
@@ -13,8 +14,7 @@ public class Equation {
     }
 
     private void validateFormatOf(String equation) {
-        Pattern p = Pattern.compile("(\\d)=(\\d)");
-        Matcher m = p.matcher(equation);
+        Matcher m = pattern.matcher(equation);
         if (!m.matches()) {
             throw new EquationInvalidFormatException("Equation must be in format: NR=NR");
         }
