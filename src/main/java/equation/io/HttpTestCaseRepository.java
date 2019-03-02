@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.lang.String.format;
+import static java.util.stream.Collectors.joining;
 
 public class HttpTestCaseRepository implements TestCaseRepository {
 
@@ -43,19 +44,14 @@ public class HttpTestCaseRepository implements TestCaseRepository {
         return con;
     }
 
-    private String readResponseBodyFrom(HttpURLConnection con) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuilder responseBody = new StringBuilder();
-        while ((inputLine = in.readLine()) != null) {
-            responseBody.append(inputLine);
-        }
-        in.close();
-        return responseBody.toString();
-    }
-
     private String pathToTestCase() {
         return "/assignment/stage/1/testcase/";
+    }
+
+    private String readResponseBodyFrom(HttpURLConnection con) throws IOException {
+        try (BufferedReader buffer = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+            return buffer.lines().collect(joining(""));
+        }
     }
 
     public void submitCorrectedEquationsFor(int testCase, Set<Equation> correctedEquations) {
