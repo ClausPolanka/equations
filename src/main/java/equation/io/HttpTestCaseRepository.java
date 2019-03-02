@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Set;
@@ -33,10 +31,6 @@ public class HttpTestCaseRepository implements TestCaseRepository {
             Matcher m = PATTERN.matcher(responseBody);
             m.matches();
             return new Equation(format("%s=%s", m.group(1), m.group(2)));
-        } catch (MalformedURLException e) {
-            throw new RuntimeException();
-        } catch (ProtocolException e) {
-            throw new RuntimeException();
         } catch (IOException e) {
             throw new RuntimeException();
         }
