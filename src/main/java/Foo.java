@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
@@ -7,8 +12,25 @@ import static java.util.Arrays.asList;
 
 public class Foo {
 
-    public static void main(String[] args) {
-        eval("0", "6");
+    public static void main(String[] args) throws Exception {
+        getEquation();
+    }
+
+    public static void getEquation() throws IOException {
+        for (int i = 1; i <= 100; i++) {
+            URL url = new URL("http", "localhost", 8080, "/assignment/stage/1/testcase/" + i);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            System.out.println(content);
+            in.close();
+            con.disconnect();
+        }
     }
 
     public static Set<String> eval(String left, String right) {
