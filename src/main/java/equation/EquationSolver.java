@@ -41,6 +41,6 @@ public class EquationSolver {
     }
 
     private static Equation toCorrectEquation(String side) {
-        return new Equation(format("\"%s=%s\"", side, side));
+        return new Equation(format("%s=%s", side, side));
     }
 }
