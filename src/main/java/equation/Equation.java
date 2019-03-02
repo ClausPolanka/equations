@@ -15,4 +15,9 @@ public class Equation {
     public String rightSide() {
         return equation.split("=")[1];
     }
+
+    @Override
+    public String toString() {
+        return equation;
+    }
 }

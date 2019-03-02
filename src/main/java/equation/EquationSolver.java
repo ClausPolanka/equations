@@ -28,15 +28,19 @@ public class EquationSolver {
         return solutionSpace;
     }
 
-    public static Set<String> solveEquation(Equation e) {
-        Set<String> correctedEquations = new HashSet<>();
+    public static Set<Equation> solveEquation(Equation e) {
+        Set<Equation> correctedEquations = new HashSet<>();
 
         if (solutionSpace.get(e.leftSide()).contains(e.rightSide()))
             correctedEquations.add(format("\"%s=%s\"", e.rightSide(), e.rightSide()));
 
         if (solutionSpace.get(e.rightSide()).contains(e.leftSide()))
-            correctedEquations.add(format("\"%s=%s\"", e.leftSide(), e.leftSide()));
+            correctedEquations.add(toCorrectedEquation(e.leftSide()));
 
         return correctedEquations;
+    }
+
+    public static Equation toCorrectedEquation(String side) {
+        return new Equation(format("\"%s=%s\"", side, side));
     }
 }

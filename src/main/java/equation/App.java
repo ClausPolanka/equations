@@ -15,13 +15,13 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         for (int testCase = 1; testCase <= 100; testCase++) {
-            String equation = getEquationFor(testCase);
-            Set<String> correctedEquations = EquationSolver.solveEquation(new Equation(equation));
+            Equation equation = getEquationFor(testCase);
+            Set<Equation> correctedEquations = EquationSolver.solveEquation(equation);
             sendCorrectedEquationsFor(testCase, correctedEquations);
         }
     }
 
-    public static void sendCorrectedEquationsFor(int testCase, Set<String> correctedEquations) throws IOException {
+    public static void sendCorrectedEquationsFor(int testCase, Set<Equation> correctedEquations) throws IOException {
         URL url = new URL("http", "localhost", 8080, "/assignment/stage/1/testcase/" + testCase);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
@@ -40,7 +40,7 @@ public class App {
         }
     }
 
-    public static String getEquationFor(int testCase) throws IOException {
+    public static Equation getEquationFor(int testCase) throws IOException {
         URL url = new URL("http", "localhost", 8080, "/assignment/stage/1/testcase/" + testCase);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
@@ -55,6 +55,6 @@ public class App {
         Pattern p = Pattern.compile(".*(\\d)=(\\d).*");
         Matcher m = p.matcher(content);
         m.matches();
-        return m.group(1) + "=" + m.group(2);
+        return new Equation(m.group(1) + "=" + m.group(2));
     }
 }
