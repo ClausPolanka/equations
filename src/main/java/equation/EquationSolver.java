@@ -32,15 +32,15 @@ public class EquationSolver {
         Set<Equation> correctedEquations = new HashSet<>();
 
         if (solutionSpace.get(e.leftSide()).contains(e.rightSide()))
-            correctedEquations.add(toCorrectedEquation(e.rightSide()));
+            correctedEquations.add(toCorrectEquation(e.rightSide()));
 
         if (solutionSpace.get(e.rightSide()).contains(e.leftSide()))
-            correctedEquations.add(toCorrectedEquation(e.leftSide()));
+            correctedEquations.add(toCorrectEquation(e.leftSide()));
 
         return correctedEquations;
     }
 
-    public static Equation toCorrectedEquation(String side) {
+    private static Equation toCorrectEquation(String side) {
         return new Equation(format("\"%s=%s\"", side, side));
     }
 }
