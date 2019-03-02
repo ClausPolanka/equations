@@ -17,7 +17,7 @@ public class Foo {
     public static void main(String[] args) throws Exception {
         for (int testCase = 1; testCase <= 100; testCase++) {
             String equation = getEquationFor(testCase);
-            System.out.println(equation + ": " + eval(equation.split("=")[0], equation.split("=")[1]));
+            System.out.println(equation + ": " + solveEquation(equation.split("=")[0], equation.split("=")[1]));
         }
     }
 
@@ -39,7 +39,7 @@ public class Foo {
         return m.group(1) + "=" + m.group(2);
     }
 
-    public static Set<String> eval(String left, String right) {
+    public static Set<String> solveEquation(String left, String right) {
         Hashtable<String, List<String>> solutionSpace = new Hashtable<>();
         solutionSpace.put("0", asList("0", "6", "9"));
         solutionSpace.put("1", asList("1"));
