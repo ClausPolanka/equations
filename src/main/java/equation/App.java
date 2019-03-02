@@ -16,7 +16,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         for (int testCase = 1; testCase <= 100; testCase++) {
             Equation equation = getEquationFor(testCase);
-            Set<Equation> correctedEquations = EquationSolver.solveEquation(equation);
+            Set<Equation> correctedEquations = EquationSolver.solve(equation);
             sendCorrectedEquationsFor(testCase, correctedEquations);
         }
     }

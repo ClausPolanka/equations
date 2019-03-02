@@ -28,7 +28,7 @@ public class EquationSolver {
         return solutionSpace;
     }
 
-    public static Set<Equation> solveEquation(Equation e) {
+    public static Set<Equation> solve(Equation e) {
         Set<Equation> correctedEquations = new HashSet<>();
 
         if (solutionSpace.get(e.leftSide()).contains(e.rightSide()))
