@@ -1,5 +1,6 @@
 package equation;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,6 +32,21 @@ public class Equation {
     @Override
     public String toString() {
         return "\"" + equation + "\"";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        final Equation equation1 = (Equation) o;
+        return equation.equals(equation1.equation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(equation);
     }
 
     public class EquationInvalidFormatException extends RuntimeException {
