@@ -54,9 +54,9 @@ public class Foo {
 
         Set<String> correctedEquations = new HashSet<>();
         if (solutionSpace.get(left).contains(right))
-            correctedEquations.add(right + "=" + right);
+            correctedEquations.add("\"" + right + "=" + right + "\"");
         if (solutionSpace.get(right).contains(left))
-            correctedEquations.add(left + "=" + left);
+            correctedEquations.add("\"" + left + "=" + left + "\"");
         return correctedEquations;
     }
 }
