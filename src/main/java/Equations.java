@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
@@ -17,7 +18,7 @@ public class Equations {
     }
 
     private List<String> findCorrectEquations(String digit1, String digit2) {
-        HashMap<String, List<String>> solutions = new HashMap<>();
+        Map<String, List<String>> solutions = new HashMap<>();
         solutions.put("0", emptyList());
         solutions.put("2", asList("3"));
         solutions.put("3", asList("2"));
