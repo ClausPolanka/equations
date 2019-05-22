@@ -1,13 +1,18 @@
-import java.util.Arrays;
 import java.util.List;
+
+import static java.util.Arrays.asList;
 
 public class Equations {
 
-    public List<String> findCorrectEquations(String s) {
-        final String[] digits = s.split("=");
+    public List<String> findCorrectEquations(String equation) {
+        final String[] digits = parse(equation);
 
-        return Arrays.asList(digits[0] + "=" + digits[1]);
+        return asList(digits[0] + "=" + digits[1]);
 
+    }
+
+    private String[] parse(String equation) {
+        return equation.split("=");
     }
 
 }
