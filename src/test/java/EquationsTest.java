@@ -33,4 +33,14 @@ public class EquationsTest {
 
         assertThat(result.size(), is(0));
     }
+
+    @Test
+    public void findCorrectEquationsReturnsCorrectEquationsWhenEquationIsTwoEqualsThree() {
+        String inputEquation = "2=3";
+        List<String> result = new Equations().findCorrectEquations(inputEquation);
+
+        assertThat(result.size(), is(2));
+        assertThat(result.get(0), is(equalTo("2=2")));
+        assertThat(result.get(1), is(equalTo("3=3")));
+    }
 }
