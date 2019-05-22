@@ -25,4 +25,12 @@ public class EquationsTest {
         assertThat(result.size(), is(1));
         assertThat(result.get(0), is(equalTo(inputEquation)));
     }
+
+    @Test
+    public void findCorrectEquationsReturnsEmptyListWhenEquationIsZeroEqualsOne() {
+        String inputEquation = "0=1";
+        List<String> result = new Equations().findCorrectEquations(inputEquation);
+
+        assertThat(result.size(), is(0));
+    }
 }
