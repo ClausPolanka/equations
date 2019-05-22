@@ -4,7 +4,10 @@ import java.util.List;
 public class Equations {
 
     public List<String> findCorrectEquations(String s) {
-        return Arrays.asList("0=0");
+        final String[] digits = s.split("=");
+
+        return Arrays.asList(digits[0] + "=" + digits[1]);
+
     }
 
 }
