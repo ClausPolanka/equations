@@ -1,6 +1,5 @@
 import com.googlecode.zohhak.api.TestWith;
 import com.googlecode.zohhak.api.runners.ZohhakRunner;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Set;
@@ -21,9 +20,10 @@ public class EquationsTest {
         assertThat(result.iterator().next(), is(equalTo(inputEquation)));
     }
 
-    @Test
-    public void findCorrectEquationsReturnsEmptyListWhenEquationIsZeroEqualsOne() {
-        String inputEquation = "0=1";
+    @TestWith({
+            "0=1"
+    })
+    public void findCorrectEquationsReturnsEmptyListWhenThereIsNoSolution(String inputEquation) {
         Set<String> result = new Equations().findCorrectEquations(inputEquation);
 
         assertThat(result.size(), is(0));
