@@ -4,7 +4,6 @@ import org.junit.runner.RunWith;
 
 import java.util.Set;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertThat;
@@ -17,7 +16,7 @@ public class EquationsTest {
         Set<String> result = new Equations().findCorrectEquations(inputEquation);
 
         assertThat(result.size(), is(1));
-        assertThat(result.iterator().next(), is(equalTo(inputEquation)));
+        assertThat(result, hasItems(inputEquation));
     }
 
     @TestWith({
