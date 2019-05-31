@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
@@ -37,7 +38,7 @@ public class Equations {
     }
 
     private static String toEquation(String digit) {
-        return digit + "=" + digit;
+        return format("%s=%s", digit, digit);
     }
 
     private static String[] parse(String equation) {
