@@ -12,7 +12,7 @@ import static org.junit.Assert.assertThat;
 public class EquationsTest {
 
     @TestWith({ "0=0", "1=1", "2=2", "3=3", "4=4", "5=5", "6=6", "7=7", "8=8", "9=9" })
-    public void findCorrectEquationsReturnsInputEquationWhenEquationIsAlreadyCorrect(String equation) {
+    public void solveReturnsInputEquationWhenEquationIsAlreadyCorrect(String equation) {
         Set<String> result = new Equations().solve(equation);
 
         assertThat(result.size(), is(1));
@@ -30,7 +30,7 @@ public class EquationsTest {
             "7=8", "7=9",
             "8=9"
     })
-    public void findCorrectEquationsReturnsEmptyListWhenThereIsNoSolution(String equation) {
+    public void solveReturnsEmptyListWhenThereIsNoSolution(String equation) {
         Set<String> result = new Equations().solve(equation);
 
         assertThat(result.size(), is(0));
@@ -48,7 +48,7 @@ public class EquationsTest {
             "9=0, 0=0, 9=9",
             "9=6, 6=6, 9=9"
     })
-    public void findCorrectEquationsReturnsCorrectEquations(
+    public void solveReturnsCorrectEquations(
             String equation,
             String correctEquation1,
             String correctEquation2
