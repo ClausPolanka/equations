@@ -34,10 +34,14 @@ public class Equations {
     private Set<String> findCorrectEquations(String digit1, String digit2) {
         Set<String> correctEquations = new HashSet<>();
         if (SOLUTION_SPACE.get(digit1).contains(digit2)) {
-            correctEquations.add(digit1 + "=" + digit1);
-            correctEquations.add(digit2 + "=" + digit2);
+            correctEquations.add(toEquation(digit1));
+            correctEquations.add(toEquation(digit2));
         }
         return correctEquations;
+    }
+
+    private String toEquation(String digit) {
+        return digit + "=" + digit;
     }
 
     private String[] parse(String equation) {
