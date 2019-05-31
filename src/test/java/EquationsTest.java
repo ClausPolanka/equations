@@ -29,15 +29,20 @@ public class EquationsTest {
         assertThat(result.size(), is(0));
     }
 
-    @Test
-    public void findCorrectEquationsReturnsCorrectEquationsWhenEquationIsTwoEqualsThree() {
-        String inputEquation = "2=3";
+    @TestWith({
+            "2=3, 2=2, 3=3"
+    })
+    public void findCorrectEquationsReturnsCorrectEquations(
+            String inputEquation,
+            String correctEquation1,
+            String correctEquation2
+    ) {
         Set<String> result = new Equations().findCorrectEquations(inputEquation);
 
         assertThat(result.size(), is(2));
         Iterator<String> it = result.iterator();
-        assertThat(it.next(), is(equalTo("2=2")));
-        assertThat(it.next(), is(equalTo("3=3")));
+        assertThat(it.next(), is(equalTo(correctEquation1)));
+        assertThat(it.next(), is(equalTo(correctEquation2)));
     }
 
 }
