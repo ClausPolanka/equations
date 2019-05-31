@@ -18,8 +18,11 @@ public class Equations {
         Map<String, List<String>> solutions = new HashMap<>();
         solutions.put("0", asList("0"));
         solutions.put("1", asList("1"));
-        solutions.put("2", asList("3"));
-        solutions.put("3", asList("2"));
+        solutions.put("2", asList("2", "3"));
+        solutions.put("3", asList("2", "3"));
+        solutions.put("4", asList("4"));
+        solutions.put("5", asList("5"));
+
         Set<String> correctEquations = new HashSet<>();
         if (solutions.get(digit1).contains(digit2)) {
             correctEquations.add(digit1 + "=" + digit1);
