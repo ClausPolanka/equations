@@ -12,11 +12,11 @@ import static org.junit.Assert.assertThat;
 public class EquationsTest {
 
     @TestWith({ "0=0", "1=1", "2=2", "3=3", "4=4", "5=5", "6=6", "7=7", "8=8", "9=9" })
-    public void findCorrectEquationsReturnsInputEquationWhenEquationIsAlreadyCorrect(String inputEquation) {
-        Set<String> result = new Equations().findCorrectEquations(inputEquation);
+    public void findCorrectEquationsReturnsInputEquationWhenEquationIsAlreadyCorrect(String equation) {
+        Set<String> result = new Equations().findCorrectEquations(equation);
 
         assertThat(result.size(), is(1));
-        assertThat(result, hasItems(inputEquation));
+        assertThat(result, hasItems(equation));
     }
 
     @TestWith({
@@ -30,8 +30,8 @@ public class EquationsTest {
             "7=8", "7=9",
             "8=9"
     })
-    public void findCorrectEquationsReturnsEmptyListWhenThereIsNoSolution(String inputEquation) {
-        Set<String> result = new Equations().findCorrectEquations(inputEquation);
+    public void findCorrectEquationsReturnsEmptyListWhenThereIsNoSolution(String equation) {
+        Set<String> result = new Equations().findCorrectEquations(equation);
 
         assertThat(result.size(), is(0));
     }
@@ -49,11 +49,11 @@ public class EquationsTest {
             "9=6, 6=6, 9=9"
     })
     public void findCorrectEquationsReturnsCorrectEquations(
-            String inputEquation,
+            String equation,
             String correctEquation1,
             String correctEquation2
     ) {
-        Set<String> result = new Equations().findCorrectEquations(inputEquation);
+        Set<String> result = new Equations().findCorrectEquations(equation);
 
         assertThat(result.size(), is(2));
         assertThat(result, hasItems(correctEquation1, correctEquation2));
