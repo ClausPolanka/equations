@@ -9,22 +9,18 @@ import static java.util.Collections.singletonList;
 
 public class Equations {
 
-    private static final Map<String, List<String>> SOLUTION_SPACE = createSolutionSpace();
-
-    private static Map<String, List<String>> createSolutionSpace() {
-        return new HashMap<String, List<String>>() {{
-            put("0", asList("0", "6", "9"));
-            put("1", singletonList("1"));
-            put("2", asList("2", "3"));
-            put("3", asList("2", "3", "5"));
-            put("4", singletonList("4"));
-            put("5", asList("3", "5"));
-            put("6", asList("0", "6", "9"));
-            put("7", singletonList("7"));
-            put("8", singletonList("8"));
-            put("9", asList("0", "6", "9"));
-        }};
-    }
+    private static final Map<String, List<String>> SOLUTION_SPACE = new HashMap<String, List<String>>() {{
+        put("0", asList("0", "6", "9"));
+        put("1", singletonList("1"));
+        put("2", asList("2", "3"));
+        put("3", asList("2", "3", "5"));
+        put("4", singletonList("4"));
+        put("5", asList("3", "5"));
+        put("6", asList("0", "6", "9"));
+        put("7", singletonList("7"));
+        put("8", singletonList("8"));
+        put("9", asList("0", "6", "9"));
+    }};
 
     public Set<String> solve(String equation) {
         final String[] digits = parse(equation);
