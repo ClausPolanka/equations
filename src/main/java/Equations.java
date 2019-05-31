@@ -12,18 +12,18 @@ public class Equations {
     private static final Map<String, List<String>> SOLUTION_SPACE = createSolutionSpace();
 
     private static Map<String, List<String>> createSolutionSpace() {
-        Map<String, List<String>> solutions = new HashMap<>();
-        solutions.put("0", asList("0", "6", "9"));
-        solutions.put("1", singletonList("1"));
-        solutions.put("2", asList("2", "3"));
-        solutions.put("3", asList("2", "3", "5"));
-        solutions.put("4", singletonList("4"));
-        solutions.put("5", asList("3", "5"));
-        solutions.put("6", asList("0", "6", "9"));
-        solutions.put("7", singletonList("7"));
-        solutions.put("8", singletonList("8"));
-        solutions.put("9", asList("0", "6", "9"));
-        return solutions;
+        return new HashMap<String, List<String>>() {{
+            put("0", asList("0", "6", "9"));
+            put("1", singletonList("1"));
+            put("2", asList("2", "3"));
+            put("3", asList("2", "3", "5"));
+            put("4", singletonList("4"));
+            put("5", asList("3", "5"));
+            put("6", asList("0", "6", "9"));
+            put("7", singletonList("7"));
+            put("8", singletonList("8"));
+            put("9", asList("0", "6", "9"));
+        }};
     }
 
     public Set<String> solve(String equation) {
