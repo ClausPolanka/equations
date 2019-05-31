@@ -3,11 +3,11 @@ import com.googlecode.zohhak.api.runners.ZohhakRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertThat;
 
 @RunWith(ZohhakRunner.class)
@@ -30,7 +30,14 @@ public class EquationsTest {
     }
 
     @TestWith({
-            "2=3, 2=2, 3=3"
+            "0=6, 0=0, 6=6",
+            "0=9, 0=0, 9=9",
+            "2=3, 2=2, 3=3",
+            "3=2, 2=2, 3=3",
+            "3=5, 3=3, 5=5",
+            "5=3, 3=3, 5=5",
+            "6=0, 0=0, 6=6",
+            "6=9, 6=6, 9=9"
     })
     public void findCorrectEquationsReturnsCorrectEquations(
             String inputEquation,
@@ -40,9 +47,7 @@ public class EquationsTest {
         Set<String> result = new Equations().findCorrectEquations(inputEquation);
 
         assertThat(result.size(), is(2));
-        Iterator<String> it = result.iterator();
-        assertThat(it.next(), is(equalTo(correctEquation1)));
-        assertThat(it.next(), is(equalTo(correctEquation2)));
+        assertThat(result, hasItems(correctEquation1, correctEquation2));
     }
 
 }

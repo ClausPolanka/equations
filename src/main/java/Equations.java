@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 
 public class Equations {
 
@@ -16,13 +17,13 @@ public class Equations {
 
     private Set<String> findCorrectEquations(String digit1, String digit2) {
         Map<String, List<String>> solutions = new HashMap<>();
-        solutions.put("0", asList("0"));
-        solutions.put("1", asList("1"));
+        solutions.put("0", asList("0", "6", "9"));
+        solutions.put("1", singletonList("1"));
         solutions.put("2", asList("2", "3"));
-        solutions.put("3", asList("2", "3"));
-        solutions.put("4", asList("4"));
-        solutions.put("5", asList("5"));
-        solutions.put("6", asList("6"));
+        solutions.put("3", asList("2", "3", "5"));
+        solutions.put("4", singletonList("4"));
+        solutions.put("5", asList("3", "5"));
+        solutions.put("6", asList("0", "6", "9"));
         solutions.put("7", asList("7"));
         solutions.put("8", asList("8"));
         solutions.put("9", asList("9"));
