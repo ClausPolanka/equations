@@ -24,9 +24,9 @@ public class Equations {
         solutions.put("4", singletonList("4"));
         solutions.put("5", asList("3", "5"));
         solutions.put("6", asList("0", "6", "9"));
-        solutions.put("7", asList("7"));
-        solutions.put("8", asList("8"));
-        solutions.put("9", asList("9"));
+        solutions.put("7", singletonList("7"));
+        solutions.put("8", singletonList("8"));
+        solutions.put("9", asList("0", "6", "9"));
 
         Set<String> correctEquations = new HashSet<>();
         if (solutions.get(digit1).contains(digit2)) {

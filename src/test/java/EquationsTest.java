@@ -37,7 +37,9 @@ public class EquationsTest {
             "3=5, 3=3, 5=5",
             "5=3, 3=3, 5=5",
             "6=0, 0=0, 6=6",
-            "6=9, 6=6, 9=9"
+            "6=9, 6=6, 9=9",
+            "9=0, 0=0, 9=9",
+            "9=6, 6=6, 9=9"
     })
     public void findCorrectEquationsReturnsCorrectEquations(
             String inputEquation,
