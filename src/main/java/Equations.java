@@ -9,7 +9,7 @@ import static java.util.Collections.singletonList;
 
 public class Equations {
 
-    private static final Map<String, List<String>> SOLUTIONS = createSolutionSpace();
+    private static final Map<String, List<String>> SOLUTION_SPACE = createSolutionSpace();
 
     private static Map<String, List<String>> createSolutionSpace() {
         Map<String, List<String>> solutions = new HashMap<>();
@@ -33,7 +33,7 @@ public class Equations {
 
     private Set<String> findCorrectEquations(String digit1, String digit2) {
         Set<String> correctEquations = new HashSet<>();
-        if (SOLUTIONS.get(digit1).contains(digit2)) {
+        if (SOLUTION_SPACE.get(digit1).contains(digit2)) {
             correctEquations.add(digit1 + "=" + digit1);
             correctEquations.add(digit2 + "=" + digit2);
         }
