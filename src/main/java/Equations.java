@@ -22,6 +22,10 @@ public class Equations {
         solutions.put("3", asList("2", "3"));
         solutions.put("4", asList("4"));
         solutions.put("5", asList("5"));
+        solutions.put("6", asList("6"));
+        solutions.put("7", asList("7"));
+        solutions.put("8", asList("8"));
+        solutions.put("9", asList("9"));
 
         Set<String> correctEquations = new HashSet<>();
         if (solutions.get(digit1).contains(digit2)) {
