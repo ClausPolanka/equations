@@ -13,7 +13,7 @@ public class EquationsTest {
 
     @TestWith({ "0=0", "1=1", "2=2", "3=3", "4=4", "5=5", "6=6", "7=7", "8=8", "9=9" })
     public void findCorrectEquationsReturnsInputEquationWhenEquationIsAlreadyCorrect(String equation) {
-        Set<String> result = new Equations().findCorrectEquations(equation);
+        Set<String> result = new Equations().solve(equation);
 
         assertThat(result.size(), is(1));
         assertThat(result, hasItems(equation));
@@ -31,7 +31,7 @@ public class EquationsTest {
             "8=9"
     })
     public void findCorrectEquationsReturnsEmptyListWhenThereIsNoSolution(String equation) {
-        Set<String> result = new Equations().findCorrectEquations(equation);
+        Set<String> result = new Equations().solve(equation);
 
         assertThat(result.size(), is(0));
     }
@@ -53,7 +53,7 @@ public class EquationsTest {
             String correctEquation1,
             String correctEquation2
     ) {
-        Set<String> result = new Equations().findCorrectEquations(equation);
+        Set<String> result = new Equations().solve(equation);
 
         assertThat(result.size(), is(2));
         assertThat(result, hasItems(correctEquation1, correctEquation2));

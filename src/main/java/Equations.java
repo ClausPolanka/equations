@@ -26,7 +26,7 @@ public class Equations {
         return solutions;
     }
 
-    public Set<String> findCorrectEquations(String equation) {
+    public Set<String> solve(String equation) {
         final String[] digits = parse(equation);
         return findCorrectEquations(digits[0], digits[1]);
     }
