@@ -12,11 +12,11 @@ import static org.junit.Assert.assertThat;
 public class EquationsTest {
 
     @TestWith({ "0=0", "1=1", "2=2", "3=3", "4=4", "5=5", "6=6", "7=7", "8=8", "9=9" })
-    public void solveReturnsInputEquationWhenEquationIsAlreadyCorrect(String equation) {
-        Set<String> result = Equations.solve(equation);
+    public void solveReturnsSolutionWithInputEquationWhenEquationIsAlreadyCorrect(String equation) {
+        Set<String> solution = Equations.solve(equation);
 
-        assertThat(result.size(), is(1));
-        assertThat(result, hasItems(equation));
+        assertThat(solution.size(), is(1));
+        assertThat(solution, hasItems(equation));
     }
 
     @TestWith({
@@ -30,10 +30,10 @@ public class EquationsTest {
             "7=8", "7=9",
             "8=9"
     })
-    public void solveReturnsEmptyListWhenThereIsNoSolution(String equation) {
-        Set<String> result = Equations.solve(equation);
+    public void solveReturnsSolutionWithEmptyListWhenThereIsNoSolution(String equation) {
+        Set<String> solution = Equations.solve(equation);
 
-        assertThat(result.size(), is(0));
+        assertThat(solution.size(), is(0));
     }
 
     @TestWith({
@@ -48,15 +48,15 @@ public class EquationsTest {
             "9=0, 0=0, 9=9",
             "9=6, 6=6, 9=9"
     })
-    public void solveReturnsCorrectEquations(
+    public void solveReturnsSolutionWithCorrectEquations(
             String equation,
             String correctEquation1,
             String correctEquation2
     ) {
-        Set<String> result = Equations.solve(equation);
+        Set<String> solution = Equations.solve(equation);
 
-        assertThat(result.size(), is(2));
-        assertThat(result, hasItems(correctEquation1, correctEquation2));
+        assertThat(solution.size(), is(2));
+        assertThat(solution, hasItems(correctEquation1, correctEquation2));
     }
 
 }
