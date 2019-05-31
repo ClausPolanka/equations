@@ -22,12 +22,12 @@ public class Equations {
         put("9", asList("0", "6", "9"));
     }};
 
-    public Set<String> solve(String equation) {
+    public static Set<String> solve(String equation) {
         final String[] digits = parse(equation);
         return findCorrectEquations(digits[0], digits[1]);
     }
 
-    private Set<String> findCorrectEquations(String digit1, String digit2) {
+    private static Set<String> findCorrectEquations(String digit1, String digit2) {
         Set<String> correctEquations = new HashSet<>();
         if (SOLUTION_SPACE.get(digit1).contains(digit2)) {
             correctEquations.add(toEquation(digit1));
@@ -36,11 +36,11 @@ public class Equations {
         return correctEquations;
     }
 
-    private String toEquation(String digit) {
+    private static String toEquation(String digit) {
         return digit + "=" + digit;
     }
 
-    private String[] parse(String equation) {
+    private static String[] parse(String equation) {
         return equation.split("=");
     }
 
