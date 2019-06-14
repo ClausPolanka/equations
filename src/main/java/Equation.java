@@ -23,4 +23,9 @@ public class Equation {
                 && rightSide.equals(equation.rightSide);
     }
 
+    @Override
+    public int hashCode() {
+        return 1;
+    }
+
 }
