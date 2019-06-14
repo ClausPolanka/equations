@@ -27,6 +27,7 @@ public class TestRunner {
         String jsonResponse = executeRequest(con);
         Equation equation = convertJsonToEquation(jsonResponse);
         Set<Equation> solutions = Equations.solve(equation);
+        String json = convertToJson(solutions);
         System.out.println(jsonResponse + " => " + equation + " => " + solutions);
     }
 
@@ -34,6 +35,10 @@ public class TestRunner {
         Matcher m = EQUATION_PATTERN.matcher(jsonResponse);
         m.find();
         return new Equation(m.group(1));
+    }
+
+    public static String convertToJson(Set<Equation> equations) {
+        return "{ \"correctedEquations\": [\"1=1\"]}";
     }
 
     private static HttpURLConnection createHttpGetConnection(int testcase) throws IOException {
