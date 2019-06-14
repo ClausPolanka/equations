@@ -20,7 +20,12 @@ public class TestRunner {
         HttpURLConnection con = createHttpGetConnection(testcase);
 
         String jsonResponse = executeRequest(con);
+        Equation equation = convertJSONtoEquation(jsonResponse);
         System.out.println(jsonResponse);
+    }
+
+    private static Equation convertJSONtoEquation(String jsonResponse) {
+        return null;
     }
 
     private static HttpURLConnection createHttpGetConnection(int testcase) throws IOException {
