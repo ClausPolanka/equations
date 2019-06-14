@@ -2,6 +2,7 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
 public class EquationTest {
@@ -13,10 +14,16 @@ public class EquationTest {
     }
 
     @Test
-    public void equalsReturnsFalseIfTwoEquationsAreDifferent() {
+    public void equalsReturnsTrueIfTwoEquationsAreSame() {
         Equation equation = new Equation("0=1");
         assertThat(equation, is(equalTo(equation)));
     }
 
+    @Test
+    public void equalsReturnsFalseIfTwoEquationsAreDifferent() {
+        Equation equation1 = new Equation("0=1");
+        Equation equation2 = new Equation("0=2");
+        assertThat(equation1, is(not(equalTo(equation2))));
+    }
 
 }
