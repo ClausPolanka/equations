@@ -23,9 +23,8 @@ public class Equations {
         put("9", asList("0", "6", "9"));
     }};
 
-    public static Set<String> solve(String equation) {
-        final String[] digits = parse(equation);
-        return findCorrectEquations(digits[0], digits[1]);
+    public static Set<String> solve(Equation equation) {
+        return findCorrectEquations(equation.getLeftSide(), equation.getRightSide());
     }
 
     private static Set<String> findCorrectEquations(String digit1, String digit2) {
