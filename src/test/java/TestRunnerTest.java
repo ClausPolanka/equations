@@ -7,9 +7,9 @@ import static org.junit.Assert.assertThat;
 public class TestRunnerTest {
 
     @Test
-    public void convertJSONtoEquationReturnsEquationForGivenJson() {
+    public void convertJsonToEquationReturnsEquationForGivenJson() {
         String json = "{  \"equation\" : \"0=9\"}";
-        Equation equation = TestRunner.convertJSONtoEquation(json);
+        Equation equation = TestRunner.convertJsonToEquation(json);
         assertThat(equation, is(equalTo(new Equation("0=9"))));
     }
 

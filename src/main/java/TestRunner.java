@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
 
 public class TestRunner {
 
+    private static final String EQUATION_REGEX = ".*(\\d=\\d).*";
+    private static final Pattern EQUATION_PATTERN = Pattern.compile(EQUATION_REGEX);
+
     public static void main(String[] args) {
         for (int i = 1; i <= 100; i++) {
             try {
@@ -20,16 +23,13 @@ public class TestRunner {
 
     private static void runTestCase(int testcase) throws IOException {
         HttpURLConnection con = createHttpGetConnection(testcase);
-
         String jsonResponse = executeRequest(con);
-        Equation equation = convertJSONtoEquation(jsonResponse);
-        System.out.println(jsonResponse + " " + equation);
+        Equation equation = convertJsonToEquation(jsonResponse);
+        System.out.println(jsonResponse + " => " + equation);
     }
 
-    public static Equation convertJSONtoEquation(String jsonResponse) {
-        final String regex = ".*(\\d=\\d).*";
-        Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher(jsonResponse);
+    public static Equation convertJsonToEquation(String jsonResponse) {
+        Matcher m = EQUATION_PATTERN.matcher(jsonResponse);
         m.find();
         return new Equation(m.group(1));
     }

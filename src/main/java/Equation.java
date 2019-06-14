@@ -36,6 +36,6 @@ public class Equation {
 
     @Override
     public String toString() {
-        return "Equation{" + leftSide + "=" + rightSide + '}';
+        return format("Equation{%s=%s}", leftSide, rightSide);
     }
 }
