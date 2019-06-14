@@ -24,8 +24,9 @@ public class TestRunner {
         System.out.println(jsonResponse);
     }
 
-    private static Equation convertJSONtoEquation(String jsonResponse) {
-        return null;
+    public static Equation convertJSONtoEquation(String jsonResponse) {
+        final String regex = ".*(\\d=\\d).*";
+        return new Equation("0=9");
     }
 
     private static HttpURLConnection createHttpGetConnection(int testcase) throws IOException {
