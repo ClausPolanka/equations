@@ -23,21 +23,21 @@ public class Equations {
         put("9", asList("0", "6", "9"));
     }};
 
-    public static Set<String> solve(Equation equation) {
-        return findCorrectEquations(equation.getLeftSide(), equation.getRightSide());
+    public static Set<Equation> solve(Equation equation) {
+        return findCorrectEquations(equation);
     }
 
-    private static Set<String> findCorrectEquations(String digit1, String digit2) {
-        Set<String> correctEquations = new HashSet<>();
-        if (SOLUTION_SPACE.get(digit1).contains(digit2)) {
-            correctEquations.add(toEquation(digit1));
-            correctEquations.add(toEquation(digit2));
+    private static Set<Equation> findCorrectEquations(Equation equation) {
+        Set<Equation> correctEquations = new HashSet<>();
+        if (SOLUTION_SPACE.get(equation.getLeftSide()).contains(equation.getRightSide())) {
+            correctEquations.add(toEquation(equation.getLeftSide()));
+            correctEquations.add(toEquation(equation.getRightSide()));
         }
         return correctEquations;
     }
 
-    private static String toEquation(String digit) {
-        return format("%s=%s", digit, digit);
+    private static Equation toEquation(String digit) {
+        return new Equation(format("%s=%s", digit, digit));
     }
 
     private static String[] parse(String equation) {
