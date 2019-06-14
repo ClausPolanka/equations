@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TestRunner {
 
@@ -26,7 +28,10 @@ public class TestRunner {
 
     public static Equation convertJSONtoEquation(String jsonResponse) {
         final String regex = ".*(\\d=\\d).*";
-        return new Equation("0=9");
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(jsonResponse);
+        m.find();
+        return new Equation(m.group(1));
     }
 
     private static HttpURLConnection createHttpGetConnection(int testcase) throws IOException {
