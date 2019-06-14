@@ -23,7 +23,7 @@ public class TestRunner {
 
         String jsonResponse = executeRequest(con);
         Equation equation = convertJSONtoEquation(jsonResponse);
-        System.out.println(jsonResponse);
+        System.out.println(jsonResponse + " " + equation);
     }
 
     public static Equation convertJSONtoEquation(String jsonResponse) {
