@@ -20,9 +20,16 @@ public class EquationTest {
     }
 
     @Test
-    public void equalsReturnsFalseIfTwoEquationsAreDifferent() {
+    public void equalsReturnsFalseIfTwoEquationsHaveDifferentRightSide() {
         Equation equation1 = new Equation("0=1");
         Equation equation2 = new Equation("0=2");
+        assertThat(equation1, is(not(equalTo(equation2))));
+    }
+
+    @Test
+    public void equalsReturnsFalseIfTwoEquationsHaveDifferentLeftSide() {
+        Equation equation1 = new Equation("1=0");
+        Equation equation2 = new Equation("2=0");
         assertThat(equation1, is(not(equalTo(equation2))));
     }
 
