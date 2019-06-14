@@ -15,4 +15,12 @@ public class Equation {
     public String getRightSide() {
         return rightSide;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Equation equation = (Equation) obj;
+        return leftSide.equals(equation.leftSide)
+                && rightSide.equals(equation.rightSide);
+    }
+
 }

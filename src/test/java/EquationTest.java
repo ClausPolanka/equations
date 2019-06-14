@@ -12,4 +12,11 @@ public class EquationTest {
         assertThat(equation.getRightSide(), is(equalTo("1")));
     }
 
+    @Test
+    public void equalsReturnsFalseIfTwoEquationsAreDifferent() {
+        Equation equation = new Equation("0=1");
+        assertThat(equation, is(equalTo(equation)));
+    }
+
+
 }
