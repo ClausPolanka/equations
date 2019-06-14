@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,7 +26,8 @@ public class TestRunner {
         HttpURLConnection con = createHttpGetConnection(testcase);
         String jsonResponse = executeRequest(con);
         Equation equation = convertJsonToEquation(jsonResponse);
-        System.out.println(jsonResponse + " => " + equation);
+        Set<Equation> solutions = Equations.solve(equation);
+        System.out.println(jsonResponse + " => " + equation + " => " + solutions);
     }
 
     public static Equation convertJsonToEquation(String jsonResponse) {
