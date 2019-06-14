@@ -1,3 +1,5 @@
+import static java.lang.String.format;
+
 public class Equation {
 
     private final String leftSide;
@@ -6,6 +8,10 @@ public class Equation {
     public Equation(String equation) {
         this.leftSide = equation.split("=")[0];
         this.rightSide = equation.split("=")[1];
+    }
+
+    public static Equation newCorrectEquation(String digit) {
+        return new Equation(format("%s=%s", digit, digit));
     }
 
     public String getLeftSide() {

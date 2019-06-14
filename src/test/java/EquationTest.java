@@ -6,10 +6,13 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
 public class EquationTest {
+
+    private static final String ANY_DIGIT = "0";
+
     @Test
     public void createNewEquation() {
         Equation equation = new Equation("0=1");
-        assertThat(equation.getLeftSide(), is(equalTo("0")));
+        assertThat(equation.getLeftSide(), is(equalTo(ANY_DIGIT)));
         assertThat(equation.getRightSide(), is(equalTo("1")));
     }
 
@@ -31,6 +34,13 @@ public class EquationTest {
         Equation equation1 = new Equation("1=0");
         Equation equation2 = new Equation("2=0");
         assertThat(equation1, is(not(equalTo(equation2))));
+    }
+
+    @Test
+    public void newCorrectEquationCreatesCorrectEquationFromOneDigit() {
+        Equation equation = Equation.newCorrectEquation(ANY_DIGIT);
+        assertThat(equation.getLeftSide(), is(equalTo(ANY_DIGIT)));
+        assertThat(equation.getRightSide(), is(equalTo(ANY_DIGIT)));
     }
 
 }

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
@@ -24,24 +23,12 @@ public class Equations {
     }};
 
     public static Set<Equation> solve(Equation equation) {
-        return findCorrectEquations(equation);
-    }
-
-    private static Set<Equation> findCorrectEquations(Equation equation) {
         Set<Equation> correctEquations = new HashSet<>();
         if (SOLUTION_SPACE.get(equation.getLeftSide()).contains(equation.getRightSide())) {
-            correctEquations.add(toEquation(equation.getLeftSide()));
-            correctEquations.add(toEquation(equation.getRightSide()));
+            correctEquations.add(Equation.newCorrectEquation(equation.getLeftSide()));
+            correctEquations.add(Equation.newCorrectEquation(equation.getRightSide()));
         }
         return correctEquations;
-    }
-
-    private static Equation toEquation(String digit) {
-        return new Equation(format("%s=%s", digit, digit));
-    }
-
-    private static String[] parse(String equation) {
-        return equation.split("=");
     }
 
 }
