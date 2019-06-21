@@ -17,19 +17,11 @@ public class EquationJsonConverterTest {
     }
 
     @Test
-    public void toJsonReturnsJsonForGivenSolutions1Equals1() {
+    public void toJsonReturnsJsonForGivenSingleSolution() {
         Set<Equation> solutions = new HashSet<>();
         solutions.add(new Equation("1=1"));
         String json = EquationJsonConverter.toJson(solutions);
         assertThat(json, is(equalTo("{ \"correctedEquations\": [\"1=1\"]}")));
-    }
-
-    @Test
-    public void toJsonReturnsJsonForGivenSolution2Equals2() {
-        Set<Equation> solutions = new HashSet<>();
-        solutions.add(new Equation("2=2"));
-        String json = EquationJsonConverter.toJson(solutions);
-        assertThat(json, is(equalTo("{ \"correctedEquations\": [\"2=2\"]}")));
     }
 
     @Test
