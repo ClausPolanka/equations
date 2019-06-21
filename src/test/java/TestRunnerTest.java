@@ -17,11 +17,27 @@ public class TestRunnerTest {
     }
 
     @Test
-    public void convertToJsonReturnsJsonForGivenSolutions() {
+    public void convertToJsonReturnsJsonForGivenSolutions1Equals1() {
         Set<Equation> solutions = new HashSet<>();
         solutions.add(new Equation("1=1"));
         String json = TestRunner.convertToJson(solutions);
         assertThat(json, is(equalTo("{ \"correctedEquations\": [\"1=1\"]}")));
     }
 
+    @Test
+    public void convertToJsonReturnsJsonForGivenSolution2Equals2() {
+        Set<Equation> solutions = new HashSet<>();
+        solutions.add(new Equation("2=2"));
+        String json = TestRunner.convertToJson(solutions);
+        assertThat(json, is(equalTo("{ \"correctedEquations\": [\"2=2\"]}")));
+    }
+
+    @Test
+    public void convertToJsonReturnsJsonForGivenMultipleSolutions() {
+        Set<Equation> solutions = new HashSet<>();
+        solutions.add(new Equation("0=0"));
+        solutions.add(new Equation("6=6"));
+        String json = TestRunner.convertToJson(solutions);
+        assertThat(json, is(equalTo("{ \"correctedEquations\": [\"0=0\", \"6=6\"]}")));
+    }
 }

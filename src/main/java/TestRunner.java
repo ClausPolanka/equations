@@ -41,7 +41,8 @@ public class TestRunner {
     }
 
     public static String convertToJson(Set<Equation> equations) {
-        return "{ \"correctedEquations\": [\"1=1\"]}";
+        Equation equation = equations.iterator().next();
+        return "{ \"correctedEquations\": [\"" + equation.getLeftSide() + "=" + equation.getRightSide() + "\"]}";
     }
 
     private static HttpURLConnection createHttpGetConnection(int testcase) throws IOException {
