@@ -3,29 +3,32 @@ package equation;
 import java.io.IOException;
 import java.util.Set;
 
-import static equation.EquationJsonConverter.*;
-import static equation.Equations.*;
-import static equation.TestServerHttpConnector.executeGetRequest;
-import static equation.TestServerHttpConnector.executePostRequest;
+import static equation.EquationJsonConverter.toEquation;
+import static equation.EquationJsonConverter.toJson;
+import static equation.Equations.solve;
+import static equation.TestServerHttpConnector.getAssignmentFor;
+import static equation.TestServerHttpConnector.submitSolutionFor;
+import static java.util.stream.IntStream.range;
 
 public class TestRunner {
 
     public static void main(String[] args) {
-        for (int i = 1; i <= 100; i++) {
+        range(1, 101).forEach(testCase -> {
             try {
-                runTestCase(i);
+                runTestCase(testCase);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
+        });
+
     }
 
-    private static void runTestCase(int testcase) throws IOException {
-        String jsonResponse = executeGetRequest(testcase);
-        Equation equation = toEquation(jsonResponse);
+    private static void runTestCase(int testCase) throws IOException {
+        String jsonAssignment = getAssignmentFor(testCase);
+        Equation equation = toEquation(jsonAssignment);
         Set<Equation> solutions = solve(equation);
-        String json = toJson(solutions);
-        executePostRequest(testcase, json);
+        String jsonSolution = toJson(solutions);
+        submitSolutionFor(testCase, jsonSolution);
     }
 
 }

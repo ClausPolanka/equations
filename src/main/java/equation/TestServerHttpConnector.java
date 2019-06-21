@@ -16,7 +16,7 @@ public class TestServerHttpConnector {
         return con;
     }
 
-    public static String executeGetRequest(int testcase) throws IOException {
+    public static String getAssignmentFor(int testcase) throws IOException {
         final HttpURLConnection con = createHttpGetConnection(testcase);
         StringBuffer content = executeRequest(con);
         return content.toString();
@@ -47,7 +47,7 @@ public class TestServerHttpConnector {
         }
     }
 
-    public static void executePostRequest(int testcase, String json) throws IOException {
+    public static void submitSolutionFor(int testcase, String json) throws IOException {
         HttpURLConnection con = createHttpPostConnection(testcase, json);
         executeRequest(con);
     }
