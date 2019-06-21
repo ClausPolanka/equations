@@ -3,6 +3,11 @@ package equation;
 import java.io.IOException;
 import java.util.Set;
 
+import static equation.EquationJsonConverter.*;
+import static equation.Equations.*;
+import static equation.TestServerHttpConnector.executeGetRequest;
+import static equation.TestServerHttpConnector.executePostRequest;
+
 public class TestRunner {
 
     public static void main(String[] args) {
@@ -16,11 +21,11 @@ public class TestRunner {
     }
 
     private static void runTestCase(int testcase) throws IOException {
-        String jsonResponse = TestServerHttpConnector.executeGetRequest(testcase);
-        Equation equation = EquationJsonConverter.toEquation(jsonResponse);
-        Set<Equation> solutions = Equations.solve(equation);
-        String json = EquationJsonConverter.toJson(solutions);
-        TestServerHttpConnector.executePostRequest(testcase, json);
+        String jsonResponse = executeGetRequest(testcase);
+        Equation equation = toEquation(jsonResponse);
+        Set<Equation> solutions = solve(equation);
+        String json = toJson(solutions);
+        executePostRequest(testcase, json);
     }
 
 }
