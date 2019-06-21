@@ -7,17 +7,17 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class TestRunnerTest {
+public class EquationJsonConverterTest {
 
     @Test
-    public void convertJsonToEquationReturnsEquationForGivenJson() {
+    public void toEquationReturnsEquationForGivenJson() {
         String json = "{  \"equation\" : \"0=9\"}";
         Equation equation = EquationJsonConverter.toEquation(json);
         assertThat(equation, is(equalTo(new Equation("0=9"))));
     }
 
     @Test
-    public void convertToJsonReturnsJsonForGivenSolutions1Equals1() {
+    public void toJsonReturnsJsonForGivenSolutions1Equals1() {
         Set<Equation> solutions = new HashSet<>();
         solutions.add(new Equation("1=1"));
         String json = EquationJsonConverter.toJson(solutions);
@@ -25,7 +25,7 @@ public class TestRunnerTest {
     }
 
     @Test
-    public void convertToJsonReturnsJsonForGivenSolution2Equals2() {
+    public void toJsonReturnsJsonForGivenSolution2Equals2() {
         Set<Equation> solutions = new HashSet<>();
         solutions.add(new Equation("2=2"));
         String json = EquationJsonConverter.toJson(solutions);
@@ -33,7 +33,7 @@ public class TestRunnerTest {
     }
 
     @Test
-    public void convertToJsonReturnsJsonForGivenMultipleSolutions() {
+    public void toJsonReturnsJsonForGivenMultipleSolutions() {
         Set<Equation> solutions = new HashSet<>();
         solutions.add(new Equation("0=0"));
         solutions.add(new Equation("6=6"));
