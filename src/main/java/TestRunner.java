@@ -5,14 +5,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class TestRunner {
-
-    private static final String EQUATION_REGEX = ".*(\\d=\\d).*";
-    private static final Pattern EQUATION_PATTERN = Pattern.compile(EQUATION_REGEX);
 
     public static void main(String[] args) {
         for (int i = 1; i <= 100; i++) {
@@ -27,25 +21,11 @@ public class TestRunner {
     private static void runTestCase(int testcase) throws IOException {
         HttpURLConnection getCon = createHttpGetConnection(testcase);
         String jsonResponse = executeRequest(getCon);
-        Equation equation = convertJsonToEquation(jsonResponse);
+        Equation equation = EquationJsonConverter.toEquation(jsonResponse);
         Set<Equation> solutions = Equations.solve(equation);
-        String json = convertToJson(solutions);
-        System.out.println(jsonResponse + " => " + equation + " => " + solutions);
+        String json = EquationJsonConverter.toJson(solutions);
         HttpURLConnection postCon = createHttpPostConnection(testcase, json);
-        // executeRequest(postCon);
-    }
-
-    public static Equation convertJsonToEquation(String jsonResponse) {
-        Matcher m = EQUATION_PATTERN.matcher(jsonResponse);
-        m.find();
-        return new Equation(m.group(1));
-    }
-
-    public static String convertToJson(Set<Equation> equations) {
-        String solutions = equations.stream()
-                .map(equation -> "\"" + equation.getLeftSide() + "=" + equation.getRightSide() + "\"")
-                .collect(Collectors.joining(", "));
-        return "{ \"correctedEquations\": [" + solutions + "]}";
+        executeRequest(postCon);
     }
 
     private static HttpURLConnection createHttpGetConnection(int testcase) throws IOException {

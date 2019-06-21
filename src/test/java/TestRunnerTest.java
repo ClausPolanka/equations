@@ -12,7 +12,7 @@ public class TestRunnerTest {
     @Test
     public void convertJsonToEquationReturnsEquationForGivenJson() {
         String json = "{  \"equation\" : \"0=9\"}";
-        Equation equation = TestRunner.convertJsonToEquation(json);
+        Equation equation = EquationJsonConverter.toEquation(json);
         assertThat(equation, is(equalTo(new Equation("0=9"))));
     }
 
@@ -20,7 +20,7 @@ public class TestRunnerTest {
     public void convertToJsonReturnsJsonForGivenSolutions1Equals1() {
         Set<Equation> solutions = new HashSet<>();
         solutions.add(new Equation("1=1"));
-        String json = TestRunner.convertToJson(solutions);
+        String json = EquationJsonConverter.toJson(solutions);
         assertThat(json, is(equalTo("{ \"correctedEquations\": [\"1=1\"]}")));
     }
 
@@ -28,7 +28,7 @@ public class TestRunnerTest {
     public void convertToJsonReturnsJsonForGivenSolution2Equals2() {
         Set<Equation> solutions = new HashSet<>();
         solutions.add(new Equation("2=2"));
-        String json = TestRunner.convertToJson(solutions);
+        String json = EquationJsonConverter.toJson(solutions);
         assertThat(json, is(equalTo("{ \"correctedEquations\": [\"2=2\"]}")));
     }
 
@@ -37,7 +37,7 @@ public class TestRunnerTest {
         Set<Equation> solutions = new HashSet<>();
         solutions.add(new Equation("0=0"));
         solutions.add(new Equation("6=6"));
-        String json = TestRunner.convertToJson(solutions);
+        String json = EquationJsonConverter.toJson(solutions);
         assertThat(json, is(equalTo("{ \"correctedEquations\": [\"0=0\", \"6=6\"]}")));
     }
 }
