@@ -17,7 +17,7 @@ public class TestServerHttpConnector {
     }
 
     public static String getAssignmentFor(int testcase) throws IOException {
-        final HttpURLConnection con = createHttpGetConnection(testcase);
+        HttpURLConnection con = createHttpGetConnection(testcase);
         StringBuffer content = executeRequest(con);
         return content.toString();
     }
