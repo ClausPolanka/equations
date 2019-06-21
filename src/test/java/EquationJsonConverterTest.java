@@ -17,6 +17,13 @@ public class EquationJsonConverterTest {
     }
 
     @Test
+    public void toJsonReturnsJsonForGivenEmptySolution() {
+        Set<Equation> solutions = new HashSet<>();
+        String json = EquationJsonConverter.toJson(solutions);
+        assertThat(json, is(equalTo("{ \"correctedEquations\": []}")));
+    }
+
+    @Test
     public void toJsonReturnsJsonForGivenSingleSolution() {
         Set<Equation> solutions = new HashSet<>();
         solutions.add(new Equation("1=1"));
