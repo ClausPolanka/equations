@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.util.Set;
 
 public class TestRunner {
@@ -15,13 +14,11 @@ public class TestRunner {
     }
 
     private static void runTestCase(int testcase) throws IOException {
-        HttpURLConnection getCon = HttpEquationsTestServerConnector.createHttpGetConnection(testcase);
-        String jsonResponse = HttpEquationsTestServerConnector.executeRequest(getCon);
+        String jsonResponse = TestServerHttpConnector.executeGetRequest(testcase);
         Equation equation = EquationJsonConverter.toEquation(jsonResponse);
         Set<Equation> solutions = Equations.solve(equation);
         String json = EquationJsonConverter.toJson(solutions);
-        HttpURLConnection postCon = HttpEquationsTestServerConnector.createHttpPostConnection(testcase, json);
-        HttpEquationsTestServerConnector.executeRequest(postCon);
+        TestServerHttpConnector.executePostRequest(testcase, json);
     }
 
 }

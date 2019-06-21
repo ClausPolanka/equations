@@ -5,29 +5,34 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class HttpEquationsTestServerConnector {
+public class TestServerHttpConnector {
 
-    public static HttpURLConnection createHttpGetConnection(int testcase) throws IOException {
+    private static HttpURLConnection createHttpGetConnection(int testcase) throws IOException {
         URL url = new URL("http://localhost:8080/assignment/stage/1/testcase/" + testcase);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         return con;
     }
 
-    public static String executeRequest(HttpURLConnection con) throws IOException {
+    public static String executeGetRequest(int testcase) throws IOException {
+        final HttpURLConnection con = createHttpGetConnection(testcase);
+        StringBuffer content = executeRequest(con);
+        return content.toString();
+    }
+
+    private static StringBuffer executeRequest(HttpURLConnection con) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
         StringBuffer content = new StringBuffer();
         while ((inputLine = in.readLine()) != null) {
             content.append(inputLine);
         }
-        System.out.println(content);
         in.close();
         con.disconnect();
-        return content.toString();
+        return content;
     }
 
-    public static HttpURLConnection createHttpPostConnection(int testcase, String json) throws IOException {
+    private static HttpURLConnection createHttpPostConnection(int testcase, String json) throws IOException {
         URL url = new URL("http://localhost:8080/assignment/stage/1/testcase/" + testcase);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
@@ -38,6 +43,11 @@ public class HttpEquationsTestServerConnector {
             os.write(input, 0, input.length);
             return con;
         }
+    }
+
+    public static void executePostRequest(int testcase, String json) throws IOException {
+        HttpURLConnection con = createHttpPostConnection(testcase, json);
+        executeRequest(con);
     }
 
 }
