@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class TestRunner {
 
@@ -41,8 +42,10 @@ public class TestRunner {
     }
 
     public static String convertToJson(Set<Equation> equations) {
-        Equation equation = equations.iterator().next();
-        return "{ \"correctedEquations\": [\"" + equation.getLeftSide() + "=" + equation.getRightSide() + "\"]}";
+        String solutions = equations.stream()
+                .map(equation -> "\"" + equation.getLeftSide() + "=" + equation.getRightSide() + "\"")
+                .collect(Collectors.joining(", "));
+        return "{ \"correctedEquations\": [" + solutions + "]}";
     }
 
     private static HttpURLConnection createHttpGetConnection(int testcase) throws IOException {
