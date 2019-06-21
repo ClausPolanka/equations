@@ -1,3 +1,5 @@
+package equation;
+
 import static java.lang.String.format;
 
 public class Equation {

@@ -1,3 +1,5 @@
+package equation;
+
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,6 +8,7 @@ import java.util.stream.Collectors;
 import static java.lang.String.format;
 
 public class EquationJsonConverter {
+
     private static final String EQUATION_REGEX = ".*(\\d=\\d).*";
     private static final Pattern EQUATION_PATTERN = Pattern.compile(EQUATION_REGEX);
 

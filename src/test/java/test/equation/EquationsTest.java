@@ -1,5 +1,9 @@
+package test.equation;
+
 import com.googlecode.zohhak.api.TestWith;
 import com.googlecode.zohhak.api.runners.ZohhakRunner;
+import equation.Equation;
+import equation.Equations;
 import org.junit.runner.RunWith;
 
 import java.util.Set;

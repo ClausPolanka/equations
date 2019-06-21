@@ -1,3 +1,7 @@
+package test.equation;
+
+import equation.Equation;
+import equation.EquationJsonConverter;
 import org.junit.Test;
 
 import java.util.HashSet;

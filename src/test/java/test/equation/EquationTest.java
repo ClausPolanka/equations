@@ -1,3 +1,6 @@
+package test.equation;
+
+import equation.Equation;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
