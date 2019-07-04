@@ -23,7 +23,7 @@ public class TestRunner {
 
     }
 
-    public static void runTestCase(int testCase) throws IOException {
+    private static void runTestCase(int testCase) throws IOException {
         String jsonAssignment = getAssignmentFor(testCase);
         Equation equation = toEquation(jsonAssignment);
         Set<Equation> solutions = solve(equation);

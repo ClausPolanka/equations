@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
@@ -30,8 +29,8 @@ public class Equations {
         if (equation.getLeftSide().length() > 1) {
             // equation.getLeftSide() => parse => Expression
             Expression e = new Expression(equation.getLeftSide());
-            String result = evaluate(e);
-            if(result.equals(equation.getRightSide())){
+            String result = e.evaluate();
+            if (result.equals(equation.getRightSide())) {
                 correctEquations.add(equation);
             }
             return correctEquations;
@@ -41,10 +40,6 @@ public class Equations {
             correctEquations.add(Equation.newCorrectEquation(equation.getRightSide()));
         }
         return correctEquations;
-    }
-
-    private static String evaluate(Expression e) {
-        return String.valueOf(parseInt(e.operand1) + parseInt(e.operand2));
     }
 
 }

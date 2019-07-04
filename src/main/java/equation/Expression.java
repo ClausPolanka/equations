@@ -1,5 +1,6 @@
 package equation;
 
+import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 
 public class Expression {
@@ -15,6 +16,10 @@ public class Expression {
         operand1 = valueOf(expression.charAt(INDEX_OF_OPERAND1));
         operator = valueOf(expression.charAt(INDEX_OF_OPERATOR));
         operand2 = valueOf(expression.charAt(INDEX_OF_OPERAND2));
+    }
+
+    public String evaluate() {
+        return valueOf(parseInt(operand1) + parseInt(operand2));
     }
 
 }
