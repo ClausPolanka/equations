@@ -65,10 +65,17 @@ public class EquationsTest {
     }
 
     @Test
-    public void solveReturnsSolutionsWithCorrectEquationsForEquationWithExpression() {
+    public void solveReturnsSolutionsWithCorrectEquationsForEquationWithAddExpression() {
         Set<Equation> solution = Equations.solve(new Equation("0+1=1"));
 
         assertThat(solution, hasItems(new Equation("0+1=1")));
+    }
+
+    @Test
+    public void solveReturnsSolutionsWithCorrectEquationsForEquationWithSubstractExpression() {
+        Set<Equation> solution = Equations.solve(new Equation("2-1=1"));
+
+        assertThat(solution, hasItems(new Equation("2-1=1")));
     }
 
 }
