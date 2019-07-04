@@ -1,5 +1,6 @@
 package equation;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -26,6 +27,9 @@ public class Equations {
 
     public static Set<Equation> solve(Equation equation) {
         Set<Equation> correctEquations = new HashSet<>();
+        if (equation.getLeftSide().length() > 1) {
+            return Collections.emptySet();
+        }
         if (SOLUTION_SPACE.get(equation.getLeftSide()).contains(equation.getRightSide())) {
             correctEquations.add(Equation.newCorrectEquation(equation.getLeftSide()));
             correctEquations.add(Equation.newCorrectEquation(equation.getRightSide()));

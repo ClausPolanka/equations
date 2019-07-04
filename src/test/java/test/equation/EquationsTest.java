@@ -4,6 +4,7 @@ import com.googlecode.zohhak.api.TestWith;
 import com.googlecode.zohhak.api.runners.ZohhakRunner;
 import equation.Equation;
 import equation.Equations;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Set;
@@ -61,6 +62,13 @@ public class EquationsTest {
 
         assertThat(solution.size(), is(2));
         assertThat(solution, hasItems(new Equation(correctEquation1), new Equation(correctEquation2)));
+    }
+
+    @Test
+    public void solveReturnsSolutionsWithCorrectEquationsForEquationWithExpression() {
+        Set<Equation> solution = Equations.solve(new Equation("9-2=5"));
+
+        assertThat(solution.size(), is(0));
     }
 
 }
