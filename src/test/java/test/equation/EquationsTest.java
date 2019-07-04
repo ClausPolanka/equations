@@ -66,9 +66,9 @@ public class EquationsTest {
 
     @Test
     public void solveReturnsSolutionsWithCorrectEquationsForEquationWithExpression() {
-        Set<Equation> solution = Equations.solve(new Equation("9-2=5"));
+        Set<Equation> solution = Equations.solve(new Equation("0+1=1"));
 
-        assertThat(solution.size(), is(0));
+        assertThat(solution, hasItems(new Equation("0+1=1")));
     }
 
 }

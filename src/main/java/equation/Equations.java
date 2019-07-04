@@ -1,12 +1,12 @@
 package equation;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
@@ -30,13 +30,21 @@ public class Equations {
         if (equation.getLeftSide().length() > 1) {
             // equation.getLeftSide() => parse => Expression
             Expression e = new Expression(equation.getLeftSide());
-            return Collections.emptySet();
+            String result = evaluate(e);
+            if(result.equals(equation.getRightSide())){
+                correctEquations.add(equation);
+            }
+            return correctEquations;
         }
         if (SOLUTION_SPACE.get(equation.getLeftSide()).contains(equation.getRightSide())) {
             correctEquations.add(Equation.newCorrectEquation(equation.getLeftSide()));
             correctEquations.add(Equation.newCorrectEquation(equation.getRightSide()));
         }
         return correctEquations;
+    }
+
+    private static String evaluate(Expression e) {
+        return String.valueOf(parseInt(e.operand1) + parseInt(e.operand2));
     }
 
 }
