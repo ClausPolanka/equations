@@ -28,6 +28,8 @@ public class Equations {
     public static Set<Equation> solve(Equation equation) {
         Set<Equation> correctEquations = new HashSet<>();
         if (equation.getLeftSide().length() > 1) {
+            // equation.getLeftSide() => parse => Expression
+            Expression e = new Expression(equation.getLeftSide());
             return Collections.emptySet();
         }
         if (SOLUTION_SPACE.get(equation.getLeftSide()).contains(equation.getRightSide())) {
