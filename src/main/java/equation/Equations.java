@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
@@ -32,41 +33,28 @@ public class Equations {
 
     private static Set<Equation> solveStage2(Equation equation) {
         Set<Equation> correctEquations = new HashSet<>();
-        Expression oExp = equation.getLeftSideExpression();
 
-        // [...] + 0 = 6
-        SOLUTION_SPACE.get(oExp.leftOperand).forEach(s -> {
-            Expression newExp = oExp.withLeftOperand(s);
-            Equation newEquation = equation.withLeftSide(newExp);
-            if (newEquation.isCorrect()) {
-                correctEquations.add(equation.withLeftSide(newExp));
-            }
+        SOLUTION_SPACE.get(equation.getLSLO()).forEach(s -> {
+            correctEquations.add(equation.withLSLO(s));
         });
 
-        // 0 + [...] = 6
-        SOLUTION_SPACE.get(oExp.rightOperand).forEach(s -> {
-            Expression newExp = oExp.withRightOperand(s);
-            Equation newEquation = equation.withLeftSide(newExp);
-            if (newEquation.isCorrect()) {
-                correctEquations.add(equation.withLeftSide(newExp));
-            }
+        SOLUTION_SPACE.get(equation.getLSRO()).forEach(s -> {
+            correctEquations.add(equation.withLSRO(s));
         });
 
-        // 6 + 3 = [...]
         SOLUTION_SPACE.get(equation.getRightSide()).forEach(s -> {
-            Equation newEquation = new Equation(oExp, s);
-            if (newEquation.isCorrect()) {
-                correctEquations.add(new Equation(oExp.toString(), s));
-            }
+            correctEquations.add(equation.withRightSide(s));
         });
 
-        return correctEquations;
+        return correctEquations.stream()
+                .filter(Equation::isCorrect)
+                .collect(Collectors.toSet());
     }
 
     private static Set<Equation> solveStage1(Equation equation) {
         Set<Equation> correctEquations = new HashSet<>();
-        if (SOLUTION_SPACE.get(equation.getLeftSide()).contains(equation.getRightSide())) {
-            correctEquations.add(Equation.newCorrectEquation(equation.getLeftSide()));
+        if (SOLUTION_SPACE.get(equation.getLeftSide().toString()).contains(equation.getRightSide())) {
+            correctEquations.add(Equation.newCorrectEquation(equation.getLeftSide().toString()));
             correctEquations.add(Equation.newCorrectEquation(equation.getRightSide()));
         }
         return correctEquations;

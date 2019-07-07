@@ -8,9 +8,9 @@ public class Expression {
     private static final int INDEX_OF_OPERAND1 = 0;
     private static final int INDEX_OF_OPERATOR = 1;
     private static final int INDEX_OF_OPERAND2 = 2;
-    public String leftOperand;
-    public String rightOperand;
-    public String operator;
+    public final String leftOperand;
+    public final String rightOperand;
+    public final String operator;
 
     public Expression(String expression) {
         leftOperand = valueOf(expression.charAt(INDEX_OF_OPERAND1));

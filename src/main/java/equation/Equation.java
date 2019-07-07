@@ -5,23 +5,23 @@ import static java.lang.String.format;
 public class Equation {
 
     private final String rightSide;
-    private Expression leftSideExp;
+    private Expression leftSide;
 
     /**
      * @param equation format leftSide=rightSide e.g. '1=2' or '1+2=3'
      */
     public Equation(String equation) {
-        this.leftSideExp = new Expression(equation.split("=")[0]);
+        this.leftSide = new Expression(equation.split("=")[0]);
         this.rightSide = equation.split("=")[1];
     }
 
     public Equation(String leftSide, String rightSide) {
-        this.leftSideExp = new Expression(leftSide);
+        this.leftSide = new Expression(leftSide);
         this.rightSide = rightSide;
     }
 
-    public Equation(Expression leftSideExp, String rightSide) {
-        this.leftSideExp = leftSideExp;
+    public Equation(Expression leftSide, String rightSide) {
+        this.leftSide = leftSide;
         this.rightSide = rightSide;
     }
 
@@ -30,11 +30,11 @@ public class Equation {
     }
 
     public boolean hasSingleNumberLeftSide() {
-        return leftSideExp.operator.equals("");
+        return leftSide.operator.equals("");
     }
 
-    public String getLeftSide() {
-        return leftSideExp.toString();
+    public Expression getLeftSide() {
+        return leftSide;
     }
 
     public String getRightSide() {
@@ -44,7 +44,7 @@ public class Equation {
     @Override
     public boolean equals(Object obj) {
         Equation equation = (Equation) obj;
-        return leftSideExp.toString().equals(equation.leftSideExp.toString())
+        return leftSide.toString().equals(equation.leftSide.toString())
                 && rightSide.equals(equation.rightSide);
     }
 
@@ -55,29 +55,41 @@ public class Equation {
 
     @Override
     public String toString() {
-        return format("Equation{%s=%s}", leftSideExp.toString(), rightSide);
+        return format("Equation{%s=%s}", leftSide.toString(), rightSide);
     }
 
     public boolean isCorrect() {
-        System.out.println(this);
-        return leftSideExp.evaluate().equals(rightSide);
+        return leftSide.evaluate().equals(rightSide);
     }
 
     public Expression getLeftSideExpression() {
         if (hasSingleNumberLeftSide())
             throw new RuntimeException("Left side not an Expression");
-        return leftSideExp;
+        return leftSide;
     }
 
     public Equation withLeftSide(Expression leftSide) {
-        if (!isCorrect()) {
-            System.out.println(this);
-        }
         return new Equation(leftSide, rightSide);
     }
 
-    public Equation withLeftSide(String leftSide) {
+    public Equation withRightSide(String rightSide) {
         return new Equation(leftSide, rightSide);
+    }
+
+    public String getLSLO() {
+        return leftSide.leftOperand;
+    }
+
+    public Equation withLSLO(String leftOperand) {
+        return withLeftSide(leftSide.withLeftOperand(leftOperand));
+    }
+
+    public String getLSRO() {
+        return leftSide.rightOperand;
+    }
+
+    public Equation withLSRO(String rightOperand) {
+        return withLeftSide(leftSide.withRightOperand(rightOperand));
     }
 
 }
