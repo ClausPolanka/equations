@@ -36,8 +36,8 @@ public class Equations {
 
         // [...] + 0 = 6
         SOLUTION_SPACE.get(oExp.leftOperand).forEach(s -> {
-            Expression newExp = oExp.withNewLeftOperand(s);
-            Equation newEquation = equation.withNewLeftSide(newExp.evaluate());
+            Expression newExp = oExp.withLeftOperand(s);
+            Equation newEquation = equation.withLeftSide(newExp);
             if (newEquation.isCorrect()) {
                 correctEquations.add(new Equation(newExp.toString(), equation.getRightSide()));
             }
@@ -45,8 +45,8 @@ public class Equations {
 
         // 0 + [...] = 6
         SOLUTION_SPACE.get(oExp.rightOperand).forEach(s -> {
-            Expression newExp = oExp.withNewRightOperand(s);
-            Equation newEquation = equation.withNewLeftSide(newExp.evaluate());
+            Expression newExp = oExp.withRightOperand(s);
+            Equation newEquation = equation.withLeftSide(newExp);
             if (newEquation.isCorrect()) {
                 correctEquations.add(new Equation(newExp.toString(), equation.getRightSide()));
             }
@@ -55,9 +55,9 @@ public class Equations {
         // 6 + 3 = [...]
         SOLUTION_SPACE.get(equation.getRightSide()).forEach(s -> {
             String leftSide = oExp.evaluate();
-            Equation newEquation = new Equation(leftSide + "=" + s);
+            Equation newEquation = new Equation(leftSide, s);
             if (newEquation.isCorrect()) {
-                correctEquations.add(new Equation(oExp + "=" + s));
+                correctEquations.add(new Equation(oExp.toString(), s));
             }
         });
 

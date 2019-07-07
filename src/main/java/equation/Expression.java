@@ -34,11 +34,11 @@ public class Expression {
         return leftOperand + operator + rightOperand;
     }
 
-    public Expression withNewLeftOperand(String solution) {
+    public Expression withLeftOperand(String solution) {
         return new Expression(solution + operator + rightOperand);
     }
 
-    public Expression withNewRightOperand(String solution) {
+    public Expression withRightOperand(String solution) {
         return new Expression(leftOperand + operator + solution);
     }
 

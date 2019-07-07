@@ -63,8 +63,8 @@ public class Equation {
         return new Expression(getLeftSide());
     }
 
-    public Equation withNewLeftSide(String leftSide) {
-        return new Equation(leftSide, rightSide);
+    public Equation withLeftSide(Expression leftSide) {
+        return new Equation(leftSide.evaluate(), rightSide);
     }
 
 }
