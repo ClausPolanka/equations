@@ -25,9 +25,9 @@ public class Equations {
     }};
 
     public static Set<Equation> solve(Equation equation) {
-        return equation.hasLeftSideExpression()
-                ? solveStage2(equation)
-                : solveStage1(equation);
+        return !equation.hasLeftSideExpression()
+                ? solveStage1(equation)
+                : solveStage2(equation);
     }
 
     private static Set<Equation> solveStage2(Equation equation) {

@@ -72,7 +72,7 @@ public class EquationsTest {
     }
 
     @Test
-    public void solveReturnsSolutionsWithCorrectEquationsForEquationWithSubstractExpression() {
+    public void solveReturnsSolutionsWithCorrectEquationsForEquationWithSubtractExpression() {
         Set<Equation> solution = Equations.solve(new Equation("2-1=1"));
 
         assertThat(solution, hasItems(new Equation("2-1=1")));
@@ -83,10 +83,13 @@ public class EquationsTest {
             "0+9=6, 0+6=6",
             "6+3=0, 6+3=9"
     })
-    public void foo1(String equation, String solution) {
+    public void solveReturnsSolutionWithCorrectEquationForGivenEquationContainingLeftSideExpression(
+            String equation,
+            String correctEquation
+    ) {
         Set<Equation> solutions = Equations.solve(new Equation(equation));
 
-        assertThat(solutions, hasItems(new Equation(solution)));
+        assertThat(solutions, hasItems(new Equation(correctEquation)));
     }
 
 }
