@@ -8,11 +8,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 public class Equations {
 
     private static final Map<String, List<String>> SOLUTION_SPACE = new HashMap<String, List<String>>() {{
+        put("", emptyList());
         put("0", asList("0", "6", "9"));
         put("1", singletonList("1"));
         put("2", asList("2", "3"));
@@ -26,12 +28,6 @@ public class Equations {
     }};
 
     public static Set<Equation> solve(Equation equation) {
-        return equation.hasSingleNumberLeftSide()
-                ? solveStage1(equation)
-                : solveStage2(equation);
-    }
-
-    private static Set<Equation> solveStage2(Equation equation) {
         Set<Equation> correctEquations = new HashSet<>();
 
         SOLUTION_SPACE.get(equation.getLSLO()).forEach(s -> {
@@ -49,15 +45,6 @@ public class Equations {
         return correctEquations.stream()
                 .filter(Equation::isCorrect)
                 .collect(Collectors.toSet());
-    }
-
-    private static Set<Equation> solveStage1(Equation equation) {
-        Set<Equation> correctEquations = new HashSet<>();
-        if (SOLUTION_SPACE.get(equation.getLeftSide().toString()).contains(equation.getRightSide())) {
-            correctEquations.add(Equation.newCorrectEquation(equation.getLeftSide().toString()));
-            correctEquations.add(Equation.newCorrectEquation(equation.getRightSide()));
-        }
-        return correctEquations;
     }
 
 }
