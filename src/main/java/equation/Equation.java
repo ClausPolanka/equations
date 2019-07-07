@@ -19,8 +19,8 @@ public class Equation {
         return new Equation(format("%s=%s", digit, digit));
     }
 
-    public boolean hasLeftSideExpression() {
-        return getLeftSide().length() > 1;
+    public boolean hasSingleNumberLeftSide() {
+        return leftSide.length() == 1;
     }
 
     public String getLeftSide() {

@@ -25,7 +25,7 @@ public class Equations {
     }};
 
     public static Set<Equation> solve(Equation equation) {
-        return !equation.hasLeftSideExpression()
+        return equation.hasSingleNumberLeftSide()
                 ? solveStage1(equation)
                 : solveStage2(equation);
     }
