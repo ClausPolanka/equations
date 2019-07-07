@@ -19,7 +19,14 @@ public class Expression {
     }
 
     public String evaluate() {
-        return valueOf(parseInt(operand1) + parseInt(operand2));
+        switch (operator) {
+            case "+":
+                return valueOf(parseInt(operand1) + parseInt(operand2));
+            case "-":
+                return valueOf(parseInt(operand1) - parseInt(operand2));
+            default:
+                throw new RuntimeException("Operation not supported");
+        }
     }
 
 }
