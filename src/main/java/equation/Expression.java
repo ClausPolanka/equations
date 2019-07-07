@@ -14,8 +14,8 @@ public class Expression {
 
     public Expression(String expression) {
         leftOperand = valueOf(expression.charAt(INDEX_OF_OPERAND1));
-        operator = valueOf(expression.charAt(INDEX_OF_OPERATOR));
-        rightOperand = valueOf(expression.charAt(INDEX_OF_OPERAND2));
+        operator = expression.length() > 1 ? valueOf(expression.charAt(INDEX_OF_OPERATOR)) : "";
+        rightOperand = expression.length() > 2 ? valueOf(expression.charAt(INDEX_OF_OPERAND2)) : "";
     }
 
     public String evaluate() {
@@ -25,11 +25,10 @@ public class Expression {
             case "-":
                 return valueOf(parseInt(leftOperand) - parseInt(rightOperand));
             default:
-                throw new RuntimeException("Operation not supported");
+                return leftOperand;
         }
     }
 
-    @Override
     public String toString() {
         return leftOperand + operator + rightOperand;
     }

@@ -4,19 +4,24 @@ import static java.lang.String.format;
 
 public class Equation {
 
-    private final String leftSide;
     private final String rightSide;
+    private Expression leftSideExp;
 
     /**
      * @param equation format leftSide=rightSide e.g. '1=2' or '1+2=3'
      */
     public Equation(String equation) {
-        this.leftSide = equation.split("=")[0];
+        this.leftSideExp = new Expression(equation.split("=")[0]);
         this.rightSide = equation.split("=")[1];
     }
 
     public Equation(String leftSide, String rightSide) {
-        this.leftSide = leftSide;
+        this.leftSideExp = new Expression(leftSide);
+        this.rightSide = rightSide;
+    }
+
+    public Equation(Expression leftSideExp, String rightSide) {
+        this.leftSideExp = leftSideExp;
         this.rightSide = rightSide;
     }
 
@@ -25,11 +30,11 @@ public class Equation {
     }
 
     public boolean hasSingleNumberLeftSide() {
-        return leftSide.length() == 1;
+        return leftSideExp.operator.equals("");
     }
 
     public String getLeftSide() {
-        return leftSide;
+        return leftSideExp.toString();
     }
 
     public String getRightSide() {
@@ -39,7 +44,7 @@ public class Equation {
     @Override
     public boolean equals(Object obj) {
         Equation equation = (Equation) obj;
-        return leftSide.equals(equation.leftSide)
+        return leftSideExp.toString().equals(equation.leftSideExp.toString())
                 && rightSide.equals(equation.rightSide);
     }
 
@@ -50,21 +55,25 @@ public class Equation {
 
     @Override
     public String toString() {
-        return format("Equation{%s=%s}", leftSide, rightSide);
+        return format("Equation{%s=%s}", leftSideExp.toString(), rightSide);
     }
 
     public boolean isCorrect() {
-        return leftSide.equals(rightSide);
+        System.out.println(this);
+        return leftSideExp.evaluate().equals(rightSide);
     }
 
     public Expression getLeftSideExpression() {
         if (hasSingleNumberLeftSide())
             throw new RuntimeException("Left side not an Expression");
-        return new Expression(getLeftSide());
+        return leftSideExp;
     }
 
     public Equation withLeftSide(Expression leftSide) {
-        return new Equation(leftSide.evaluate(), rightSide);
+        if (!isCorrect()) {
+            System.out.println(this);
+        }
+        return new Equation(leftSide, rightSide);
     }
 
     public Equation withLeftSide(String leftSide) {

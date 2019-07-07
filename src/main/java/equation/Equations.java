@@ -39,7 +39,7 @@ public class Equations {
             Expression newExp = oExp.withLeftOperand(s);
             Equation newEquation = equation.withLeftSide(newExp);
             if (newEquation.isCorrect()) {
-                correctEquations.add(equation.withLeftSide(newExp.toString()));
+                correctEquations.add(equation.withLeftSide(newExp));
             }
         });
 
@@ -48,14 +48,13 @@ public class Equations {
             Expression newExp = oExp.withRightOperand(s);
             Equation newEquation = equation.withLeftSide(newExp);
             if (newEquation.isCorrect()) {
-                correctEquations.add(equation.withLeftSide(newExp.toString()));
+                correctEquations.add(equation.withLeftSide(newExp));
             }
         });
 
         // 6 + 3 = [...]
         SOLUTION_SPACE.get(equation.getRightSide()).forEach(s -> {
-            String leftSide = oExp.evaluate();
-            Equation newEquation = new Equation(leftSide, s);
+            Equation newEquation = new Equation(oExp, s);
             if (newEquation.isCorrect()) {
                 correctEquations.add(new Equation(oExp.toString(), s));
             }
