@@ -19,6 +19,10 @@ public class Equation {
         return new Equation(format("%s=%s", digit, digit));
     }
 
+    public boolean hasLeftSideExpression() {
+        return getLeftSide().length() > 1;
+    }
+
     public String getLeftSide() {
         return leftSide;
     }

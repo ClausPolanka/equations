@@ -25,42 +25,51 @@ public class Equations {
     }};
 
     public static Set<Equation> solve(Equation equation) {
-        Set<Equation> correctEquations = new HashSet<>();
-        if (equation.getLeftSide().length() > 1) {
-
-            Expression e = new Expression(equation.getLeftSide());
-
-            // [...] + 0 = 6
-            List<String> solutions = SOLUTION_SPACE.get(e.operand1);
-            for (String solution : solutions) {
-                Expression exp = new Expression(solution + e.operator + e.operand2);
-                String r = exp.evaluate();
-                if (r.equals(equation.getRightSide())) {
-                    correctEquations.add(new Equation(exp + "=" + equation.getRightSide()));
-                }
-            }
-
-            // 0 + [...] = 6
-            solutions = SOLUTION_SPACE.get(e.operand2);
-            for (String solution : solutions) {
-                Expression exp = new Expression(e.operand1 + e.operator + solution);
-                String r = exp.evaluate();
-                if (r.equals(equation.getRightSide())) {
-                    correctEquations.add(new Equation(exp + "=" + equation.getRightSide()));
-                }
-            }
-
-            // 6 + 3 = [...]
-            solutions = SOLUTION_SPACE.get(equation.getRightSide());
-            for (String solution : solutions) {
-                String r = e.evaluate();
-                if (r.equals(solution)) {
-                    correctEquations.add(new Equation(e + "=" + solution));
-                }
-            }
-
-            return correctEquations;
+        if (equation.hasLeftSideExpression()) {
+            return solveStage2(equation);
         }
+        return solveStage1(equation);
+    }
+
+    private static Set<Equation> solveStage2(Equation equation) {
+        Set<Equation> correctEquations = new HashSet<>();
+
+        Expression e = new Expression(equation.getLeftSide());
+
+        // [...] + 0 = 6
+        List<String> solutions = SOLUTION_SPACE.get(e.operand1);
+        for (String solution : solutions) {
+            Expression exp = new Expression(solution + e.operator + e.operand2);
+            String r = exp.evaluate();
+            if (r.equals(equation.getRightSide())) {
+                correctEquations.add(new Equation(exp + "=" + equation.getRightSide()));
+            }
+        }
+
+        // 0 + [...] = 6
+        solutions = SOLUTION_SPACE.get(e.operand2);
+        for (String solution : solutions) {
+            Expression exp = new Expression(e.operand1 + e.operator + solution);
+            String r = exp.evaluate();
+            if (r.equals(equation.getRightSide())) {
+                correctEquations.add(new Equation(exp + "=" + equation.getRightSide()));
+            }
+        }
+
+        // 6 + 3 = [...]
+        solutions = SOLUTION_SPACE.get(equation.getRightSide());
+        for (String solution : solutions) {
+            String r = e.evaluate();
+            if (r.equals(solution)) {
+                correctEquations.add(new Equation(e + "=" + solution));
+            }
+        }
+
+        return correctEquations;
+    }
+
+    private static Set<Equation> solveStage1(Equation equation) {
+        Set<Equation> correctEquations = new HashSet<>();
         if (SOLUTION_SPACE.get(equation.getLeftSide()).contains(equation.getRightSide())) {
             correctEquations.add(Equation.newCorrectEquation(equation.getLeftSide()));
             correctEquations.add(Equation.newCorrectEquation(equation.getRightSide()));
