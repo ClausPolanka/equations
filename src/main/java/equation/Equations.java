@@ -39,7 +39,7 @@ public class Equations {
             Expression newExp = oExp.withLeftOperand(s);
             Equation newEquation = equation.withLeftSide(newExp);
             if (newEquation.isCorrect()) {
-                correctEquations.add(new Equation(newExp.toString(), equation.getRightSide()));
+                correctEquations.add(equation.withLeftSide(newExp.toString()));
             }
         });
 
@@ -48,7 +48,7 @@ public class Equations {
             Expression newExp = oExp.withRightOperand(s);
             Equation newEquation = equation.withLeftSide(newExp);
             if (newEquation.isCorrect()) {
-                correctEquations.add(new Equation(newExp.toString(), equation.getRightSide()));
+                correctEquations.add(equation.withLeftSide(newExp.toString()));
             }
         });
 

@@ -67,4 +67,8 @@ public class Equation {
         return new Equation(leftSide.evaluate(), rightSide);
     }
 
+    public Equation withLeftSide(String leftSide) {
+        return new Equation(leftSide, rightSide);
+    }
+
 }
