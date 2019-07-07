@@ -8,22 +8,22 @@ public class Expression {
     private static final int INDEX_OF_OPERAND1 = 0;
     private static final int INDEX_OF_OPERATOR = 1;
     private static final int INDEX_OF_OPERAND2 = 2;
-    public String operand1;
-    public String operand2;
+    public String leftOperand;
+    public String rightOperand;
     public String operator;
 
     public Expression(String expression) {
-        operand1 = valueOf(expression.charAt(INDEX_OF_OPERAND1));
+        leftOperand = valueOf(expression.charAt(INDEX_OF_OPERAND1));
         operator = valueOf(expression.charAt(INDEX_OF_OPERATOR));
-        operand2 = valueOf(expression.charAt(INDEX_OF_OPERAND2));
+        rightOperand = valueOf(expression.charAt(INDEX_OF_OPERAND2));
     }
 
     public String evaluate() {
         switch (operator) {
             case "+":
-                return valueOf(parseInt(operand1) + parseInt(operand2));
+                return valueOf(parseInt(leftOperand) + parseInt(rightOperand));
             case "-":
-                return valueOf(parseInt(operand1) - parseInt(operand2));
+                return valueOf(parseInt(leftOperand) - parseInt(rightOperand));
             default:
                 throw new RuntimeException("Operation not supported");
         }
@@ -31,7 +31,15 @@ public class Expression {
 
     @Override
     public String toString() {
-        return operand1 + operator + operand2;
+        return leftOperand + operator + rightOperand;
+    }
+
+    public Expression withNewLeftOperand(String solution) {
+        return new Expression(solution + operator + rightOperand);
+    }
+
+    public Expression withNewRightOperand(String solution) {
+        return new Expression(leftOperand + operator + solution);
     }
 
 }

@@ -32,37 +32,34 @@ public class Equations {
 
     private static Set<Equation> solveStage2(Equation equation) {
         Set<Equation> correctEquations = new HashSet<>();
-
-        Expression e = new Expression(equation.getLeftSide());
+        Expression oExp = equation.getLeftSideExpression();
 
         // [...] + 0 = 6
-        List<String> solutions = SOLUTION_SPACE.get(e.operand1);
-        for (String solution : solutions) {
-            Expression exp = new Expression(solution + e.operator + e.operand2);
-            String r = exp.evaluate();
-            if (r.equals(equation.getRightSide())) {
-                correctEquations.add(new Equation(exp + "=" + equation.getRightSide()));
+        SOLUTION_SPACE.get(oExp.leftOperand).forEach(s -> {
+            Expression newExp = oExp.withNewLeftOperand(s);
+            Equation newEquation = equation.withNewLeftSide(newExp.evaluate());
+            if (newEquation.isCorrect()) {
+                correctEquations.add(new Equation(newExp.toString(), equation.getRightSide()));
             }
-        }
+        });
 
         // 0 + [...] = 6
-        solutions = SOLUTION_SPACE.get(e.operand2);
-        for (String solution : solutions) {
-            Expression exp = new Expression(e.operand1 + e.operator + solution);
-            String r = exp.evaluate();
-            if (r.equals(equation.getRightSide())) {
-                correctEquations.add(new Equation(exp + "=" + equation.getRightSide()));
+        SOLUTION_SPACE.get(oExp.rightOperand).forEach(s -> {
+            Expression newExp = oExp.withNewRightOperand(s);
+            Equation newEquation = equation.withNewLeftSide(newExp.evaluate());
+            if (newEquation.isCorrect()) {
+                correctEquations.add(new Equation(newExp.toString(), equation.getRightSide()));
             }
-        }
+        });
 
         // 6 + 3 = [...]
-        solutions = SOLUTION_SPACE.get(equation.getRightSide());
-        for (String solution : solutions) {
-            String r = e.evaluate();
-            if (r.equals(solution)) {
-                correctEquations.add(new Equation(e + "=" + solution));
+        SOLUTION_SPACE.get(equation.getRightSide()).forEach(s -> {
+            String leftSide = oExp.evaluate();
+            Equation newEquation = new Equation(leftSide + "=" + s);
+            if (newEquation.isCorrect()) {
+                correctEquations.add(new Equation(oExp + "=" + s));
             }
-        }
+        });
 
         return correctEquations;
     }
