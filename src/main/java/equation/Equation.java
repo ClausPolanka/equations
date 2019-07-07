@@ -15,11 +15,6 @@ public class Equation {
         this.rightSide = equation.split("=")[1];
     }
 
-    public Equation(String leftSide, String rightSide) {
-        this.leftSide = new Expression(leftSide);
-        this.rightSide = rightSide;
-    }
-
     public Equation(Expression leftSide, String rightSide) {
         this.leftSide = leftSide;
         this.rightSide = rightSide;
@@ -27,10 +22,6 @@ public class Equation {
 
     public static Equation newCorrectEquation(String digit) {
         return new Equation(format("%s=%s", digit, digit));
-    }
-
-    public boolean hasSingleNumberLeftSide() {
-        return leftSide.operator.equals("");
     }
 
     public Expression getLeftSide() {
@@ -60,12 +51,6 @@ public class Equation {
 
     public boolean isCorrect() {
         return leftSide.evaluate().equals(rightSide);
-    }
-
-    public Expression getLeftSideExpression() {
-        if (hasSingleNumberLeftSide())
-            throw new RuntimeException("Left side not an Expression");
-        return leftSide;
     }
 
     public Equation withLeftSide(Expression leftSide) {
