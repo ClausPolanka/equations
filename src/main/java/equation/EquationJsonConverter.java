@@ -9,7 +9,7 @@ import static java.lang.String.format;
 
 public class EquationJsonConverter {
 
-    private static final String EQUATION_REGEX = ".*(\\d=\\d).*";
+    private static final String EQUATION_REGEX = "(\\d?[\\+\\-]?\\d=\\d)";
     private static final Pattern EQUATION_PATTERN = Pattern.compile(EQUATION_REGEX);
 
     public static Equation toEquation(String jsonResponse) {

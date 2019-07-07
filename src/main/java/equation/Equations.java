@@ -5,13 +5,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 public class Equations {
 
     private static final Map<String, List<String>> SOLUTION_SPACE = new HashMap<String, List<String>>() {{
+        put("", emptyList());
         put("0", asList("0", "6", "9"));
         put("1", singletonList("1"));
         put("2", asList("2", "3"));
@@ -26,20 +29,22 @@ public class Equations {
 
     public static Set<Equation> solve(Equation equation) {
         Set<Equation> correctEquations = new HashSet<>();
-        if (equation.getLeftSide().length() > 1) {
-            // equation.getLeftSide() => parse => Expression
-            Expression e = new Expression(equation.getLeftSide());
-            String result = e.evaluate();
-            if (result.equals(equation.getRightSide())) {
-                correctEquations.add(equation);
-            }
-            return correctEquations;
-        }
-        if (SOLUTION_SPACE.get(equation.getLeftSide()).contains(equation.getRightSide())) {
-            correctEquations.add(Equation.newCorrectEquation(equation.getLeftSide()));
-            correctEquations.add(Equation.newCorrectEquation(equation.getRightSide()));
-        }
-        return correctEquations;
+
+        SOLUTION_SPACE.get(equation.getLSLO()).forEach(s -> {
+            correctEquations.add(equation.withLSLO(s));
+        });
+
+        SOLUTION_SPACE.get(equation.getLSRO()).forEach(s -> {
+            correctEquations.add(equation.withLSRO(s));
+        });
+
+        SOLUTION_SPACE.get(equation.getRightSide()).forEach(s -> {
+            correctEquations.add(equation.withRightSide(s));
+        });
+
+        return correctEquations.stream()
+                .filter(Equation::isCorrect)
+                .collect(Collectors.toSet());
     }
 
 }

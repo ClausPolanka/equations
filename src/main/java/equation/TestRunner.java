@@ -13,22 +13,27 @@ import static java.util.stream.IntStream.range;
 public class TestRunner {
 
     public static void main(String[] args) {
-        range(1, 101).forEach(testCase -> {
+        runTestCases(1, 100);
+        runTestCases(2, 150);
+
+    }
+
+    private static void runTestCases(int testStage, int lastTestCase) {
+        range(1, lastTestCase + 1).forEach(testCase -> {
             try {
-                runTestCase(testCase);
+                runTestCase(testStage, testCase);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
-
     }
 
-    private static void runTestCase(int testCase) throws IOException {
-        String jsonAssignment = getAssignmentFor(testCase);
+    private static void runTestCase(int testStage, int testCase) throws IOException {
+        String jsonAssignment = getAssignmentFor(testStage, testCase);
         Equation equation = toEquation(jsonAssignment);
         Set<Equation> solutions = solve(equation);
         String jsonSolution = toJson(solutions);
-        submitSolutionFor(testCase, jsonSolution);
+        submitSolutionFor(testStage, testCase, jsonSolution);
     }
 
 }
