@@ -13,21 +13,19 @@ import static java.util.stream.IntStream.range;
 public class TestRunner {
 
     public static void main(String[] args) {
-        range(1, 101).forEach(testCase -> {
-            try {
-                runTestCase(1, testCase);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        range(1, 151).forEach(testCase -> {
-            try {
-                runTestCase(2, testCase);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        runTestCases(1, 100);
+        runTestCases(2, 150);
 
+    }
+
+    private static void runTestCases(int testStage, int lastTestCase) {
+        range(1, lastTestCase + 1).forEach(testCase -> {
+            try {
+                runTestCase(testStage, testCase);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private static void runTestCase(int testStage, int testCase) throws IOException {
