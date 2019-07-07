@@ -29,4 +29,9 @@ public class Expression {
         }
     }
 
+    @Override
+    public String toString() {
+        return operand1 + operator + operand2;
+    }
+
 }

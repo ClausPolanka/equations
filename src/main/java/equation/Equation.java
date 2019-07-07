@@ -7,6 +7,9 @@ public class Equation {
     private final String leftSide;
     private final String rightSide;
 
+    /**
+     * @param equation format leftSide=rightSide e.g. '1=2' or '1+2=3'
+     */
     public Equation(String equation) {
         this.leftSide = equation.split("=")[0];
         this.rightSide = equation.split("=")[1];

@@ -78,4 +78,15 @@ public class EquationsTest {
         assertThat(solution, hasItems(new Equation("2-1=1")));
     }
 
+    @TestWith({
+            "9+0=6, 6+0=6",
+            "0+9=6, 0+6=6",
+            "6+3=0, 6+3=9"
+    })
+    public void foo1(String equation, String solution) {
+        Set<Equation> solutions = Equations.solve(new Equation(equation));
+
+        assertThat(solutions, hasItems(new Equation(solution)));
+    }
+
 }
