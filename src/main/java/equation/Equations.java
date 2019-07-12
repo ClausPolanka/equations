@@ -32,23 +32,24 @@ public class Equations {
 
             SOLUTION_SPACE.get(e.operand1).forEach(s -> {
                 Expression newLeftSide = new Expression(s, e.operator, e.operand2);
-                String newLeftSideResult = newLeftSide.evaluate();
-                if (newLeftSideResult.equals(equation.getRightSide())) {
-                    correctEquations.add(new Equation(newLeftSide, equation.getRightSide()));
+                Equation newEquation = new Equation(newLeftSide, equation.getRightSide());
+                if (newEquation.isCorrect()) {
+                    correctEquations.add(newEquation);
                 }
             });
 
             SOLUTION_SPACE.get(e.operand2).forEach(s -> {
                 Expression newLeftSide = new Expression(e.operand1, e.operator, s);
-                String newLeftSideResult = newLeftSide.evaluate();
-                if (newLeftSideResult.equals(equation.getRightSide())) {
-                    correctEquations.add(new Equation(newLeftSide, equation.getRightSide()));
+                Equation newEquation = new Equation(newLeftSide, equation.getRightSide());
+                if (newEquation.isCorrect()) {
+                    correctEquations.add(newEquation);
                 }
             });
 
             SOLUTION_SPACE.get(equation.getRightSide()).forEach(s -> {
-                if (e.evaluate().equals(s)) {
-                    correctEquations.add(new Equation(e, s));
+                Equation newEquation = new Equation(e, s);
+                if (newEquation.isCorrect()) {
+                    correctEquations.add(newEquation);
                 }
             });
 

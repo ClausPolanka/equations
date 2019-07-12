@@ -45,4 +45,9 @@ public class Equation {
     public String toString() {
         return format("Equation{%s=%s}", leftSide, rightSide);
     }
+
+    public boolean isCorrect() {
+        return new Expression(leftSide).evaluate().equals(rightSide);
+    }
+
 }
