@@ -18,6 +18,12 @@ public class Expression {
         operand2 = valueOf(expression.charAt(INDEX_OF_OPERAND2));
     }
 
+    public Expression(String operand1, String operator, String operand2) {
+        this.operand1 = operand1;
+        this.operator = operator;
+        this.operand2 = operand2;
+    }
+
     public String evaluate() {
         switch (operator) {
             case "+":
@@ -28,6 +34,11 @@ public class Expression {
                 throw new RuntimeException("Operation Not Supported");
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return operand1.concat(operator).concat(operand2);
     }
 
 }

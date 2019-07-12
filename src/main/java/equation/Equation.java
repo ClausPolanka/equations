@@ -12,6 +12,11 @@ public class Equation {
         this.rightSide = equation.split("=")[1];
     }
 
+    public Equation(Expression leftSide, String rightSide) {
+        this.leftSide = leftSide.toString();
+        this.rightSide = rightSide;
+    }
+
     public static Equation newCorrectEquation(String digit) {
         return new Equation(format("%s=%s", digit, digit));
     }

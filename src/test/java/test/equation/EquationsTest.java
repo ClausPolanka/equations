@@ -72,10 +72,17 @@ public class EquationsTest {
     }
 
     @Test
-    public void solveReturnsSolutionsWithCorrectEquationsForEquationWithSubstractExpression() {
+    public void solveReturnsSolutionsWithCorrectEquationsForEquationWithSubtractExpression() {
         Set<Equation> solution = Equations.solve(new Equation("2-1=1"));
 
         assertThat(solution, hasItems(new Equation("2-1=1")));
+    }
+
+    @Test
+    public void solveReturnsSolutionsWithCorrectEquationsForIncorrectInputEquationByReplacingLeftOperand() {
+        Set<Equation> solution = Equations.solve(new Equation("0+0=9"));
+
+        assertThat(solution, hasItems(new Equation("9+0=9")));
     }
 
 }

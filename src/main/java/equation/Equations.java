@@ -32,6 +32,15 @@ public class Equations {
             String result = e.evaluate();
             if (result.equals(equation.getRightSide())) {
                 correctEquations.add(equation);
+            } else {
+                List<String> s = SOLUTION_SPACE.get(e.operand1);
+                for (String each : s) {
+                    Expression newLeftSide = new Expression(each, e.operator, e.operand2);
+                    String newLeftSideResult = newLeftSide.evaluate();
+                    if (newLeftSideResult.equals(equation.getRightSide())) {
+                        correctEquations.add(new Equation(newLeftSide, equation.getRightSide()));
+                    }
+                }
             }
             return correctEquations;
         }
