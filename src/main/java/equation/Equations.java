@@ -29,35 +29,29 @@ public class Equations {
         if (equation.getLeftSide().length() > 1) {
             // equation.getLeftSide() => parse => Expression
             Expression e = new Expression(equation.getLeftSide());
-            String result = e.evaluate();
-            if (result.equals(equation.getRightSide())) {
-                correctEquations.add(equation);
-            } else {
-                List<String> s = SOLUTION_SPACE.get(e.operand1);
-                for (String each : s) {
-                    Expression newLeftSide = new Expression(each, e.operator, e.operand2);
-                    String newLeftSideResult = newLeftSide.evaluate();
-                    if (newLeftSideResult.equals(equation.getRightSide())) {
-                        correctEquations.add(new Equation(newLeftSide, equation.getRightSide()));
-                    }
-                }
 
-                List<String> operand2Replacements = SOLUTION_SPACE.get(e.operand2);
-                for (String each : operand2Replacements) {
-                    Expression newLeftSide = new Expression(e.operand1, e.operator, each);
-                    String newLeftSideResult = newLeftSide.evaluate();
-                    if (newLeftSideResult.equals(equation.getRightSide())) {
-                        correctEquations.add(new Equation(newLeftSide, equation.getRightSide()));
-                    }
+            SOLUTION_SPACE.get(e.operand1).forEach(s -> {
+                Expression newLeftSide = new Expression(s, e.operator, e.operand2);
+                String newLeftSideResult = newLeftSide.evaluate();
+                if (newLeftSideResult.equals(equation.getRightSide())) {
+                    correctEquations.add(new Equation(newLeftSide, equation.getRightSide()));
                 }
+            });
 
-                List<String> rightSideReplacements = SOLUTION_SPACE.get(equation.getRightSide());
-                for (String each : rightSideReplacements) {
-                    if (e.evaluate().equals(each)) {
-                        correctEquations.add(new Equation(e, each));
-                    }
+            SOLUTION_SPACE.get(e.operand2).forEach(s -> {
+                Expression newLeftSide = new Expression(e.operand1, e.operator, s);
+                String newLeftSideResult = newLeftSide.evaluate();
+                if (newLeftSideResult.equals(equation.getRightSide())) {
+                    correctEquations.add(new Equation(newLeftSide, equation.getRightSide()));
                 }
-            }
+            });
+
+            SOLUTION_SPACE.get(equation.getRightSide()).forEach(s -> {
+                if (e.evaluate().equals(s)) {
+                    correctEquations.add(new Equation(e, s));
+                }
+            });
+
             return correctEquations;
         }
         if (SOLUTION_SPACE.get(equation.getLeftSide()).contains(equation.getRightSide())) {
