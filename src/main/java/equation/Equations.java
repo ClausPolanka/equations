@@ -41,6 +41,15 @@ public class Equations {
                         correctEquations.add(new Equation(newLeftSide, equation.getRightSide()));
                     }
                 }
+
+                List<String> operand2Replacements = SOLUTION_SPACE.get(e.operand2);
+                for (String each : operand2Replacements) {
+                    Expression newLeftSide = new Expression(e.operand1, e.operator, each);
+                    String newLeftSideResult = newLeftSide.evaluate();
+                    if (newLeftSideResult.equals(equation.getRightSide())) {
+                        correctEquations.add(new Equation(newLeftSide, equation.getRightSide()));
+                    }
+                }
             }
             return correctEquations;
         }

@@ -79,10 +79,10 @@ public class EquationsTest {
     }
 
     @Test
-    public void solveReturnsSolutionsWithCorrectEquationsForIncorrectInputEquationByReplacingLeftOperand() {
+    public void solveReturnsSolutionsWithCorrectEquationsForIncorrectInputEquation() {
         Set<Equation> solution = Equations.solve(new Equation("0+0=9"));
 
-        assertThat(solution, hasItems(new Equation("9+0=9")));
+        assertThat(solution, hasItems(new Equation("9+0=9"), new Equation("0+9=9")));
     }
 
 }
