@@ -1,13 +1,18 @@
 package test.equation;
 
 import equation.Expression;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class ExpressionTest {
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Test
     public void createNewExpressionReturnsExpressionForAGivenValidExpressionString() {
@@ -29,8 +34,11 @@ public class ExpressionTest {
         assertThat(e.evaluate(), is(equalTo("0")));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void evaluateThrowsExceptionForExpressionWithUnsupportedOperator() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("Operation Not Supported");
+
         Expression e = new Expression("1*1");
         e.evaluate();
     }
