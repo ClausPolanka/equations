@@ -18,13 +18,13 @@ public class ExpressionTest {
     }
 
     @Test
-    public void evaluateAddsOperandsForExpressionWithPlusOperator() {
+    public void evaluateEvaluatesAddition() {
         Expression e = new Expression("1+1");
         assertThat(e.evaluate(), is(equalTo("2")));
     }
 
     @Test
-    public void evaluateSubtractsOperandsForExpressionWithMinusOperator() {
+    public void evaluateEvaluatesSubtraction() {
         Expression e = new Expression("1-1");
         assertThat(e.evaluate(), is(equalTo("0")));
     }
