@@ -17,4 +17,21 @@ public class ExpressionTest {
         assertThat(e.operator, is(equalTo("+")));
     }
 
+    @Test
+    public void evaluateAddsOperandsForExpressionWithPlusOperator() {
+        Expression e = new Expression("1+1");
+        assertThat(e.evaluate(), is(equalTo("2")));
+    }
+
+    @Test
+    public void evaluateSubtractsOperandsForExpressionWithMinusOperator() {
+        Expression e = new Expression("1-1");
+        assertThat(e.evaluate(), is(equalTo("0")));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void evaluateThrowsExceptionForExpressionWithUnsupportedOperator() {
+        Expression e = new Expression("1*1");
+        e.evaluate();
+    }
 }
