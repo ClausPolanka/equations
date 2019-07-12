@@ -15,7 +15,7 @@ public class EquationTest {
     @Test
     public void createNewEquation() {
         Equation equation = new Equation("0=1");
-        assertThat(equation.getLeftSide(), is(equalTo(ANY_DIGIT)));
+        assertThat(equation.getLeftSide().toString(), is(equalTo(ANY_DIGIT)));
         assertThat(equation.getRightSide(), is(equalTo("1")));
     }
 
@@ -42,7 +42,7 @@ public class EquationTest {
     @Test
     public void newCorrectEquationCreatesCorrectEquationFromOneDigit() {
         Equation equation = Equation.newCorrectEquation(ANY_DIGIT);
-        assertThat(equation.getLeftSide(), is(equalTo(ANY_DIGIT)));
+        assertThat(equation.getLeftSide().toString(), is(equalTo(ANY_DIGIT)));
         assertThat(equation.getRightSide(), is(equalTo(ANY_DIGIT)));
     }
 

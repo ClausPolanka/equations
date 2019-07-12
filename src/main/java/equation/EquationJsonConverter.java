@@ -20,7 +20,7 @@ public class EquationJsonConverter {
 
     public static String toJson(Set<Equation> equations) {
         String solutions = equations.stream()
-                .map(equation -> format("\"%s=%s\"", equation.getLeftSide(), equation.getRightSide()))
+                .map(equation -> format("\"%s=%s\"", equation.getLeftSide().toString(), equation.getRightSide()))
                 .collect(Collectors.joining(", "));
         return format("{ \"correctedEquations\": [%s]}", solutions);
     }

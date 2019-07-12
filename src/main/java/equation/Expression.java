@@ -1,7 +1,11 @@
 package equation;
 
+import java.util.Objects;
+import java.util.stream.Stream;
+
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
+import static java.util.stream.Collectors.joining;
 
 public class Expression {
 
@@ -14,8 +18,10 @@ public class Expression {
 
     public Expression(String expression) {
         operand1 = valueOf(expression.charAt(INDEX_OF_OPERAND1));
-        operator = valueOf(expression.charAt(INDEX_OF_OPERATOR));
-        operand2 = valueOf(expression.charAt(INDEX_OF_OPERAND2));
+        if (expression.length() > 1) {
+            operator = valueOf(expression.charAt(INDEX_OF_OPERATOR));
+            operand2 = valueOf(expression.charAt(INDEX_OF_OPERAND2));
+        }
     }
 
     public Expression(String operand1, String operator, String operand2) {
@@ -38,7 +44,13 @@ public class Expression {
 
     @Override
     public String toString() {
-        return operand1.concat(operator).concat(operand2);
+        return Stream.of(operand1, operator, operand2)
+                .filter(Objects::nonNull)
+                .collect(joining());
+    }
+
+    public boolean isSingleDigit() {
+        return operand1 == null || operand2 == null;
     }
 
 }

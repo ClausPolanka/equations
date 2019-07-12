@@ -21,8 +21,8 @@ public class Equation {
         return new Equation(format("%s=%s", digit, digit));
     }
 
-    public String getLeftSide() {
-        return leftSide;
+    public Expression getLeftSide() {
+        return new Expression(leftSide);
     }
 
     public String getRightSide() {

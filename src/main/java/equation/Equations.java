@@ -26,9 +26,9 @@ public class Equations {
 
     public static Set<Equation> solve(Equation equation) {
         Set<Equation> correctEquations = new HashSet<>();
-        if (equation.getLeftSide().length() > 1) {
+        if (!equation.getLeftSide().isSingleDigit()) {
             // equation.getLeftSide() => parse => Expression
-            Expression leftSideExpression = new Expression(equation.getLeftSide());
+            Expression leftSideExpression = equation.getLeftSide();
 
             SOLUTION_SPACE.get(leftSideExpression.operand1).forEach(s -> {
                 Expression newLeftSide = new Expression(s, leftSideExpression.operator, leftSideExpression.operand2);
@@ -55,8 +55,8 @@ public class Equations {
 
             return correctEquations;
         }
-        if (SOLUTION_SPACE.get(equation.getLeftSide()).contains(equation.getRightSide())) {
-            correctEquations.add(Equation.newCorrectEquation(equation.getLeftSide()));
+        if (SOLUTION_SPACE.get(equation.getLeftSide().toString()).contains(equation.getRightSide())) {
+            correctEquations.add(Equation.newCorrectEquation(equation.getLeftSide().toString()));
             correctEquations.add(Equation.newCorrectEquation(equation.getRightSide()));
         }
         return correctEquations;
