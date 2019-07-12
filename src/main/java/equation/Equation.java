@@ -50,4 +50,7 @@ public class Equation {
         return new Expression(leftSide).evaluate().equals(rightSide);
     }
 
+    public Equation with(Expression leftSide) {
+        return new Equation(leftSide, rightSide);
+    }
 }

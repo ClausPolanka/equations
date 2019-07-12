@@ -32,7 +32,7 @@ public class Equations {
 
             SOLUTION_SPACE.get(e.operand1).forEach(s -> {
                 Expression newLeftSide = new Expression(s, e.operator, e.operand2);
-                Equation newEquation = new Equation(newLeftSide, equation.getRightSide());
+                Equation newEquation = equation.with(newLeftSide);
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);
                 }
@@ -40,7 +40,7 @@ public class Equations {
 
             SOLUTION_SPACE.get(e.operand2).forEach(s -> {
                 Expression newLeftSide = new Expression(e.operand1, e.operator, s);
-                Equation newEquation = new Equation(newLeftSide, equation.getRightSide());
+                Equation newEquation = equation.with(newLeftSide);
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);
                 }
