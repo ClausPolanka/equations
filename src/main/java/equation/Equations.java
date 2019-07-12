@@ -50,6 +50,13 @@ public class Equations {
                         correctEquations.add(new Equation(newLeftSide, equation.getRightSide()));
                     }
                 }
+
+                List<String> rightSideReplacements = SOLUTION_SPACE.get(equation.getRightSide());
+                for (String each : rightSideReplacements) {
+                    if (e.evaluate().equals(each)) {
+                        correctEquations.add(new Equation(e, each));
+                    }
+                }
             }
             return correctEquations;
         }
