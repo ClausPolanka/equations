@@ -28,18 +28,18 @@ public class Equations {
         Set<Equation> correctEquations = new HashSet<>();
         if (equation.getLeftSide().length() > 1) {
             // equation.getLeftSide() => parse => Expression
-            Expression e = new Expression(equation.getLeftSide());
+            Expression leftSideExpression = new Expression(equation.getLeftSide());
 
-            SOLUTION_SPACE.get(e.operand1).forEach(s -> {
-                Expression newLeftSide = new Expression(s, e.operator, e.operand2);
+            SOLUTION_SPACE.get(leftSideExpression.operand1).forEach(s -> {
+                Expression newLeftSide = new Expression(s, leftSideExpression.operator, leftSideExpression.operand2);
                 Equation newEquation = equation.with(newLeftSide);
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);
                 }
             });
 
-            SOLUTION_SPACE.get(e.operand2).forEach(s -> {
-                Expression newLeftSide = new Expression(e.operand1, e.operator, s);
+            SOLUTION_SPACE.get(leftSideExpression.operand2).forEach(s -> {
+                Expression newLeftSide = new Expression(leftSideExpression.operand1, leftSideExpression.operator, s);
                 Equation newEquation = equation.with(newLeftSide);
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);
@@ -47,7 +47,7 @@ public class Equations {
             });
 
             SOLUTION_SPACE.get(equation.getRightSide()).forEach(s -> {
-                Equation newEquation = new Equation(e, s);
+                Equation newEquation = equation.with(s);
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);
                 }

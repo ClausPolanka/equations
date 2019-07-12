@@ -53,4 +53,8 @@ public class Equation {
     public Equation with(Expression leftSide) {
         return new Equation(leftSide, rightSide);
     }
+
+    public Equation with(String rightSide) {
+        return new Equation(new Expression(leftSide), rightSide);
+    }
 }
