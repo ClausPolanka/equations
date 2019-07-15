@@ -1,15 +1,10 @@
 package equation;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.emptyList;
-import static java.util.Collections.singletonList;
+import static java.util.Arrays.*;
+import static java.util.Collections.*;
 
 public class Equations {
 
@@ -28,8 +23,15 @@ public class Equations {
     }};
 
     public static Set<Equation> solve(Equation equation) {
-        Set<Equation> correctEquations = new HashSet<>();
+        Set<Equation> correctEquations = stage2(equation);
+        return correctEquations.stream()
+            .filter(Equation::isCorrect)
+            .collect(Collectors.toSet());
+    }
 
+    private static Set<Equation> stage2(Equation equation) {
+        Set<Equation> correctEquations = new HashSet<>();
+        
         SOLUTION_SPACE.get(equation.getLSLO()).forEach(s -> {
             correctEquations.add(equation.withLSLO(s));
         });
@@ -41,10 +43,7 @@ public class Equations {
         SOLUTION_SPACE.get(equation.getRightSide()).forEach(s -> {
             correctEquations.add(equation.withRightSide(s));
         });
-
-        return correctEquations.stream()
-                .filter(Equation::isCorrect)
-                .collect(Collectors.toSet());
+        return correctEquations;
     }
 
 }

@@ -1,14 +1,12 @@
 package equation;
 
-import java.io.IOException;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
-import static equation.EquationJsonConverter.toEquation;
-import static equation.EquationJsonConverter.toJson;
-import static equation.Equations.solve;
-import static equation.TestServerHttpConnector.getAssignmentFor;
-import static equation.TestServerHttpConnector.submitSolutionFor;
-import static java.util.stream.IntStream.range;
+import static equation.EquationJsonConverter.*;
+import static equation.Equations.*;
+import static equation.TestServerHttpConnector.*;
+import static java.util.stream.IntStream.*;
 
 public class TestRunner {
 
