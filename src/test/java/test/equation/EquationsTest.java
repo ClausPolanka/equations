@@ -18,9 +18,9 @@ public class EquationsTest {
 
     @TestWith({ "0=0", "1=1", "2=2", "3=3", "4=4", "5=5", "6=6", "7=7", "8=8", "9=9" })
     public void solveReturnsSolutionWithInputEquationWhenEquationIsAlreadyCorrect(String equation) {
-        Set<Equation> solution = Equations.solve(new Equation(equation));
-    
-        assertThat(solution, is(equalTo(new HashSet<>(singletonList(new Equation(equation))))));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation(equation));
+
+        assertThat(solution, is(equalTo(toSolution(equation))));
     }
 
     @TestWith({
@@ -35,8 +35,8 @@ public class EquationsTest {
             "8=9"
     })
     public void solveReturnsSolutionWithEmptyListWhenThereIsNoSolution(String equation) {
-        Set<Equation> solution = Equations.solve(new Equation(equation));
-    
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation(equation));
+
         assertThat(solution, is(equalTo(emptySet())));
     }
 
@@ -57,24 +57,26 @@ public class EquationsTest {
             String correctEquation1,
             String correctEquation2
     ) {
-        Set<Equation> solution = Equations.solve(new Equation(equation));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation(equation));
 
         assertThat(solution.size(), is(2));
-        assertThat(solution, is(equalTo(new HashSet<>(asList(new Equation(correctEquation1), new Equation(correctEquation2))))));
+        assertThat(solution, is(equalTo(new HashSet<>(asList(
+            new Equation(correctEquation1),
+            new Equation(correctEquation2))))));
     }
 
     @Test
     public void solveReturnsSolutionsWithCorrectEquationsForEquationWithAddExpression() {
-        Set<Equation> solution = Equations.solve(new Equation("0+1=1"));
-    
-        assertThat(solution, is(equalTo(new HashSet<>(singletonList(new Equation("0+1=1"))))));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation("0+1=1"));
+
+        assertThat(solution, is(equalTo(toSolution("0+1=1"))));
     }
 
     @Test
     public void solveReturnsSolutionsWithCorrectEquationsForEquationWithSubtractExpression() {
-        Set<Equation> solution = Equations.solve(new Equation("2-1=1"));
-    
-        assertThat(solution, is(equalTo(new HashSet<>(singletonList(new Equation("2-1=1"))))));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation("2-1=1"));
+
+        assertThat(solution, is(equalTo(toSolution("2-1=1"))));
     }
 
     @TestWith({
@@ -84,11 +86,11 @@ public class EquationsTest {
             String equation,
         String correctEquation
     ) {
-        Set<Equation> solutions = Equations.solve(new Equation(equation));
-    
-        assertThat(solutions, is(equalTo(new HashSet<>(singletonList(new Equation(correctEquation))))));
+        Set<Equation> solutions = new EquationsStage1And2().solve(new Equation(equation));
+
+        assertThat(solutions, is(equalTo(toSolution(correctEquation))));
     }
-    
+
     @TestWith({
         "9+0=6, 6+0=6, 9+0=9",
         "0+9=6, 0+6=6, 0+9=9",
@@ -98,21 +100,27 @@ public class EquationsTest {
         String correctEquation1,
         String correctEquation2
     ) {
-        Set<Equation> solutions = Equations.solve(new Equation(equation));
-        
-        assertThat(solutions, is(equalTo(new HashSet<>(asList(new Equation(correctEquation1), new Equation(correctEquation2))))));
+        Set<Equation> solutions = new EquationsStage1And2().solve(new Equation(equation));
+
+        assertThat(solutions, is(equalTo(new HashSet<>(asList(
+            new Equation(correctEquation1),
+            new Equation(correctEquation2))))));
     }
-    
+
     @TestWith({
         "1-6=7, 7-6=1",
         "8+2=0, 6+2=8",
         "9+3=5, 3+3=6",
-        "5-8=6, 6+0=6",
+        "5-8=6, 6-0=6",
     })
     public void stage3SingleSolution(String equation, String correctEquation) {
-        Set<Equation> solutions = Equations.solve(new Equation(equation));
-        
-        assertThat(solutions, is(equalTo(new HashSet<>(singletonList(new Equation(correctEquation))))));
+        Set<Equation> solutions = new EquationsStage3().solve(new Equation(equation));
+
+        assertThat(solutions, is(equalTo(toSolution(correctEquation))));
     }
 
+
+    private HashSet<Equation> toSolution(String equation) {
+        return new HashSet<>(singletonList(new Equation(equation)));
+    }
 }
