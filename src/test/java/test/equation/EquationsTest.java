@@ -1,27 +1,26 @@
 package test.equation;
 
-import com.googlecode.zohhak.api.TestWith;
-import com.googlecode.zohhak.api.runners.ZohhakRunner;
-import equation.Equation;
-import equation.Equations;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.googlecode.zohhak.api.*;
+import com.googlecode.zohhak.api.runners.*;
+import equation.*;
+import org.junit.*;
+import org.junit.runner.*;
 
-import java.util.Set;
+import java.util.*;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsCollectionContaining.hasItems;
-import static org.junit.Assert.assertThat;
+import static java.util.Arrays.*;
+import static java.util.Collections.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 @RunWith(ZohhakRunner.class)
 public class EquationsTest {
 
     @TestWith({ "0=0", "1=1", "2=2", "3=3", "4=4", "5=5", "6=6", "7=7", "8=8", "9=9" })
     public void solveReturnsSolutionWithInputEquationWhenEquationIsAlreadyCorrect(String equation) {
-        Set<Equation> solution = Equations.solve(new Equation(equation));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation(equation));
 
-        assertThat(solution.size(), is(1));
-        assertThat(solution, hasItems(new Equation(equation)));
+        assertThat(solution, is(equalTo(toSolution(equation))));
     }
 
     @TestWith({
@@ -36,9 +35,9 @@ public class EquationsTest {
             "8=9"
     })
     public void solveReturnsSolutionWithEmptyListWhenThereIsNoSolution(String equation) {
-        Set<Equation> solution = Equations.solve(new Equation(equation));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation(equation));
 
-        assertThat(solution.size(), is(0));
+        assertThat(solution, is(equalTo(emptySet())));
     }
 
     @TestWith({
@@ -58,38 +57,70 @@ public class EquationsTest {
             String correctEquation1,
             String correctEquation2
     ) {
-        Set<Equation> solution = Equations.solve(new Equation(equation));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation(equation));
 
         assertThat(solution.size(), is(2));
-        assertThat(solution, hasItems(new Equation(correctEquation1), new Equation(correctEquation2)));
+        assertThat(solution, is(equalTo(new HashSet<>(asList(
+            new Equation(correctEquation1),
+            new Equation(correctEquation2))))));
     }
 
     @Test
     public void solveReturnsSolutionsWithCorrectEquationsForEquationWithAddExpression() {
-        Set<Equation> solution = Equations.solve(new Equation("0+1=1"));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation("0+1=1"));
 
-        assertThat(solution, hasItems(new Equation("0+1=1")));
+        assertThat(solution, is(equalTo(toSolution("0+1=1"))));
     }
 
     @Test
     public void solveReturnsSolutionsWithCorrectEquationsForEquationWithSubtractExpression() {
-        Set<Equation> solution = Equations.solve(new Equation("2-1=1"));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation("2-1=1"));
 
-        assertThat(solution, hasItems(new Equation("2-1=1")));
+        assertThat(solution, is(equalTo(toSolution("2-1=1"))));
     }
 
     @TestWith({
-            "9+0=6, 6+0=6",
-            "0+9=6, 0+6=6",
-            "6+3=0, 6+3=9"
+        "6+3=0, 6+3=9"
     })
     public void solveReturnsSolutionWithCorrectEquationForGivenEquationContainingLeftSideExpression(
             String equation,
-            String correctEquation
+        String correctEquation
     ) {
-        Set<Equation> solutions = Equations.solve(new Equation(equation));
+        Set<Equation> solutions = new EquationsStage1And2().solve(new Equation(equation));
 
-        assertThat(solutions, hasItems(new Equation(correctEquation)));
+        assertThat(solutions, is(equalTo(toSolution(correctEquation))));
     }
 
+    @TestWith({
+        "9+0=6, 6+0=6, 9+0=9",
+        "0+9=6, 0+6=6, 0+9=9",
+    })
+    public void solveReturnsSolutionWithCorrectEquationsForGivenEquationContainingLeftSideExpression(
+        String equation,
+        String correctEquation1,
+        String correctEquation2
+    ) {
+        Set<Equation> solutions = new EquationsStage1And2().solve(new Equation(equation));
+
+        assertThat(solutions, is(equalTo(new HashSet<>(asList(
+            new Equation(correctEquation1),
+            new Equation(correctEquation2))))));
+    }
+
+    @TestWith({
+        "1-6=7, 7-6=1",
+        "8+2=0, 6+2=8",
+        "9+3=5, 3+3=6",
+        "5-8=6, 6-0=6",
+    })
+    public void stage3SingleSolution(String equation, String correctEquation) {
+        Set<Equation> solutions = new EquationsStage3().solve(new Equation(equation));
+
+        assertThat(solutions, is(equalTo(toSolution(correctEquation))));
+    }
+
+
+    private HashSet<Equation> toSolution(String equation) {
+        return new HashSet<>(singletonList(new Equation(equation)));
+    }
 }

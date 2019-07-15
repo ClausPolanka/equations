@@ -1,20 +1,24 @@
 package equation;
 
-import java.io.IOException;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
-import static equation.EquationJsonConverter.toEquation;
-import static equation.EquationJsonConverter.toJson;
-import static equation.Equations.solve;
-import static equation.TestServerHttpConnector.getAssignmentFor;
-import static equation.TestServerHttpConnector.submitSolutionFor;
-import static java.util.stream.IntStream.range;
+import static equation.EquationJsonConverter.*;
+import static equation.TestServerHttpConnector.*;
+import static java.util.stream.IntStream.*;
 
 public class TestRunner {
+
+    private static final Map<Integer, Equations> EQUATIONS = new HashMap<Integer, Equations>() {{
+        put(1, new EquationsStage1And2());
+        put(2, new EquationsStage1And2());
+        put(3, new EquationsStage3());
+    }};
 
     public static void main(String[] args) {
         runTestCases(1, 100);
         runTestCases(2, 150);
+        runTestCases(3, 150);
 
     }
 
@@ -31,7 +35,7 @@ public class TestRunner {
     private static void runTestCase(int testStage, int testCase) throws IOException {
         String jsonAssignment = getAssignmentFor(testStage, testCase);
         Equation equation = toEquation(jsonAssignment);
-        Set<Equation> solutions = solve(equation);
+        Set<Equation> solutions = EQUATIONS.get(testStage).solve(equation);
         String jsonSolution = toJson(solutions);
         submitSolutionFor(testStage, testCase, jsonSolution);
     }
