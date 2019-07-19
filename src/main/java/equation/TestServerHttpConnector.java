@@ -9,15 +9,15 @@ import java.net.URL;
 
 public class TestServerHttpConnector {
 
-    private static HttpURLConnection createHttpGetConnection(int testcase) throws IOException {
-        URL url = new URL("http://localhost:8080/assignment/stage/1/testcase/" + testcase);
+    private static HttpURLConnection createHttpGetConnection(int stage, int testcase) throws IOException {
+        URL url = new URL("http://localhost:8080/assignment/stage/" + stage + "/testcase/" + testcase);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         return con;
     }
 
-    public static String getAssignmentFor(int testcase) throws IOException {
-        HttpURLConnection con = createHttpGetConnection(testcase);
+    public static String getAssignmentFor(int stage, int testcase) throws IOException {
+        HttpURLConnection con = createHttpGetConnection(stage, testcase);
         StringBuffer content = executeRequest(con);
         return content.toString();
     }
@@ -34,8 +34,8 @@ public class TestServerHttpConnector {
         return content;
     }
 
-    private static HttpURLConnection createHttpPostConnection(int testcase, String json) throws IOException {
-        URL url = new URL("http://localhost:8080/assignment/stage/1/testcase/" + testcase);
+    private static HttpURLConnection createHttpPostConnection(int stage, int testcase, String json) throws IOException {
+        URL url = new URL("http://localhost:8080/assignment/stage/" + stage + "/testcase/" + testcase);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -47,8 +47,8 @@ public class TestServerHttpConnector {
         }
     }
 
-    public static void submitSolutionFor(int testcase, String json) throws IOException {
-        HttpURLConnection con = createHttpPostConnection(testcase, json);
+    public static void submitSolutionFor(int stage, int testcase, String json) throws IOException {
+        HttpURLConnection con = createHttpPostConnection(stage, testcase, json);
         executeRequest(con);
     }
 
