@@ -30,16 +30,16 @@ public class Equations {
             // equation.getLeftSide() => parse => Expression
             Expression leftSideExpression = equation.getLeftSide();
 
-            SOLUTION_SPACE.get(leftSideExpression.operand1).forEach(s -> {
-                Expression newLeftSide = new Expression(s, leftSideExpression.operator, leftSideExpression.operand2);
+            SOLUTION_SPACE.get(leftSideExpression.getOperand1()).forEach(s -> {
+                Expression newLeftSide = new Expression(s, leftSideExpression.getOperator(), leftSideExpression.getOperand2());
                 Equation newEquation = equation.with(newLeftSide);
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);
                 }
             });
 
-            SOLUTION_SPACE.get(leftSideExpression.operand2).forEach(s -> {
-                Expression newLeftSide = new Expression(leftSideExpression.operand1, leftSideExpression.operator, s);
+            SOLUTION_SPACE.get(leftSideExpression.getOperand2()).forEach(s -> {
+                Expression newLeftSide = new Expression(leftSideExpression.getOperand1(), leftSideExpression.getOperator(), s);
                 Equation newEquation = equation.with(newLeftSide);
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);

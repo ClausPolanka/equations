@@ -11,9 +11,9 @@ public class Expression {
     private static final int INDEX_OF_OPERAND1 = 0;
     private static final int INDEX_OF_OPERATOR = 1;
     private static final int INDEX_OF_OPERAND2 = 2;
-    public String operand1 = "";
-    public String operand2 = "";
-    public String operator = "";
+    private String operand1 = "";
+    private String operand2 = "";
+    private String operator = "";
 
     public Expression(String expression) {
         operand1 = valueOf(expression.charAt(INDEX_OF_OPERAND1));
@@ -30,25 +30,37 @@ public class Expression {
     }
 
     public String evaluate() {
-        switch (operator) {
+        switch (getOperator()) {
             case "+":
-                return valueOf(parseInt(operand1) + parseInt(operand2));
+                return valueOf(parseInt(getOperand1()) + parseInt(getOperand2()));
             case "-":
-                return valueOf(parseInt(operand1) - parseInt(operand2));
+                return valueOf(parseInt(getOperand1()) - parseInt(getOperand2()));
             default:
-                return operand1;
+                return getOperand1();
         }
 
     }
 
     @Override
     public String toString() {
-        return Stream.of(operand1, operator, operand2)
+        return Stream.of(getOperand1(), getOperator(), getOperand2())
                 .collect(joining());
     }
 
     public boolean isSingleDigit() {
         return toString().length() == 1;
+    }
+
+    public String getOperand1() {
+        return operand1;
+    }
+
+    public String getOperand2() {
+        return operand2;
+    }
+
+    public String getOperator() {
+        return operator;
     }
 
 }
