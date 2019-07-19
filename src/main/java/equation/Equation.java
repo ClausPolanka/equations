@@ -50,20 +50,20 @@ public class Equation {
         return new Expression(leftSide).evaluate().equals(rightSide);
     }
 
-    public Equation with(Expression leftSide) {
+    public Equation withLeftSide(Expression leftSide) {
         return new Equation(leftSide, rightSide);
     }
 
-    public Equation with(String rightSide) {
+    public Equation withRightSide(String rightSide) {
         return new Equation(new Expression(leftSide), rightSide);
     }
 
     public Equation withLeftSideOperand1(String operand1) {
-        return with(getLeftSide().withOperand1(operand1));
+        return withLeftSide(getLeftSide().withOperand1(operand1));
     }
 
     public Equation withLeftSideOperand2(String operand2) {
-        return with(getLeftSide().withOperand2(operand2));
+        return withLeftSide(getLeftSide().withOperand2(operand2));
     }
 
     public String getLeftSideOperand1() {

@@ -20,7 +20,6 @@ public class TestRunner {
                 throw new RuntimeException(e);
             }
         });
-
     }
 
     private static void runTestCase(int testCase) throws IOException {
