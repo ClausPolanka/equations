@@ -57,4 +57,8 @@ public class Equation {
     public Equation with(String rightSide) {
         return new Equation(new Expression(leftSide), rightSide);
     }
+
+    public Equation withLeftSideOperand1(String operand1) {
+        return with(getLeftSide().withOperand1(operand1));
+    }
 }

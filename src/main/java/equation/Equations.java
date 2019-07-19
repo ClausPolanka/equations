@@ -30,7 +30,7 @@ public class Equations {
             Expression leftSideExpression = equation.getLeftSide();
 
             SOLUTION_SPACE.get(leftSideExpression.getOperand1()).forEach(newOperand1 -> {
-                Equation newEquation = equation.with(leftSideExpression.withOperand1(newOperand1));
+                Equation newEquation = equation.withLeftSideOperand1(newOperand1);
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);
                 }
