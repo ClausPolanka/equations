@@ -1,10 +1,10 @@
 package equation;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
@@ -13,7 +13,7 @@ import static java.util.stream.Collectors.toSet;
 
 public class Equations {
 
-    private static final Map<String, List<String>> SOLUTION_SPACE = new HashMap<String, List<String>>() {{
+    private static final Map<String, List<String>> ALTERNATIVE_DIGITS = new HashMap<String, List<String>>() {{
         put("", emptyList());
         put("0", asList("0", "6", "9"));
         put("1", singletonList("1"));
@@ -28,19 +28,25 @@ public class Equations {
     }};
 
     public static Set<Equation> solve(Equation equation) {
-        Set<Equation> equations = new HashSet<>();
-        SOLUTION_SPACE.get(equation.getLeftSideOperand1()).forEach(o1 -> {
-            equations.add(equation.withLeftSideOperand1(o1));
-        });
-        SOLUTION_SPACE.get(equation.getLeftSideOperand2()).forEach(o2 -> {
-            equations.add(equation.withLeftSideOperand2(o2));
-        });
-        SOLUTION_SPACE.get(equation.getRightSide()).forEach(rs -> {
-            equations.add(equation.withRightSide(rs));
-        });
-        return equations.stream()
+        return Stream.of(
+                createEquationsByChangingLeftSideOperandOneOf(equation),
+                createEquationsByChangingLeftSideOperandTwoOf(equation),
+                createEquationsByChangingRightSideOf(equation))
+                .flatMap(i -> i)
                 .filter(Equation::isCorrect)
                 .collect(toSet());
+    }
+
+    private static Stream<Equation> createEquationsByChangingLeftSideOperandOneOf(Equation e) {
+        return ALTERNATIVE_DIGITS.get(e.getLeftSideOperand1()).stream().map(e::withLeftSideOperand1);
+    }
+
+    private static Stream<Equation> createEquationsByChangingLeftSideOperandTwoOf(Equation e) {
+        return ALTERNATIVE_DIGITS.get(e.getLeftSideOperand2()).stream().map(e::withLeftSideOperand2);
+    }
+
+    private static Stream<Equation> createEquationsByChangingRightSideOf(Equation e) {
+        return ALTERNATIVE_DIGITS.get(e.getRightSide()).stream().map(e::withRightSide);
     }
 
 }
