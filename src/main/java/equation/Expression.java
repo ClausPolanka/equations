@@ -29,6 +29,10 @@ public class Expression {
         this.operand2 = operand2;
     }
 
+    public Expression withOperand1(String operand1) {
+        return new Expression(operand1, getOperator(), getOperand2());
+    }
+
     public String evaluate() {
         switch (getOperator()) {
             case "+":

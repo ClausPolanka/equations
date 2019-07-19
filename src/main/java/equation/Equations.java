@@ -27,11 +27,10 @@ public class Equations {
     public static Set<Equation> solve(Equation equation) {
         Set<Equation> correctEquations = new HashSet<>();
         if (!equation.getLeftSide().isSingleDigit()) {
-            // equation.getLeftSide() => parse => Expression
             Expression leftSideExpression = equation.getLeftSide();
 
             SOLUTION_SPACE.get(leftSideExpression.getOperand1()).forEach(s -> {
-                Expression newLeftSide = new Expression(s, leftSideExpression.getOperator(), leftSideExpression.getOperand2());
+                Expression newLeftSide = leftSideExpression.withOperand1(s);
                 Equation newEquation = equation.with(newLeftSide);
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);
@@ -63,3 +62,4 @@ public class Equations {
     }
 
 }
+
