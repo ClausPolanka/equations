@@ -27,22 +27,18 @@ public class Equations {
     public static Set<Equation> solve(Equation equation) {
         Set<Equation> correctEquations = new HashSet<>();
         if (!equation.getLeftSide().isSingleDigit()) {
-            Expression leftSideExpression = equation.getLeftSide();
-
             SOLUTION_SPACE.get(equation.getLeftSideOperand1()).forEach(newOperand1 -> {
                 Equation newEquation = equation.withLeftSideOperand1(newOperand1);
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);
                 }
             });
-
             SOLUTION_SPACE.get(equation.getLeftSideOperand2()).forEach(newOperand2 -> {
                 Equation newEquation = equation.withLeftSideOperand2(newOperand2);
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);
                 }
             });
-
             SOLUTION_SPACE.get(equation.getRightSide()).forEach(newRightSide -> {
                 Equation newEquation = equation.with(newRightSide);
                 if (newEquation.isCorrect()) {
