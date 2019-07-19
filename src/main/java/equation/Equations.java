@@ -37,7 +37,7 @@ public class Equations {
             });
 
             SOLUTION_SPACE.get(leftSideExpression.getOperand2()).forEach(newOperand2 -> {
-                Equation newEquation = equation.with(leftSideExpression.withOperand2(newOperand2));
+                Equation newEquation = equation.withLeftSideOperand2(newOperand2);
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);
                 }

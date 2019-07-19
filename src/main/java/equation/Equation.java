@@ -61,4 +61,8 @@ public class Equation {
     public Equation withLeftSideOperand1(String operand1) {
         return with(getLeftSide().withOperand1(operand1));
     }
+
+    public Equation withLeftSideOperand2(String operand2) {
+        return with(getLeftSide().withOperand2(operand2));
+    }
 }
