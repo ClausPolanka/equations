@@ -69,4 +69,8 @@ public class Equation {
     public String getLeftSideOperand1() {
         return getLeftSide().getOperand1();
     }
+
+    public String getLeftSideOperand2() {
+        return getLeftSide().getOperand2();
+    }
 }
