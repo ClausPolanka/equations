@@ -1,13 +1,11 @@
 package test.equation;
 
-import equation.Expression;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import equation.*;
+import org.junit.*;
+import org.junit.rules.*;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 public class ExpressionTest {
 
@@ -20,6 +18,12 @@ public class ExpressionTest {
         assertThat(e.operand1, is(equalTo("0")));
         assertThat(e.operand2, is(equalTo("1")));
         assertThat(e.operator, is(equalTo("+")));
+    }
+
+    @Test
+    public void evaluateEvaluatesSingleDigitExpression() {
+        Expression e = new Expression("1");
+        assertThat(e.evaluate(), is(equalTo("1")));
     }
 
     @Test
