@@ -1,6 +1,5 @@
 package equation;
 
-import java.util.Objects;
 import java.util.stream.Stream;
 
 import static java.lang.Integer.parseInt;
@@ -12,9 +11,9 @@ public class Expression {
     private static final int INDEX_OF_OPERAND1 = 0;
     private static final int INDEX_OF_OPERATOR = 1;
     private static final int INDEX_OF_OPERAND2 = 2;
-    public String operand1;
-    public String operand2;
-    public String operator;
+    public String operand1 = "";
+    public String operand2 = "";
+    public String operator = "";
 
     public Expression(String expression) {
         operand1 = valueOf(expression.charAt(INDEX_OF_OPERAND1));
@@ -37,7 +36,7 @@ public class Expression {
             case "-":
                 return valueOf(parseInt(operand1) - parseInt(operand2));
             default:
-                throw new RuntimeException("Operation Not Supported");
+                return operand1;
         }
 
     }
@@ -45,12 +44,11 @@ public class Expression {
     @Override
     public String toString() {
         return Stream.of(operand1, operator, operand2)
-                .filter(Objects::nonNull)
                 .collect(joining());
     }
 
     public boolean isSingleDigit() {
-        return operand1 == null || operand2 == null;
+        return toString().length() == 1;
     }
 
 }
