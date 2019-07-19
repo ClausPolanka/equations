@@ -1,8 +1,11 @@
 package test.equation;
 
+import com.googlecode.zohhak.api.TestWith;
+import com.googlecode.zohhak.api.runners.ZohhakRunner;
 import equation.Equation;
 import equation.EquationJsonConverter;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,13 +14,18 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+@RunWith(ZohhakRunner.class)
 public class EquationJsonConverterTest {
 
-    @Test
-    public void toEquationReturnsEquationForGivenJson() {
-        String json = "{  \"equation\" : \"0=9\"}";
-        Equation equation = EquationJsonConverter.toEquation(json);
-        assertThat(equation, is(equalTo(new Equation("0=9"))));
+    @TestWith({
+            "0=9",
+            "5-0=3",
+            "5+0=3"
+    })
+    public void toEquationReturnsEquationForGivenJson(String equation) {
+        String json = "{  \"equation\" : \"" + equation + "\"}";
+        Equation e = EquationJsonConverter.toEquation(json);
+        assertThat(e, is(equalTo(new Equation(equation))));
     }
 
     @Test
