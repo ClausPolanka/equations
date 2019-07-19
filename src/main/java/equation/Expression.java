@@ -67,4 +67,7 @@ public class Expression {
         return operator;
     }
 
+    public Expression withOperand2(String operand2) {
+        return new Expression(getOperand1(), getOperator(), operand2);
+    }
 }

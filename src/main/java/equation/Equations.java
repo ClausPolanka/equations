@@ -29,24 +29,22 @@ public class Equations {
         if (!equation.getLeftSide().isSingleDigit()) {
             Expression leftSideExpression = equation.getLeftSide();
 
-            SOLUTION_SPACE.get(leftSideExpression.getOperand1()).forEach(s -> {
-                Expression newLeftSide = leftSideExpression.withOperand1(s);
-                Equation newEquation = equation.with(newLeftSide);
+            SOLUTION_SPACE.get(leftSideExpression.getOperand1()).forEach(newOperand1 -> {
+                Equation newEquation = equation.with(leftSideExpression.withOperand1(newOperand1));
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);
                 }
             });
 
-            SOLUTION_SPACE.get(leftSideExpression.getOperand2()).forEach(s -> {
-                Expression newLeftSide = new Expression(leftSideExpression.getOperand1(), leftSideExpression.getOperator(), s);
-                Equation newEquation = equation.with(newLeftSide);
+            SOLUTION_SPACE.get(leftSideExpression.getOperand2()).forEach(newOperand2 -> {
+                Equation newEquation = equation.with(leftSideExpression.withOperand2(newOperand2));
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);
                 }
             });
 
-            SOLUTION_SPACE.get(equation.getRightSide()).forEach(s -> {
-                Equation newEquation = equation.with(s);
+            SOLUTION_SPACE.get(equation.getRightSide()).forEach(newRightSide -> {
+                Equation newEquation = equation.with(newRightSide);
                 if (newEquation.isCorrect()) {
                     correctEquations.add(newEquation);
                 }
