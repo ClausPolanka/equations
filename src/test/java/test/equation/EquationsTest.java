@@ -17,7 +17,9 @@ import static org.junit.Assert.assertThat;
 public class EquationsTest {
 
     @TestWith({ "0=0", "1=1", "2=2", "3=3", "4=4", "5=5", "6=6", "7=7", "8=8", "9=9" })
-    public void solveReturnsSolutionWithInputEquationWhenEquationIsAlreadyCorrect(String equation) {
+    public void solveReturnsSolutionWithInputEquationWhereLeftSideIsSingleDigitAndEquationsIsAlreadyCorrect(
+            String equation
+    ) {
         Set<Equation> solution = Equations.solve(new Equation(equation));
 
         assertThat(solution.size(), is(1));
