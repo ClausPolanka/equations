@@ -58,13 +58,18 @@ public class Equations {
         Set<Equation> equations = solve(equation);
 
         HashMap<String, List<String>> alternativeDigitsAddSegment = new HashMap<String, List<String>>() {{
+            put("0", asList("8"));
             put("1", asList("7"));
             put("3", asList("9"));
+            put("5", asList("6", "9"));
             put("6", asList("8"));
+            put("9", asList("8"));
         }};
         HashMap<String, List<String>> alternativeDigitsRemoveSegment = new HashMap<String, List<String>>() {{
             put("6", asList("5"));
-            put("8", asList("9"));
+            put("7", asList("1"));
+            put("8", asList("0", "6", "9"));
+            put("9", asList("3", "5"));
         }};
 
         List<String> addSegments = alternativeDigitsAddSegment.getOrDefault(equation.getLeftSideOperand1(), emptyList());
