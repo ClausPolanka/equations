@@ -92,6 +92,16 @@ public class Equations {
                 equations.add(equation.withLeftSideOperand1(addSegmentO1).withRightSide(removeSegmentRight));
             }
         }
+
+        addSegments = alternativeDigitsAddSegment.getOrDefault(equation.getRightSide(), emptyList());
+        removeSegments = alternativeDigitsRemoveSegment.getOrDefault(equation.getLeftSideOperand1(), emptyList());
+
+        for (String addRightSide : addSegments) {
+            for (String removeSegmentO1 : removeSegments) {
+                equations.add(equation.withLeftSideOperand1(removeSegmentO1).withRightSide(addRightSide));
+            }
+        }
+
         return equations.stream()
                 .filter(e -> e.isCorrect())
                 .collect(toSet());
