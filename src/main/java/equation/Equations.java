@@ -1,7 +1,6 @@
 package equation;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,16 +55,18 @@ public class Equations {
     }
 
     public static Set<Equation> solveStage3(Equation equation) {
+        Set<Equation> equations = solve(equation);
+
         HashMap<String, List<String>> alternativeDigitsAddSegment = new HashMap<String, List<String>>() {{
             put("3", asList("9"));
             put("6", asList("8"));
+
         }};
         HashMap<String, List<String>> alternativeDigitsRemoveSegment = new HashMap<String, List<String>>() {{
             put("6", asList("5"));
         }};
-        Set<Equation> equations = new HashSet<>();
-        for (String addSegmentO1 : alternativeDigitsAddSegment.get(equation.getLeftSideOperand1())) {
-            for (String removeSegmentO2 : alternativeDigitsRemoveSegment.get(equation.getLeftSideOperand2())) {
+        for (String addSegmentO1 : alternativeDigitsAddSegment.getOrDefault(equation.getLeftSideOperand1(), emptyList())) {
+            for (String removeSegmentO2 : alternativeDigitsRemoveSegment.getOrDefault(equation.getLeftSideOperand2(), emptyList())) {
                 equations.add(equation.withLeftSideOperand1(addSegmentO1).withLeftSideOperand2(removeSegmentO2));
             }
         }
