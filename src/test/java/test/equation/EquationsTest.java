@@ -118,6 +118,13 @@ public class EquationsTest {
         assertThat(solution, is(equalTo(toSolution(new Equation("9-2=7")))));
     }
 
+    @Test
+    public void stage3AddOperand2RemoveRight() {
+        Set<Equation> solution = Equations.solveStage3(new Equation("2+1=8"));
+
+        assertThat(solution, is(equalTo(toSolution(new Equation("2+7=9")))));
+    }
+
     private HashSet<Equation> toSolution(Equation... equations) {
         return new HashSet<>(Arrays.asList(equations));
     }

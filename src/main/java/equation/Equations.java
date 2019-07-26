@@ -102,6 +102,15 @@ public class Equations {
             }
         }
 
+        addSegments = alternativeDigitsAddSegment.getOrDefault(equation.getLeftSideOperand2(), emptyList());
+        removeSegments = alternativeDigitsRemoveSegment.getOrDefault(equation.getRightSide(), emptyList());
+
+        for (String addSegmentO2 : addSegments) {
+            for (String removeRightSide : removeSegments) {
+                equations.add(equation.withLeftSideOperand2(addSegmentO2).withRightSide(removeRightSide));
+            }
+        }
+
         return equations.stream()
                 .filter(e -> e.isCorrect())
                 .collect(toSet());
