@@ -31,10 +31,15 @@ public class Equations {
         return Stream.of(
                 createEquationsByChangingLeftSideOperandOneOf(equation),
                 createEquationsByChangingLeftSideOperandTwoOf(equation),
-                createEquationsByChangingRightSideOf(equation))
+                createEquationsByChangingRightSideOf(equation),
+                createEquationsByStage3(equation))
                 .flatMap(i -> i)
                 .filter(Equation::isCorrect)
                 .collect(toSet());
+    }
+
+    private static Stream<Equation> createEquationsByStage3(Equation equation) {
+        return Stream.empty();
     }
 
     private static Stream<Equation> createEquationsByChangingLeftSideOperandOneOf(Equation e) {

@@ -90,6 +90,13 @@ public class EquationsTest {
                 new Equation("0+0=0")))));
     }
 
+    @Test
+    public void stage3() {
+        Set<Equation> solution = Equations.solve(new Equation("3-6=4"));
+
+        assertThat(solution, is(equalTo(toSolution(new Equation("9-5=4")))));
+    }
+
     private HashSet<Equation> toSolution(Equation... equations) {
         return new HashSet<>(Arrays.asList(equations));
     }
