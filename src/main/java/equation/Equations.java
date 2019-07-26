@@ -111,6 +111,15 @@ public class Equations {
             }
         }
 
+        addSegments = alternativeDigitsAddSegment.getOrDefault(equation.getRightSide(), emptyList());
+        removeSegments = alternativeDigitsRemoveSegment.getOrDefault(equation.getLeftSideOperand2(), emptyList());
+
+        for (String addRightside : addSegments) {
+            for (String removeSegmentO2 : removeSegments) {
+                equations.add(equation.withLeftSideOperand2(removeSegmentO2).withRightSide(addRightside));
+            }
+        }
+
         return equations.stream()
                 .filter(e -> e.isCorrect())
                 .collect(toSet());
