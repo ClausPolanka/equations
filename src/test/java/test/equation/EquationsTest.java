@@ -91,10 +91,17 @@ public class EquationsTest {
     }
 
     @Test
-    public void stage3() {
+    public void stage3AddLeftRemoveRight() {
         Set<Equation> solution = Equations.solveStage3(new Equation("3-6=4"));
 
         assertThat(solution, is(equalTo(toSolution(new Equation("9-5=4")))));
+    }
+
+    @Test
+    public void stage3RemoveLeftAddRight() {
+        Set<Equation> solution = Equations.solveStage3(new Equation("8-1=2"));
+
+        assertThat(solution, is(equalTo(toSolution(new Equation("9-7=2")))));
     }
 
     private HashSet<Equation> toSolution(Equation... equations) {
