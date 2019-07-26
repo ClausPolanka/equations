@@ -15,6 +15,7 @@ public class TestRunner {
     public static void main(String[] args) {
         runTestCases(1, 101);
         runTestCases(2, 151);
+        runTestCases(3, 151);
     }
 
     private static void runTestCases(int stage, int lastTestCase) {
@@ -22,7 +23,7 @@ public class TestRunner {
             try {
                 runTestCase(stage, testCase);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                //                throw new RuntimeException(e);
             }
         });
     }
@@ -32,7 +33,11 @@ public class TestRunner {
         Equation equation = toEquation(jsonAssignment);
         Set<Equation> solutions = solve(equation);
         String jsonSolution = toJson(solutions);
-        submitSolutionFor(stage, testCase, jsonSolution);
+        try {
+            submitSolutionFor(stage, testCase, jsonSolution);
+        } catch (IOException e) {
+            System.out.println(testCase + ": " + equation + " => " + jsonSolution);
+        }
     }
 
 }
