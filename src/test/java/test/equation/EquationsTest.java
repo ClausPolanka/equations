@@ -7,10 +7,12 @@ import equation.Equations;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertThat;
 
 @RunWith(ZohhakRunner.class)
@@ -22,8 +24,7 @@ public class EquationsTest {
     ) {
         Set<Equation> solution = Equations.solve(new Equation(equation));
 
-        assertThat(solution.size(), is(1));
-        assertThat(solution, hasItems(new Equation(equation)));
+        assertThat(solution, is(equalTo(toSolution(new Equation(equation)))));
     }
 
     @TestWith({
@@ -62,29 +63,35 @@ public class EquationsTest {
     ) {
         Set<Equation> solution = Equations.solve(new Equation(equation));
 
-        assertThat(solution.size(), is(2));
-        assertThat(solution, hasItems(new Equation(correctEquation1), new Equation(correctEquation2)));
+        assertThat(solution, is(equalTo(toSolution(new Equation(correctEquation1), new Equation(correctEquation2)))));
     }
 
     @Test
     public void solveReturnsSolutionsWithCorrectEquationsForEquationWithAddExpression() {
         Set<Equation> solution = Equations.solve(new Equation("0+1=1"));
 
-        assertThat(solution, hasItems(new Equation("0+1=1")));
+        assertThat(solution, is(equalTo(toSolution(new Equation("0+1=1")))));
     }
 
     @Test
     public void solveReturnsSolutionsWithCorrectEquationsForEquationWithSubtractExpression() {
         Set<Equation> solution = Equations.solve(new Equation("2-1=1"));
 
-        assertThat(solution, hasItems(new Equation("2-1=1")));
+        assertThat(solution, is(equalTo(toSolution(new Equation("2-1=1")))));
     }
 
     @Test
     public void solveReturnsSolutionsWithCorrectEquationsForIncorrectInputEquation() {
         Set<Equation> solution = Equations.solve(new Equation("0+0=9"));
 
-        assertThat(solution, hasItems(new Equation("9+0=9"), new Equation("0+9=9"), new Equation("0+0=0")));
+        assertThat(solution, is(equalTo(toSolution(
+                new Equation("9+0=9"),
+                new Equation("0+9=9"),
+                new Equation("0+0=0")))));
+    }
+
+    private HashSet<Equation> toSolution(Equation... equations) {
+        return new HashSet<>(Arrays.asList(equations));
     }
 
 }
