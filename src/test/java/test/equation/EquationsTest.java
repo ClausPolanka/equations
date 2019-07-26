@@ -92,7 +92,7 @@ public class EquationsTest {
 
     @Test
     public void stage3() {
-        Set<Equation> solution = Equations.solve(new Equation("3-6=4"));
+        Set<Equation> solution = Equations.solveStage3(new Equation("3-6=4"));
 
         assertThat(solution, is(equalTo(toSolution(new Equation("9-5=4")))));
     }
