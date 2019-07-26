@@ -84,6 +84,14 @@ public class Equations {
                 equations.add(equation.withLeftSideOperand1(removeSegmentO1).withLeftSideOperand2(addSegmentO2));
             }
         }
+        addSegments = alternativeDigitsAddSegment.getOrDefault(equation.getLeftSideOperand1(), emptyList());
+        removeSegments = alternativeDigitsRemoveSegment.getOrDefault(equation.getRightSide(), emptyList());
+
+        for (String addSegmentO1 : addSegments) {
+            for (String removeSegmentRight : removeSegments) {
+                equations.add(equation.withLeftSideOperand1(addSegmentO1).withRightSide(removeSegmentRight));
+            }
+        }
         return equations.stream()
                 .filter(e -> e.isCorrect())
                 .collect(toSet());
