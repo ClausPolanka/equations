@@ -5,8 +5,6 @@ import java.util.Set;
 
 import static equation.EquationJsonConverter.toEquation;
 import static equation.EquationJsonConverter.toJson;
-import static equation.Equations.solve;
-import static equation.Equations.solveStage3;
 import static equation.TestServerHttpConnector.getAssignmentFor;
 import static equation.TestServerHttpConnector.submitSolutionFor;
 import static java.util.stream.IntStream.range;
@@ -37,9 +35,9 @@ public class TestRunner {
         Equation equation = toEquation(jsonAssignment);
         Set<Equation> solutions;
         if (stage != 3) {
-            solutions = solve(equation);
+            solutions = new EquationsStage1And2().solve(equation);
         } else {
-            solutions = solveStage3(equation);
+            solutions = new EquationsStage3().solve(equation);
         }
         String jsonSolution = toJson(solutions);
         try {

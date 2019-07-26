@@ -3,7 +3,8 @@ package test.equation;
 import com.googlecode.zohhak.api.TestWith;
 import com.googlecode.zohhak.api.runners.ZohhakRunner;
 import equation.Equation;
-import equation.Equations;
+import equation.EquationsStage1And2;
+import equation.EquationsStage3;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,7 +23,7 @@ public class EquationsTest {
     public void solveReturnsSolutionWithInputEquationWhereLeftSideIsSingleDigitAndEquationsIsAlreadyCorrect(
             String equation
     ) {
-        Set<Equation> solution = Equations.solve(new Equation(equation));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation(equation));
 
         assertThat(solution, is(equalTo(toSolution(new Equation(equation)))));
     }
@@ -39,7 +40,7 @@ public class EquationsTest {
             "8=9"
     })
     public void solveReturnsSolutionWithEmptyListWhenThereIsNoSolution(String equation) {
-        Set<Equation> solution = Equations.solve(new Equation(equation));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation(equation));
 
         assertThat(solution.size(), is(0));
     }
@@ -61,28 +62,28 @@ public class EquationsTest {
             String correctEquation1,
             String correctEquation2
     ) {
-        Set<Equation> solution = Equations.solve(new Equation(equation));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation(equation));
 
         assertThat(solution, is(equalTo(toSolution(new Equation(correctEquation1), new Equation(correctEquation2)))));
     }
 
     @Test
     public void solveReturnsSolutionsWithCorrectEquationsForEquationWithAddExpression() {
-        Set<Equation> solution = Equations.solve(new Equation("0+1=1"));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation("0+1=1"));
 
         assertThat(solution, is(equalTo(toSolution(new Equation("0+1=1")))));
     }
 
     @Test
     public void solveReturnsSolutionsWithCorrectEquationsForEquationWithSubtractExpression() {
-        Set<Equation> solution = Equations.solve(new Equation("2-1=1"));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation("2-1=1"));
 
         assertThat(solution, is(equalTo(toSolution(new Equation("2-1=1")))));
     }
 
     @Test
     public void solveReturnsSolutionsWithCorrectEquationsForIncorrectInputEquation() {
-        Set<Equation> solution = Equations.solve(new Equation("0+0=9"));
+        Set<Equation> solution = new EquationsStage1And2().solve(new Equation("0+0=9"));
 
         assertThat(solution, is(equalTo(toSolution(
                 new Equation("9+0=9"),
@@ -92,42 +93,42 @@ public class EquationsTest {
 
     @Test
     public void stage3AddOperand1RemoveOperand2() {
-        Set<Equation> solution = Equations.solveStage3(new Equation("3-6=4"));
+        Set<Equation> solution = new EquationsStage3().solve(new Equation("3-6=4"));
 
         assertThat(solution, is(equalTo(toSolution(new Equation("9-5=4")))));
     }
 
     @Test
     public void stage3RemoveOperand1AddOperand2() {
-        Set<Equation> solution = Equations.solveStage3(new Equation("8-1=2"));
+        Set<Equation> solution = new EquationsStage3().solve(new Equation("8-1=2"));
 
         assertThat(solution, is(equalTo(toSolution(new Equation("9-7=2")))));
     }
 
     @Test
     public void stage3AddOperand1RemoveRight() {
-        Set<Equation> solution = Equations.solveStage3(new Equation("3-4=6"));
+        Set<Equation> solution = new EquationsStage3().solve(new Equation("3-4=6"));
 
         assertThat(solution, is(equalTo(toSolution(new Equation("9-4=5")))));
     }
 
     @Test
     public void stage3RemoveOperand1AddRight() {
-        Set<Equation> solution = Equations.solveStage3(new Equation("8-2=1"));
+        Set<Equation> solution = new EquationsStage3().solve(new Equation("8-2=1"));
 
         assertThat(solution, is(equalTo(toSolution(new Equation("9-2=7")))));
     }
 
     @Test
     public void stage3AddOperand2RemoveRight() {
-        Set<Equation> solution = Equations.solveStage3(new Equation("2+1=8"));
+        Set<Equation> solution = new EquationsStage3().solve(new Equation("2+1=8"));
 
         assertThat(solution, is(equalTo(toSolution(new Equation("2+7=9")))));
     }
 
     @Test
     public void stage3RemoveOperand2AddRight() {
-        Set<Equation> solution = Equations.solveStage3(new Equation("4+6=3"));
+        Set<Equation> solution = new EquationsStage3().solve(new Equation("4+6=3"));
 
         assertThat(solution, is(equalTo(toSolution(new Equation("4+5=9")))));
     }
