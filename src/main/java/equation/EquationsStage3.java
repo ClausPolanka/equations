@@ -2,25 +2,27 @@ package equation;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
+import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toSet;
 
 public class EquationsStage3 implements Equations {
 
-    private static final HashMap<String, List<String>> ALTERNATIVE_DIGITS_ADD_SEGMENT = new HashMap<String, List<String>>() {{
-        put("0", asList("8"));
-        put("1", asList("7"));
-        put("3", asList("9"));
+    private static final Map<String, List<String>> ALTERNATIVE_DIGITS_ADD_SEGMENT = new HashMap<String, List<String>>() {{
+        put("0", singletonList("8"));
+        put("1", singletonList("7"));
+        put("3", singletonList("9"));
         put("5", asList("6", "9"));
-        put("6", asList("8"));
-        put("9", asList("8"));
+        put("6", singletonList("8"));
+        put("9", singletonList("8"));
     }};
-    private static final HashMap<String, List<String>> ALTERNATIVE_DIGITS_REMOVE_SEGMENT = new HashMap<String, List<String>>() {{
-        put("6", asList("5"));
-        put("7", asList("1"));
+    private static final Map<String, List<String>> ALTERNATIVE_DIGITS_REMOVE_SEGMENT = new HashMap<String, List<String>>() {{
+        put("6", singletonList("5"));
+        put("7", singletonList("1"));
         put("8", asList("0", "6", "9"));
         put("9", asList("3", "5"));
     }};
@@ -36,11 +38,11 @@ public class EquationsStage3 implements Equations {
         List<String> removeSegmentsO2 = ALTERNATIVE_DIGITS_REMOVE_SEGMENT.getOrDefault(equation.getLeftSideOperand2(), emptyList());
         List<String> removeSegmentsRS = ALTERNATIVE_DIGITS_REMOVE_SEGMENT.getOrDefault(equation.getRightSide(), emptyList());
 
-        for (String addSegmentO1 : addSegmentsO1) {
-            for (String removeSegmentO2 : removeSegmentsO2) {
-                equations.add(equation.withLeftSideOperand1(addSegmentO1).withLeftSideOperand2(removeSegmentO2));
-            }
-        }
+        addSegmentsO1.forEach(ao1 -> {
+            removeSegmentsO2.forEach(ro2 -> {
+                equations.add(equation.withLeftSideOperand1(ao1).withLeftSideOperand2(ro2));
+            });
+        });
         for (String removeSegmentO1 : removeSegmentsO1) {
             for (String addSegmentO2 : addSegmentsO2) {
                 equations.add(equation.withLeftSideOperand1(removeSegmentO1).withLeftSideOperand2(addSegmentO2));
