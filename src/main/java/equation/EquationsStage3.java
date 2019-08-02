@@ -10,80 +10,64 @@ import static java.util.stream.Collectors.toSet;
 
 public class EquationsStage3 implements Equations {
 
+    private static final HashMap<String, List<String>> ALTERNATIVE_DIGITS_ADD_SEGMENT = new HashMap<String, List<String>>() {{
+        put("0", asList("8"));
+        put("1", asList("7"));
+        put("3", asList("9"));
+        put("5", asList("6", "9"));
+        put("6", asList("8"));
+        put("9", asList("8"));
+    }};
+    private static final HashMap<String, List<String>> ALTERNATIVE_DIGITS_REMOVE_SEGMENT = new HashMap<String, List<String>>() {{
+        put("6", asList("5"));
+        put("7", asList("1"));
+        put("8", asList("0", "6", "9"));
+        put("9", asList("3", "5"));
+    }};
+
     @Override
     public Set<Equation> solve(Equation equation) {
         Set<Equation> equations = new EquationsStage1And2().solve(equation);
 
-        HashMap<String, List<String>> alternativeDigitsAddSegment = new HashMap<String, List<String>>() {{
-            put("0", asList("8"));
-            put("1", asList("7"));
-            put("3", asList("9"));
-            put("5", asList("6", "9"));
-            put("6", asList("8"));
-            put("9", asList("8"));
-        }};
-        HashMap<String, List<String>> alternativeDigitsRemoveSegment = new HashMap<String, List<String>>() {{
-            put("6", asList("5"));
-            put("7", asList("1"));
-            put("8", asList("0", "6", "9"));
-            put("9", asList("3", "5"));
-        }};
+        List<String> addSegmentsO1 = ALTERNATIVE_DIGITS_ADD_SEGMENT.getOrDefault(equation.getLeftSideOperand1(), emptyList());
+        List<String> addSegmentsO2 = ALTERNATIVE_DIGITS_ADD_SEGMENT.getOrDefault(equation.getLeftSideOperand2(), emptyList());
+        List<String> addSegmentsRS = ALTERNATIVE_DIGITS_ADD_SEGMENT.getOrDefault(equation.getRightSide(), emptyList());
+        List<String> removeSegmentsO1 = ALTERNATIVE_DIGITS_REMOVE_SEGMENT.getOrDefault(equation.getLeftSideOperand1(), emptyList());
+        List<String> removeSegmentsO2 = ALTERNATIVE_DIGITS_REMOVE_SEGMENT.getOrDefault(equation.getLeftSideOperand2(), emptyList());
+        List<String> removeSegmentsRS = ALTERNATIVE_DIGITS_REMOVE_SEGMENT.getOrDefault(equation.getRightSide(), emptyList());
 
-        List<String> addSegments = alternativeDigitsAddSegment.getOrDefault(equation.getLeftSideOperand1(), emptyList());
-        List<String> removeSegments = alternativeDigitsRemoveSegment.getOrDefault(equation.getLeftSideOperand2(), emptyList());
-
-        for (String addSegmentO1 : addSegments) {
-            for (String removeSegmentO2 : removeSegments) {
+        for (String addSegmentO1 : addSegmentsO1) {
+            for (String removeSegmentO2 : removeSegmentsO2) {
                 equations.add(equation.withLeftSideOperand1(addSegmentO1).withLeftSideOperand2(removeSegmentO2));
             }
         }
-
-        addSegments = alternativeDigitsAddSegment.getOrDefault(equation.getLeftSideOperand2(), emptyList());
-        removeSegments = alternativeDigitsRemoveSegment.getOrDefault(equation.getLeftSideOperand1(), emptyList());
-
-        for (String removeSegmentO1 : removeSegments) {
-            for (String addSegmentO2 : addSegments) {
+        for (String removeSegmentO1 : removeSegmentsO1) {
+            for (String addSegmentO2 : addSegmentsO2) {
                 equations.add(equation.withLeftSideOperand1(removeSegmentO1).withLeftSideOperand2(addSegmentO2));
             }
         }
-        addSegments = alternativeDigitsAddSegment.getOrDefault(equation.getLeftSideOperand1(), emptyList());
-        removeSegments = alternativeDigitsRemoveSegment.getOrDefault(equation.getRightSide(), emptyList());
-
-        for (String addSegmentO1 : addSegments) {
-            for (String removeSegmentRight : removeSegments) {
+        for (String addSegmentO1 : addSegmentsO1) {
+            for (String removeSegmentRight : removeSegmentsRS) {
                 equations.add(equation.withLeftSideOperand1(addSegmentO1).withRightSide(removeSegmentRight));
             }
         }
-
-        addSegments = alternativeDigitsAddSegment.getOrDefault(equation.getRightSide(), emptyList());
-        removeSegments = alternativeDigitsRemoveSegment.getOrDefault(equation.getLeftSideOperand1(), emptyList());
-
-        for (String addRightSide : addSegments) {
-            for (String removeSegmentO1 : removeSegments) {
+        for (String addRightSide : addSegmentsRS) {
+            for (String removeSegmentO1 : removeSegmentsO1) {
                 equations.add(equation.withLeftSideOperand1(removeSegmentO1).withRightSide(addRightSide));
             }
         }
-
-        addSegments = alternativeDigitsAddSegment.getOrDefault(equation.getLeftSideOperand2(), emptyList());
-        removeSegments = alternativeDigitsRemoveSegment.getOrDefault(equation.getRightSide(), emptyList());
-
-        for (String addSegmentO2 : addSegments) {
-            for (String removeRightSide : removeSegments) {
+        for (String addSegmentO2 : addSegmentsO2) {
+            for (String removeRightSide : removeSegmentsRS) {
                 equations.add(equation.withLeftSideOperand2(addSegmentO2).withRightSide(removeRightSide));
             }
         }
-
-        addSegments = alternativeDigitsAddSegment.getOrDefault(equation.getRightSide(), emptyList());
-        removeSegments = alternativeDigitsRemoveSegment.getOrDefault(equation.getLeftSideOperand2(), emptyList());
-
-        for (String addRightside : addSegments) {
-            for (String removeSegmentO2 : removeSegments) {
-                equations.add(equation.withLeftSideOperand2(removeSegmentO2).withRightSide(addRightside));
+        for (String addRightSide : addSegmentsRS) {
+            for (String removeSegmentO2 : removeSegmentsO2) {
+                equations.add(equation.withLeftSideOperand2(removeSegmentO2).withRightSide(addRightSide));
             }
         }
-
         return equations.stream()
-                .filter(e -> e.isCorrect())
+                .filter(Equation::isCorrect)
                 .collect(toSet());
     }
 
