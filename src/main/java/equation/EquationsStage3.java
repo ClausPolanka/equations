@@ -39,12 +39,12 @@ public class EquationsStage3 implements Equations {
 
     private Set<Equation> solveStage3(Equation equation) {
         Set<Equation> equations = new HashSet<>();
-        List<String> addSegmentsO1 = ALTERNATIVE_DIGITS_ADD_SEGMENT.getOrDefault(equation.getLeftSideOperand1(), emptyList());
-        List<String> addSegmentsO2 = ALTERNATIVE_DIGITS_ADD_SEGMENT.getOrDefault(equation.getLeftSideOperand2(), emptyList());
-        List<String> addSegmentsRS = ALTERNATIVE_DIGITS_ADD_SEGMENT.getOrDefault(equation.getRightSide(), emptyList());
-        List<String> removeSegmentsO1 = ALTERNATIVE_DIGITS_REMOVE_SEGMENT.getOrDefault(equation.getLeftSideOperand1(), emptyList());
-        List<String> removeSegmentsO2 = ALTERNATIVE_DIGITS_REMOVE_SEGMENT.getOrDefault(equation.getLeftSideOperand2(), emptyList());
-        List<String> removeSegmentsRS = ALTERNATIVE_DIGITS_REMOVE_SEGMENT.getOrDefault(equation.getRightSide(), emptyList());
+        List<String> addSegmentsO1 = moveSegmentTo(equation.getLeftSideOperand1());
+        List<String> addSegmentsO2 = moveSegmentTo(equation.getLeftSideOperand2());
+        List<String> addSegmentsRS = moveSegmentTo(equation.getRightSide());
+        List<String> removeSegmentsO1 = moveSegmentFrom(equation.getLeftSideOperand1());
+        List<String> removeSegmentsO2 = moveSegmentFrom(equation.getLeftSideOperand2());
+        List<String> removeSegmentsRS = moveSegmentFrom(equation.getRightSide());
 
         addSegmentsO1.forEach(ao1 ->
                 removeSegmentsO2.forEach(ro2 ->
@@ -65,6 +65,14 @@ public class EquationsStage3 implements Equations {
                 removeSegmentsO2.forEach(ro2 ->
                         equations.add(equation.withLeftSideOperand2(ro2).withRightSide(ars))));
         return equations;
+    }
+
+    private List<String> moveSegmentFrom(String operand) {
+        return ALTERNATIVE_DIGITS_REMOVE_SEGMENT.getOrDefault(operand, emptyList());
+    }
+
+    private List<String> moveSegmentTo(String operand) {
+        return ALTERNATIVE_DIGITS_ADD_SEGMENT.getOrDefault(operand, emptyList());
     }
 
 }
