@@ -43,31 +43,31 @@ public class EquationsStage3 implements Equations {
                 equations.add(equation.withLeftSideOperand1(ao1).withLeftSideOperand2(ro2));
             });
         });
-        for (String removeSegmentO1 : removeSegmentsO1) {
-            for (String addSegmentO2 : addSegmentsO2) {
-                equations.add(equation.withLeftSideOperand1(removeSegmentO1).withLeftSideOperand2(addSegmentO2));
-            }
-        }
-        for (String addSegmentO1 : addSegmentsO1) {
-            for (String removeSegmentRight : removeSegmentsRS) {
-                equations.add(equation.withLeftSideOperand1(addSegmentO1).withRightSide(removeSegmentRight));
-            }
-        }
-        for (String addRightSide : addSegmentsRS) {
-            for (String removeSegmentO1 : removeSegmentsO1) {
-                equations.add(equation.withLeftSideOperand1(removeSegmentO1).withRightSide(addRightSide));
-            }
-        }
-        for (String addSegmentO2 : addSegmentsO2) {
-            for (String removeRightSide : removeSegmentsRS) {
-                equations.add(equation.withLeftSideOperand2(addSegmentO2).withRightSide(removeRightSide));
-            }
-        }
-        for (String addRightSide : addSegmentsRS) {
-            for (String removeSegmentO2 : removeSegmentsO2) {
-                equations.add(equation.withLeftSideOperand2(removeSegmentO2).withRightSide(addRightSide));
-            }
-        }
+        removeSegmentsO1.forEach(ro1 -> {
+            addSegmentsO2.forEach(ao2 -> {
+                equations.add(equation.withLeftSideOperand1(ro1).withLeftSideOperand2(ao2));
+            });
+        });
+        addSegmentsO1.forEach(ao1 -> {
+            removeSegmentsRS.forEach(rrs -> {
+                equations.add(equation.withLeftSideOperand1(ao1).withRightSide(rrs));
+            });
+        });
+        addSegmentsRS.forEach(ars -> {
+            removeSegmentsO1.forEach(ro1 -> {
+                equations.add(equation.withLeftSideOperand1(ro1).withRightSide(ars));
+            });
+        });
+        addSegmentsO2.forEach(ao2 -> {
+            removeSegmentsRS.forEach(rrs -> {
+                equations.add(equation.withLeftSideOperand2(ao2).withRightSide(rrs));
+            });
+        });
+        addSegmentsRS.forEach(ars -> {
+            removeSegmentsO2.forEach(ro2 -> {
+                equations.add(equation.withLeftSideOperand2(ro2).withRightSide(ars));
+            });
+        });
         return equations.stream()
                 .filter(Equation::isCorrect)
                 .collect(toSet());
