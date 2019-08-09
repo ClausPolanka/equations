@@ -12,7 +12,7 @@ public class Equation {
         this.rightSide = equation.split("=")[1];
     }
 
-    public Equation(Expression leftSide, String rightSide) {
+    private Equation(Expression leftSide, String rightSide) {
         this.leftSide = leftSide.toString();
         this.rightSide = rightSide;
     }
@@ -46,31 +46,31 @@ public class Equation {
         return format("Equation{%s=%s}", leftSide, rightSide);
     }
 
-    public boolean isCorrect() {
+    boolean isCorrect() {
         return new Expression(leftSide).evaluate().equals(rightSide);
     }
 
-    public Equation withLeftSide(Expression leftSide) {
+    private Equation withLeftSide(Expression leftSide) {
         return new Equation(leftSide, rightSide);
     }
 
-    public Equation withRightSide(String rightSide) {
+    Equation withRightSide(String rightSide) {
         return new Equation(new Expression(leftSide), rightSide);
     }
 
-    public Equation withLeftSideOperand1(String operand1) {
+    Equation withLeftSideOperand1(String operand1) {
         return withLeftSide(getLeftSide().withOperand1(operand1));
     }
 
-    public Equation withLeftSideOperand2(String operand2) {
+    Equation withLeftSideOperand2(String operand2) {
         return withLeftSide(getLeftSide().withOperand2(operand2));
     }
 
-    public String getLeftSideOperand1() {
+    String getLeftSideOperand1() {
         return getLeftSide().getOperand1();
     }
 
-    public String getLeftSideOperand2() {
+    String getLeftSideOperand2() {
         return getLeftSide().getOperand2();
     }
 }
