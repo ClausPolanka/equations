@@ -8,10 +8,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import static java.lang.String.format;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class TestServerHttpConnector {
 
-    public static final String TEST_SERVER_URL_FORMAT = "http://localhost:8080/assignment/stage/%d/testcase/%d";
+    private static final String TEST_SERVER_URL_FORMAT = "http://localhost:8080/assignment/stage/%d/testcase/%d";
 
     public static String getAssignmentFor(int stage, int testcase) throws IOException {
         HttpURLConnection con = createHttpGetConnection(stage, testcase); // throws IOException
@@ -27,33 +28,34 @@ public class TestServerHttpConnector {
     }
 
     private static StringBuffer executeRequest(HttpURLConnection con) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream())); // throws IOException
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) { // throws IOException
-            content.append(inputLine);
+        StringBuffer content;
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) { // throws IOException
+            String inputLine;
+            content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) { // throws IOException
+                content.append(inputLine);
+            }
         }
-        in.close(); // throws IOException
         con.disconnect();
         return content;
     }
 
     private static HttpURLConnection createHttpPostConnection(int stage, int testcase, String json) throws IOException {
-        URL url = new URL(format(TEST_SERVER_URL_FORMAT, stage, testcase));
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/json; utf-8");
-        con.setDoOutput(true);
-        try (OutputStream os = con.getOutputStream()) {
-            byte[] input = json.getBytes("utf-8");
-            os.write(input, 0, input.length);
+        URL url = new URL(format(TEST_SERVER_URL_FORMAT, stage, testcase)); // throws MalformedURLException
+        HttpURLConnection con = (HttpURLConnection) url.openConnection(); // throws IOException
+        con.setRequestMethod("POST"); // throws ProtocolException
+        con.setRequestProperty("Content-Type", "application/json; utf-8"); // throws IllegalStateException and NullPointerException
+        con.setDoOutput(true); // throws IllegalStateException
+        try (OutputStream os = con.getOutputStream()) { // throws IOException
+            byte[] input = json.getBytes(UTF_8); // throws UnsupportedEncodingException
+            os.write(input, 0, input.length); // throws IOException
             return con;
         }
     }
 
     public static void submitSolutionFor(int stage, int testcase, String json) throws IOException {
-        HttpURLConnection con = createHttpPostConnection(stage, testcase, json);
-        executeRequest(con);
+        HttpURLConnection con = createHttpPostConnection(stage, testcase, json); // throws IOException
+        executeRequest(con); // throws IOException
     }
 
 }
