@@ -1,6 +1,7 @@
 package equation;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,7 +31,14 @@ public class EquationsStage3 implements Equations {
     @Override
     public Set<Equation> solve(Equation equation) {
         Set<Equation> equations = new EquationsStage1And2().solve(equation);
+        equations.addAll(solveStage3(equation));
+        return equations.stream()
+                .filter(Equation::isCorrect)
+                .collect(toSet());
+    }
 
+    private Set<Equation> solveStage3(Equation equation) {
+        Set<Equation> equations = new HashSet<>();
         List<String> addSegmentsO1 = ALTERNATIVE_DIGITS_ADD_SEGMENT.getOrDefault(equation.getLeftSideOperand1(), emptyList());
         List<String> addSegmentsO2 = ALTERNATIVE_DIGITS_ADD_SEGMENT.getOrDefault(equation.getLeftSideOperand2(), emptyList());
         List<String> addSegmentsRS = ALTERNATIVE_DIGITS_ADD_SEGMENT.getOrDefault(equation.getRightSide(), emptyList());
@@ -56,9 +64,7 @@ public class EquationsStage3 implements Equations {
         addSegmentsRS.forEach(ars ->
                 removeSegmentsO2.forEach(ro2 ->
                         equations.add(equation.withLeftSideOperand2(ro2).withRightSide(ars))));
-        return equations.stream()
-                .filter(Equation::isCorrect)
-                .collect(toSet());
+        return equations;
     }
 
 }
