@@ -11,6 +11,7 @@ import static org.junit.Assert.assertThat;
 public class EquationTest {
 
     private static final String ANY_DIGIT = "0";
+    private static final Equation ANY_EQUATION = new Equation("1+2=3");
 
     @Test
     public void createNewEquation() {
@@ -47,9 +48,8 @@ public class EquationTest {
     }
 
     @Test
-    public void equalsReturnsFalseIfIsNotOfTypeEquation() {
-        Equation equation1 = new Equation("1+2=3");
-        assertThat(equation1.equals(new Object()), is(false));
+    public void equalsReturnsFalseIfGivenObjectIsNotOfTypeEquation() {
+        assertThat(ANY_EQUATION.equals(new Object()), is(false));
     }
 
 }
