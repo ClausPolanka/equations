@@ -13,7 +13,7 @@ import static java.util.stream.Collectors.toSet;
 
 public class EquationsStage3 implements Equations {
 
-    private static final Map<String, List<String>> ALTERNATIVE_DIGITS_ADD_SEGMENT = new HashMap<String, List<String>>() {{
+    private static final Map<String, List<String>> MOVE_SEGMENT_TO_DIGIT_ALTERNATIVES = new HashMap<String, List<String>>() {{
         put("0", singletonList("8"));
         put("1", singletonList("7"));
         put("3", singletonList("9"));
@@ -21,7 +21,7 @@ public class EquationsStage3 implements Equations {
         put("6", singletonList("8"));
         put("9", singletonList("8"));
     }};
-    private static final Map<String, List<String>> ALTERNATIVE_DIGITS_REMOVE_SEGMENT = new HashMap<String, List<String>>() {{
+    private static final Map<String, List<String>> MOVE_SEGMENT_FROM_DIGIT_ALTERNATIVES = new HashMap<String, List<String>>() {{
         put("6", singletonList("5"));
         put("7", singletonList("1"));
         put("8", asList("0", "6", "9"));
@@ -39,40 +39,40 @@ public class EquationsStage3 implements Equations {
 
     private Set<Equation> solveStage3(Equation equation) {
         Set<Equation> equations = new HashSet<>();
-        List<String> addSegmentsO1 = moveSegmentTo(equation.getLeftSideOperand1());
-        List<String> addSegmentsO2 = moveSegmentTo(equation.getLeftSideOperand2());
-        List<String> addSegmentsRS = moveSegmentTo(equation.getRightSide());
-        List<String> removeSegmentsO1 = moveSegmentFrom(equation.getLeftSideOperand1());
-        List<String> removeSegmentsO2 = moveSegmentFrom(equation.getLeftSideOperand2());
-        List<String> removeSegmentsRS = moveSegmentFrom(equation.getRightSide());
 
-        addSegmentsO1.forEach(ao1 ->
-                removeSegmentsO2.forEach(ro2 ->
-                        equations.add(equation.withLeftSideOperand1(ao1).withLeftSideOperand2(ro2))));
-        removeSegmentsO1.forEach(ro1 ->
-                addSegmentsO2.forEach(ao2 ->
-                        equations.add(equation.withLeftSideOperand1(ro1).withLeftSideOperand2(ao2))));
-        addSegmentsO1.forEach(ao1 ->
-                removeSegmentsRS.forEach(rrs ->
-                        equations.add(equation.withLeftSideOperand1(ao1).withRightSide(rrs))));
-        addSegmentsRS.forEach(ars ->
-                removeSegmentsO1.forEach(ro1 ->
-                        equations.add(equation.withLeftSideOperand1(ro1).withRightSide(ars))));
-        addSegmentsO2.forEach(ao2 ->
-                removeSegmentsRS.forEach(rrs ->
-                        equations.add(equation.withLeftSideOperand2(ao2).withRightSide(rrs))));
-        addSegmentsRS.forEach(ars ->
-                removeSegmentsO2.forEach(ro2 ->
-                        equations.add(equation.withLeftSideOperand2(ro2).withRightSide(ars))));
+        moveSegmentTo(equation.getLeftSideOperand1()).forEach(o1 ->
+                moveSegmentFrom(equation.getLeftSideOperand2()).forEach(o2 ->
+                        equations.add(equation.withLeftSideOperand1(o1).withLeftSideOperand2(o2))));
+
+        moveSegmentFrom(equation.getLeftSideOperand1()).forEach(o1 ->
+                moveSegmentTo(equation.getLeftSideOperand2()).forEach(o2 ->
+                        equations.add(equation.withLeftSideOperand1(o1).withLeftSideOperand2(o2))));
+
+        moveSegmentTo(equation.getLeftSideOperand1()).forEach(o1 ->
+                moveSegmentFrom(equation.getRightSide()).forEach(rs ->
+                        equations.add(equation.withLeftSideOperand1(o1).withRightSide(rs))));
+
+        moveSegmentTo(equation.getRightSide()).forEach(rs ->
+                moveSegmentFrom(equation.getLeftSideOperand1()).forEach(o1 ->
+                        equations.add(equation.withLeftSideOperand1(o1).withRightSide(rs))));
+
+        moveSegmentTo(equation.getLeftSideOperand2()).forEach(o2 ->
+                moveSegmentFrom(equation.getRightSide()).forEach(rs ->
+                        equations.add(equation.withLeftSideOperand2(o2).withRightSide(rs))));
+
+        moveSegmentTo(equation.getRightSide()).forEach(rs ->
+                moveSegmentFrom(equation.getLeftSideOperand2()).forEach(o2 ->
+                        equations.add(equation.withLeftSideOperand2(o2).withRightSide(rs))));
+
         return equations;
     }
 
-    private List<String> moveSegmentFrom(String operand) {
-        return ALTERNATIVE_DIGITS_REMOVE_SEGMENT.getOrDefault(operand, emptyList());
+    private List<String> moveSegmentTo(String digit) {
+        return MOVE_SEGMENT_TO_DIGIT_ALTERNATIVES.getOrDefault(digit, emptyList());
     }
 
-    private List<String> moveSegmentTo(String operand) {
-        return ALTERNATIVE_DIGITS_ADD_SEGMENT.getOrDefault(operand, emptyList());
+    private List<String> moveSegmentFrom(String digit) {
+        return MOVE_SEGMENT_FROM_DIGIT_ALTERNATIVES.getOrDefault(digit, emptyList());
     }
 
 }
