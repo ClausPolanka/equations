@@ -31,6 +31,9 @@ public class Equation {
 
     @Override
     public boolean equals(Object obj) {
+        if (!(obj instanceof Equation)) {
+            return false;
+        }
         Equation equation = (Equation) obj;
         return leftSide.equals(equation.leftSide)
                 && rightSide.equals(equation.rightSide);
