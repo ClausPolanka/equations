@@ -38,36 +38,24 @@ public class EquationsStage3 implements Equations {
         List<String> removeSegmentsO2 = ALTERNATIVE_DIGITS_REMOVE_SEGMENT.getOrDefault(equation.getLeftSideOperand2(), emptyList());
         List<String> removeSegmentsRS = ALTERNATIVE_DIGITS_REMOVE_SEGMENT.getOrDefault(equation.getRightSide(), emptyList());
 
-        addSegmentsO1.forEach(ao1 -> {
-            removeSegmentsO2.forEach(ro2 -> {
-                equations.add(equation.withLeftSideOperand1(ao1).withLeftSideOperand2(ro2));
-            });
-        });
-        removeSegmentsO1.forEach(ro1 -> {
-            addSegmentsO2.forEach(ao2 -> {
-                equations.add(equation.withLeftSideOperand1(ro1).withLeftSideOperand2(ao2));
-            });
-        });
-        addSegmentsO1.forEach(ao1 -> {
-            removeSegmentsRS.forEach(rrs -> {
-                equations.add(equation.withLeftSideOperand1(ao1).withRightSide(rrs));
-            });
-        });
-        addSegmentsRS.forEach(ars -> {
-            removeSegmentsO1.forEach(ro1 -> {
-                equations.add(equation.withLeftSideOperand1(ro1).withRightSide(ars));
-            });
-        });
-        addSegmentsO2.forEach(ao2 -> {
-            removeSegmentsRS.forEach(rrs -> {
-                equations.add(equation.withLeftSideOperand2(ao2).withRightSide(rrs));
-            });
-        });
-        addSegmentsRS.forEach(ars -> {
-            removeSegmentsO2.forEach(ro2 -> {
-                equations.add(equation.withLeftSideOperand2(ro2).withRightSide(ars));
-            });
-        });
+        addSegmentsO1.forEach(ao1 ->
+                removeSegmentsO2.forEach(ro2 ->
+                        equations.add(equation.withLeftSideOperand1(ao1).withLeftSideOperand2(ro2))));
+        removeSegmentsO1.forEach(ro1 ->
+                addSegmentsO2.forEach(ao2 ->
+                        equations.add(equation.withLeftSideOperand1(ro1).withLeftSideOperand2(ao2))));
+        addSegmentsO1.forEach(ao1 ->
+                removeSegmentsRS.forEach(rrs ->
+                        equations.add(equation.withLeftSideOperand1(ao1).withRightSide(rrs))));
+        addSegmentsRS.forEach(ars ->
+                removeSegmentsO1.forEach(ro1 ->
+                        equations.add(equation.withLeftSideOperand1(ro1).withRightSide(ars))));
+        addSegmentsO2.forEach(ao2 ->
+                removeSegmentsRS.forEach(rrs ->
+                        equations.add(equation.withLeftSideOperand2(ao2).withRightSide(rrs))));
+        addSegmentsRS.forEach(ars ->
+                removeSegmentsO2.forEach(ro2 ->
+                        equations.add(equation.withLeftSideOperand2(ro2).withRightSide(ars))));
         return equations.stream()
                 .filter(Equation::isCorrect)
                 .collect(toSet());
