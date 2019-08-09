@@ -20,13 +20,13 @@ public class TestRunner {
     }};
 
     public static void main(String[] args) {
-        runTestCases(1, 101);
-        runTestCases(2, 151);
-        runTestCases(3, 151);
+        runTestCases(1, 100);
+        runTestCases(2, 150);
+        runTestCases(3, 150);
     }
 
     private static void runTestCases(int stage, int lastTestCase) {
-        range(1, lastTestCase).forEach(testCase -> {
+        range(1, lastTestCase + 1).forEach(testCase -> {
             try {
                 runTestCase(stage, testCase);
             } catch (IOException e) {
@@ -36,11 +36,11 @@ public class TestRunner {
     }
 
     private static void runTestCase(int stage, int testCase) throws IOException {
-        String jsonAssignment = getAssignmentFor(stage, testCase);
+        String jsonAssignment = getAssignmentFor(stage, testCase); // throws IOException
         Equation equation = toEquation(jsonAssignment);
         Set<Equation> solutions = EQUATIONS.get(stage).solve(equation);
         String jsonSolution = toJson(solutions);
-        submitSolutionFor(stage, testCase, jsonSolution);
+        submitSolutionFor(stage, testCase, jsonSolution); // throws IOException
     }
 
 }
