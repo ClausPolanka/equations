@@ -47,13 +47,6 @@ public class EquationTest {
     }
 
     @Test
-    public void equalsReturnsTrueIfEquationIsEqual() {
-        Equation equation1 = new Equation("1+2=3");
-        Equation equation2 = new Equation("1+2=3");
-        assertThat(equation1.equals(equation2), is(true));
-    }
-
-    @Test
     public void equalsReturnsFalseIfIsNotOfTypeEquation() {
         Equation equation1 = new Equation("1+2=3");
         assertThat(equation1.equals(new Object()), is(false));
