@@ -44,8 +44,8 @@ public class EquationsStage3 implements Equations {
                 moveSegmentFrom(equation.getLeftSideOperand2()).forEach(o2 ->
                         equations.add(equation.withLeftSideOperand1(o1).withLeftSideOperand2(o2))));
 
-        moveSegmentFrom(equation.getLeftSideOperand1()).forEach(o1 ->
-                moveSegmentTo(equation.getLeftSideOperand2()).forEach(o2 ->
+        moveSegmentTo(equation.getLeftSideOperand2()).forEach(o2 ->
+                moveSegmentFrom(equation.getLeftSideOperand1()).forEach(o1 ->
                         equations.add(equation.withLeftSideOperand1(o1).withLeftSideOperand2(o2))));
 
         moveSegmentTo(equation.getLeftSideOperand1()).forEach(o1 ->
