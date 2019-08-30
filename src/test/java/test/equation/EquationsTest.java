@@ -141,6 +141,13 @@ public class EquationsTest {
         assertThat(solution, is(equalTo(toSolution(new Equation("2-1=1")))));
     }
 
+    @Test
+    public void solveStage4FlippingOperator() {
+        Set<Equation> solution = new EquationsStage4().solve(new Equation("1-1=2"));
+
+        assertThat(solution, is(equalTo(toSolution(new Equation("1+1=2")))));
+    }
+
     private HashSet<Equation> toSolution(Equation... equations) {
         return new HashSet<>(Arrays.asList(equations));
     }

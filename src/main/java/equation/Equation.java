@@ -76,4 +76,8 @@ public class Equation {
     String getLeftSideOperand2() {
         return getLeftSide().getOperand2();
     }
+
+    public Equation withLeftSideOperator(String operator) {
+        return withLeftSide(new Expression(getLeftSideOperand1(), operator, getLeftSideOperand2()));
+    }
 }
