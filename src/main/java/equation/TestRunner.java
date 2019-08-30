@@ -17,12 +17,14 @@ public class TestRunner {
         put(1, new EquationsStage1And2());
         put(2, new EquationsStage1And2());
         put(3, new EquationsStage3());
+        put(4, new EquationsStage4());
     }};
 
     public static void main(String[] args) {
         runTestCases(1, 100);
         runTestCases(2, 150);
         runTestCases(3, 150);
+        runTestCases(4, 150);
     }
 
     private static void runTestCases(int stage, int lastTestCase) {
