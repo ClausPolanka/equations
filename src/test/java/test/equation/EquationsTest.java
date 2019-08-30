@@ -135,17 +135,24 @@ public class EquationsTest {
     }
 
     @Test
-    public void solveStage4() {
-        Set<Equation> solution = new EquationsStage4().solve(new Equation("2-1=1"));
+    public void solveReturnsSolutionsWithCorrectEquationsForStage3Equation() {
+        Set<Equation> solution = new EquationsStage4().solve(new Equation("3-6=4"));
 
-        assertThat(solution, is(equalTo(toSolution(new Equation("2-1=1")))));
+        assertThat(solution, is(equalTo(toSolution(new Equation("9-5=4")))));
     }
 
     @Test
-    public void solveStage4FlippingOperator() {
+    public void stage4SolveReturnsSolutionsWithCorrectEquationsForEquationWhereMinusGetsFlippedToPlus() {
         Set<Equation> solution = new EquationsStage4().solve(new Equation("1-1=2"));
 
         assertThat(solution, is(equalTo(toSolution(new Equation("1+1=2")))));
+    }
+
+    @Test
+    public void stage4SolveReturnsSolutionsWithCorrectEquationsForEquationWherePlusGetsFlippedToMinus() {
+        Set<Equation> solution = new EquationsStage4().solve(new Equation("4+1=3"));
+
+        assertThat(solution, is(equalTo(toSolution(new Equation("4-1=3"), new Equation("4+1=5")))));
     }
 
     private HashSet<Equation> toSolution(Equation... equations) {
