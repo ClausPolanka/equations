@@ -5,6 +5,7 @@ import com.googlecode.zohhak.api.runners.ZohhakRunner;
 import equation.Equation;
 import equation.EquationsStage1And2;
 import equation.EquationsStage3;
+import equation.EquationsStage4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -131,6 +132,13 @@ public class EquationsTest {
         Set<Equation> solution = new EquationsStage3().solve(new Equation("4+6=3"));
 
         assertThat(solution, is(equalTo(toSolution(new Equation("4+5=9")))));
+    }
+
+    @Test
+    public void solveStage4() {
+        Set<Equation> solution = new EquationsStage4().solve(new Equation("2-1=1"));
+
+        assertThat(solution, is(equalTo(toSolution(new Equation("2-1=1")))));
     }
 
     private HashSet<Equation> toSolution(Equation... equations) {
