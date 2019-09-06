@@ -71,7 +71,7 @@ public class Expression {
         return new Expression(getOperand1(), getOperator(), operand2);
     }
 
-    public Expression flipExpression() {
+    public Expression withFlippedOperator() {
         String operator;
         if (getOperator().equals("+")) {
             operator = "-";

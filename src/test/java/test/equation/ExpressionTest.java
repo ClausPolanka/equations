@@ -27,4 +27,15 @@ public class ExpressionTest {
         assertThat(e.evaluate(), is(equalTo("0")));
     }
 
+    @Test
+    public void withFlippedOperatorReturnsAdditionForSubstraction() {
+        final Expression e = new Expression("1-1");
+        assertThat(e.withFlippedOperator().getOperator(), is(equalTo("+")));
+    }
+
+    @Test
+    public void withFlippedOperatorReturnsSubstractionForAddition() {
+        final Expression e = new Expression("1+1");
+        assertThat(e.withFlippedOperator().getOperator(), is(equalTo("-")));
+    }
 }

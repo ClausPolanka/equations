@@ -77,15 +77,9 @@ public class Equation {
         return getLeftSide().getOperand2();
     }
 
-    public Equation withLeftSideOperator(String operator) {
-        return withLeftSide(new Expression(getLeftSideOperand1(), operator, getLeftSideOperand2()));
-    }
-
     public Equation withFlippedLeftSideOperator() {
-        Expression leftSide = getLeftSide();
-        Expression flippedExpression = leftSide.flipExpression();
-        Equation equation = withLeftSide(flippedExpression);
-        return equation;
+        Expression flippedExpression = getLeftSide().withFlippedOperator();
+        return withLeftSide(flippedExpression);
     }
 
 }
