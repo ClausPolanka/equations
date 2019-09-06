@@ -81,14 +81,11 @@ public class Equation {
         return withLeftSide(new Expression(getLeftSideOperand1(), operator, getLeftSideOperand2()));
     }
 
-    public Equation flip() {
-        String operator;
-        if (getLeftSide().getOperator().equals("+")) {
-            operator = "-";
-        } else {
-            operator = "+";
-        }
-        return withLeftSideOperator(operator);
+    public Equation withFlippedLeftSideOperator() {
+        Expression leftSide = getLeftSide();
+        Expression flippedExpression = leftSide.flipExpression();
+        Equation equation = withLeftSide(flippedExpression);
+        return equation;
     }
 
 }

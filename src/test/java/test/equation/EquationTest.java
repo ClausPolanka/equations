@@ -57,14 +57,14 @@ public class EquationTest {
     @Test
     public void flipReturnsEquationWithAdditionGivenEquationWithSubstraction() {
         Equation equation = new Equation("1-0=1");
-        Equation actual = equation.flip();
+        Equation actual = equation.withFlippedLeftSideOperator();
         assertThat(actual.getLeftSide().getOperator(), is(equalTo("+")));
     }
 
     @Test
     public void flipReturnsEquationWithSubstractionGivenEquationWithAddition() {
         Equation equation = new Equation("1+0=1");
-        Equation actual = equation.flip();
+        Equation actual = equation.withFlippedLeftSideOperator();
         assertThat(actual.getLeftSide().getOperator(), is(equalTo("-")));
     }
 
