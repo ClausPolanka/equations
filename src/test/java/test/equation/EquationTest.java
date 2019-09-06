@@ -14,9 +14,6 @@ public class EquationTest {
     private static final String ANY_DIGIT = ANY_OPERAND2;
     public static final String ANY_RIGHT_SIDE = "1";
     private static final Equation ANY_EQUATION = new Equation(ANY_RIGHT_SIDE + "+2=3");
-    public static final String MINUS = "-";
-    public static final String ANY_OPERAND1 = ANY_RIGHT_SIDE;
-    public static final String PLUS = "+";
 
     @Test
     public void createNewEquation() {
@@ -59,13 +56,9 @@ public class EquationTest {
 
     @Test
     public void flipReturnsPlusIfOperatorIsMinus() {
-        Equation equation = new Equation(equationWith(MINUS));
+        Equation equation = new Equation("1-0=1");
         Equation actual = equation.flip();
-        assertThat(actual.getLeftSide().getOperator(), is(equalTo(PLUS)));
-    }
-
-    private String equationWith(String operator) {
-        return ANY_OPERAND1 + operator + ANY_OPERAND2 + "=" + ANY_RIGHT_SIDE;
+        assertThat(actual.getLeftSide().getOperator(), is(equalTo("+")));
     }
 
 }
