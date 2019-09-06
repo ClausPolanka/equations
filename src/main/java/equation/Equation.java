@@ -80,4 +80,15 @@ public class Equation {
     public Equation withLeftSideOperator(String operator) {
         return withLeftSide(new Expression(getLeftSideOperand1(), operator, getLeftSideOperand2()));
     }
+
+    public Equation flip() {
+        String operator;
+        if (getLeftSide().getOperator().equals("+")) {
+            operator = "-";
+        } else {
+            operator = "+";
+        }
+        return withLeftSideOperator(operator);
+    }
+
 }
