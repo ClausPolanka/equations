@@ -70,4 +70,14 @@ public class Expression {
     public Expression withOperand2(String operand2) {
         return new Expression(getOperand1(), getOperator(), operand2);
     }
+
+    public Expression withFlippedOperator() {
+        String operator;
+        if (getOperator().equals("+")) {
+            operator = "-";
+        } else {
+            operator = "+";
+        }
+        return new Expression(getOperand1(), operator, getOperand2());
+    }
 }
