@@ -31,14 +31,14 @@ public class TestRunner {
         range(1, lastTestCase + 1).forEach(testCase -> {
             try {
                 runTestCase(stage, testCase);
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });
     }
 
-    private static void runTestCase(int stage, int testCase) throws IOException {
-        String jsonAssignment = getAssignmentFor(stage, testCase); // throws IOException
+    private static void runTestCase(int stage, int testCase) throws IOException, InterruptedException {
+        String jsonAssignment = getAssignmentFor(stage, testCase); // throws IOException, InterruptedException
         Equation equation = toEquation(jsonAssignment);
         Set<Equation> solutions = EQUATIONS.get(stage).solve(equation);
         String jsonSolution = toJson(solutions);
