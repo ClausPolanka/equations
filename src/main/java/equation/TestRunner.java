@@ -42,7 +42,7 @@ public class TestRunner {
         Equation equation = toEquation(jsonAssignment);
         Set<Equation> solutions = EQUATIONS.get(stage).solve(equation);
         String jsonSolution = toJson(solutions);
-        submitSolutionFor(stage, testCase, jsonSolution); // throws IOException
+        submitSolutionFor(stage, testCase, jsonSolution); // throws IOException, InterruptedException
     }
 
 }

@@ -9,6 +9,7 @@ import java.net.URI;
 import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 
@@ -57,9 +58,17 @@ public class TestServerHttpConnector {
         }
     }
 
-    public static void submitSolutionFor(int stage, int testcase, String json) throws IOException {
-        HttpURLConnection con = createHttpPostConnection(stage, testcase, json); // throws IOException
-        executeRequest(con); // throws IOException
+    public static void submitSolutionFor(
+            int stage,
+            int testcase,
+            String json
+    ) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(format(TEST_SERVER_URL_FORMAT, stage, testcase)))
+                .POST(BodyPublishers.ofString(json))
+                .build();
+
+        HttpClient.newHttpClient().send(request, BodyHandlers.ofString());
     }
 
 }
